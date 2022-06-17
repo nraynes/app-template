@@ -14,7 +14,7 @@ const reSendVerify = catchAsync(async (req, res) => {
       emailToken = await tempService.generateEmailCode(user.account_id)
     }
     if (emailToken) {
-      const success = await emailService.sendVerifyEmail(user.email, user.username, emailToken);
+      const success = await emailService.sendVerifyEmail(user.email, emailToken);
       if (success) {
         respond(res, codes.success);
       } else {

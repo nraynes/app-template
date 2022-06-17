@@ -22,7 +22,7 @@ const register = catchAsync(async (req, res) => { // * 'Utilizes SCrypt'
   const dynamicSalt = await authService.createUniqueDynamicSalt();
   const notABot = await authService.verifyCaptcha(captcha);
   if (dynamicSalt && notABot) {
-    userService.createUser(username, email, password, phoneNumber, anonymous, dynamicSalt, res);
+    userService.createUser(email, password, dynamicSalt, res);
   } else if (!notABot) {
     respond(res, codes.captchaFailed)
   } else {

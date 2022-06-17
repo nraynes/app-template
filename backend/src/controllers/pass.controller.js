@@ -12,7 +12,7 @@ const sendPasswordReset = catchAsync(async (req, res) => {
   } else {
     const tempCode = await passService.generateTempCode(user.account_id);
     if (tempCode) {
-      const email = emailService.generateEmail(user.username, tempCode);
+      const email = emailService.generateEmail(tempCode);
       const success = await emailService.sendEmail(user.email, email.subject, email.messageBody);
       if (success) {
         respond(res, codes.success);

@@ -1,6 +1,5 @@
 const tempService = require('@/services/temp.service');
 const userService = require('@/services/user.service');
-const emailService = require('@/services/email.service');
 const catchAsync = require('@/utils/core/catchAsync');
 const respond = require('@/utils/core/respond');
 const codes = require('@/config/responseCodes');
@@ -33,13 +32,12 @@ const getInfo = catchAsync(async (req, res) => {
 });
 
 const editInfo = catchAsync(async (req, res) => {
-  const { username, email } = req.body;
+  const { email } = req.body;
   const user = await userService.getUserByID(req.user.account_id);
   if (user) {
     const checkUserEmail = await userService.getUserByEmail(email);
-    const checkUsername = await userService.getUserByUsername(username);
-    if ((!checkUserEmail || checkUserEmail.email === user.email) && (!checkUsername || checkUsername.username === user.username)) {
-      const success = await userService.editUserInfo(req.user.account_id, username, email);
+    if ((!checkUserEmail || checkUserEmail.email === user.email)) {
+      const success = await userService.editUserInfo(req.user.account_id, email);
       if (success) {
         if (email !== user.email) {
           const unverified = await userService.unverifyUser(req.user.account_id)
