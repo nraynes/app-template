@@ -8,13 +8,10 @@ import compareObjects from '@/utils/core/compareObjects';
 function PasswordRoutes(props) {
   const { buttons, setButtons } = useButtons();
   const buttonConfig = {
-    notifications: false,
     home: true,
     profile: false,
     logIn: false,
     logOut: false,
-    adminDash: false,
-    terms: true,
   };
   if (!compareObjects(buttons, buttonConfig)) {
     setButtons(buttonConfig)

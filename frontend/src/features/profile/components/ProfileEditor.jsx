@@ -11,8 +11,8 @@ import getProfileInfo from '@/features/profile/api/getProfileInfo';
 import logOutOfAllDevices from '@/features/profile/api/allLogOut';
 import editProfileInfo from '@/features/profile/api/editProfileInfo';
 import deleteUser from '@/features/profile/api/deleteUser';
-import generateJoiError from '@/utils/formatters/generateJoiError';
 import { commonFormColor, commonFormOpacity, backgroundColor } from '@/config/config';
+import apiCall from '@/utils/core/apiCall';
 
 function ProfileEditor(props) {
   const { enqueueSnackbar } = useSnackbar();
@@ -20,43 +20,24 @@ function ProfileEditor(props) {
   const componentColor = commonFormOpacity > 0.5 ? commonFormColor : backgroundColor;
   const { ask } = useAskAlert();
   const auth = useAuth();
-  const { data, refetch } = useQuery('profileInfo', async () => {
-    const response = await getProfileInfo();
-    if (response === 'ASYNCERROR') {
-      enqueueSnackbar('The server could not process the request.', { variant: 'error' })
-    } else if (response === 'UNAUTHORIZED') {
-      enqueueSnackbar('You were not authorized to view account info.', { variant: 'error' })
-    } else if (response === 'FAILURE') {
-      enqueueSnackbar('There was a problem retrieving your info.', { variant: 'error' })
-    } else if (response === 'NOTFOUND') {
-      enqueueSnackbar("We couldn't find the account.", { variant: 'error' })
-    } else if (response.details) {
-      generateJoiError(response.details, enqueueSnackbar);
-    } else {
-      return response;
-    }
-    return null;
-  });
+  const { data, refetch } = useQuery('profileInfo', () => (
+    apiCall(() => getProfileInfo(), {
+      SUCCESS: response => response,
+      NOTFOUND: "We couldn't find the account.",
+      UNAUTHORIZED: 'You were not authorized to view account info.',
+    }, false)
+  ));
   const [editing, setEditing] = useState(false);
   const emailRef = useRef();
 
   const deleteAccountButton = () => {
     ask('Confirm', 'Are you sure you want to delete your account?', async (answer) => {
       if (answer) {
-        const response = await deleteUser();
-        if (response === 'ASYNCERROR') {
-          enqueueSnackbar("The server could not process the request.", { variant: 'error' })
-        } else if (response === 'FAILURE') {
-          enqueueSnackbar("There was a problem deleting the account.", { variant: 'error' })
-        } else if (response === 'NOTFOUND') {
-          enqueueSnackbar("We couldn't find the account.", { variant: 'error' })
-        } else if (response === 'UNAUTHORIZED') {
-          enqueueSnackbar("You are not authorized to delete this account.", { variant: 'error' })
-        } else if (response.details) {
-          generateJoiError(response.details, enqueueSnackbar);
-        } else {
-          enqueueSnackbar("Successfully deleted user account. You will now be logged out.", { variant: 'success', onClose: auth.logout })
-        }
+        await apiCall(() => deleteUser(), {
+          SUCCESS: "Successfully deleted user account. You will now be logged out.",
+          UNAUTHORIZED: 'You are not authorized to delete this account.',
+          NOTFOUND: "We couldn't find the account.",
+        })
       }
     })
   }
@@ -66,27 +47,17 @@ function ProfileEditor(props) {
       setEditing(true);
     } else {
       const editInfo = async () => {
-        const response = await editProfileInfo(
-          emailRef.current.value,
-        );
-        if (response === 'ASYNCERROR') {
-          enqueueSnackbar("The server could not process the request.", { variant: 'error' })
-        } else if (response === 'FAILURE') {
-          enqueueSnackbar("There was a problem updating the information.", { variant: 'error' })
-        } else if (response === 'ALREADYEXISTS') {
-          enqueueSnackbar("There is already a user with that information. Please use a unique username and email.", { variant: 'error' })
-        } else if (response === 'NOTFOUND') {
-          enqueueSnackbar("We couldn't find the account.", { variant: 'error' })
-        } else if (response === 'UNAUTHORIZED') {
-          enqueueSnackbar("You are not authorized to edit account information.", { variant: 'error' })
-        } else if (response.details) {
-          generateJoiError(response.details, enqueueSnackbar);
-        } else {
-          enqueueSnackbar("Info changed successfully!", { variant: 'success' })
-          if (changingEmail) {
-            enqueueSnackbar("Please check your email to reverify it. You will now be logged out.", { variant: 'info', onClose: auth.logout })
-          }
-        }
+        await apiCall(() => editProfileInfo(emailRef.current.value), {
+          SUCCESS: () => {
+            enqueueSnackbar("Info changed successfully!", { variant: 'success' })
+            if (changingEmail) {
+              enqueueSnackbar("Please check your email to reverify it. You will now be logged out.", { variant: 'info', onClose: auth.logout })
+            }
+          },
+          ALREADYEXISTS: 'There is already a user with that information.',
+          NOTFOUND: "We couldn't find the account.",
+          UNAUTHORIZED: 'You are not authorized to edit account information.',
+        })
         refetch();
         setEditing(false);
       }
@@ -110,18 +81,11 @@ function ProfileEditor(props) {
   const allLogOutButton = () => {
     ask('Are you sure?', 'Are you sure you want to log out of all of your devices?', async (answer) => {
       if (answer) {
-        const response = await logOutOfAllDevices();
-        if (response === 'ASYNCERROR') {
-          enqueueSnackbar('The server could not process the request.', { variant: 'error' })
-        } else if (response === 'UNAUTHORIZED') {
-          enqueueSnackbar('You were not authorized to log out of all devices.', { variant: 'error' })
-        } else if (response === 'FAILURE') {
-          enqueueSnackbar('There was a problem logging out of all your devices.', { variant: 'error' })
-        } else if (response.details) {
-          generateJoiError(response.details, enqueueSnackbar);
-        } else {
-          enqueueSnackbar("Successfully logged out of all devices. You will now be logged out.", { variant: 'success', onClose: auth.logout })
-        }
+        await apiCall(() => logOutOfAllDevices(), {
+          SUCCESS: () => {
+            enqueueSnackbar("Successfully logged out of all devices. You will now be logged out.", { variant: 'success', onClose: auth.logout })
+          },
+        }, false)
       }
     })
   }

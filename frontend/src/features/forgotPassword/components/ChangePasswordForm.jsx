@@ -5,10 +5,9 @@ import Button from '@/components/Button';
 import { useNavigate } from 'react-router-dom';
 import changePassword from '@/features/forgotPassword/api/changePassword';
 import deleteKey from '@/features/forgotPassword/api/deleteKey';
-import generateJoiError from '@/utils/formatters/generateJoiError';
 import { useSnackbar } from 'notistack';
-import { useAwaiting } from '@/stores/awaitingStore';
 import { commonFormColor, commonFormOpacity, backgroundColor } from '@/config/config';
+import apiCall from '@/utils/core/apiCall';
 
 function ChangePasswordForm({ accountID, code }) {
   const navigate = useNavigate();
@@ -17,7 +16,6 @@ function ChangePasswordForm({ accountID, code }) {
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
   const { enqueueSnackbar } = useSnackbar();
-  const { nowAwaiting, notAwaiting } = useAwaiting();
 
   const cancelButton = () => {
     navigate('/auth/login')
@@ -25,20 +23,13 @@ function ChangePasswordForm({ accountID, code }) {
 
   const changePasswordButton = async () => {
     if (passwordRef.current.value === confirmPasswordRef.current.value) {
-      nowAwaiting();
-      const response = await changePassword(accountID, passwordRef.current.value)
-      notAwaiting();
-      if (response === 'FAILURE') {
-        enqueueSnackbar('There was a problem changing your password.', { variant: 'error' });
-      } else if (response === 'ASYNCERROR') {
-        enqueueSnackbar('The server could not process the request.', { variant: 'error' });
-      } else if (response.details) {
-        generateJoiError(response.details, enqueueSnackbar);
-      } else {
-        deleteKey(code);
-        enqueueSnackbar('Password successfully changed.', { variant: 'success' });
-        navigate('/auth/login');
-      }
+      apiCall(() => changePassword(accountID, passwordRef.current.value), {
+        SUCCESS: () => {
+          deleteKey(code);
+          enqueueSnackbar('Password successfully changed.', { variant: 'success' });
+          navigate('/auth/login');
+        }
+      })
     } else {
       enqueueSnackbar('Passwords must match.', { variant: 'error' });
     }

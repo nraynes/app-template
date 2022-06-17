@@ -6,6 +6,7 @@ import validateCode from '@/features/forgotPassword/api/validateCode';
 import getParameterByName from '@/utils/misc/getParams';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+import apiCall from '@/utils/core/apiCall';
 
 function ChangePasswordPage(props) {
   const [accountID, setAccountID] = useState()
@@ -14,13 +15,15 @@ function ChangePasswordPage(props) {
   const { enqueueSnackbar } = useSnackbar();
 
   const validateQueryCode = async (queryParam, setFunction) => {
-    const response = await validateCode(queryParam);
-    if (response === 'NOTVALID') {
-      enqueueSnackbar('Temporary Code Invalid.', { variant: 'error' })
-      navigate('/auth/login')
-    } else {
-      setFunction(response);
-    }
+    apiCall(() => validateCode(queryParam), {
+      SUCCESS: (response) => {
+        setFunction(response);
+      },
+      NOTVALID: () => {
+        enqueueSnackbar('Temporary Code Invalid.', { variant: 'error' });
+        navigate('/auth/login');
+      },
+    })
   };
 
   useEffect(() => {

@@ -4,18 +4,14 @@ import TextField from '@/components/TextField';
 import Button from '@/components/Button';
 import { useNavigate } from 'react-router-dom';
 import sendPasswordReset from '@/features/forgotPassword/api/sendEmail';
-import { useSnackbar } from 'notistack';
-import { useAwaiting } from '@/stores/awaitingStore';
-import generateJoiError from '@/utils/formatters/generateJoiError';
 import { commonFormColor, commonFormOpacity, backgroundColor } from '@/config/config';
+import apiCall from '@/utils/core/apiCall';
 
 function ForgotPasswordForm(props) {
   const navigate = useNavigate();
   const opposingColor = commonFormOpacity > 0.5 ? commonFormColor.opposingText.main : backgroundColor.opposingText.main;
   const componentColor = commonFormOpacity > 0.5 ? commonFormColor : backgroundColor;
   const emailRef = useRef();
-  const { nowAwaiting, notAwaiting } = useAwaiting();
-  const { enqueueSnackbar } = useSnackbar()
 
 
   const backButton = () => {
@@ -23,21 +19,10 @@ function ForgotPasswordForm(props) {
   };
 
   const resetPasswordButton = async () => {
-    nowAwaiting();
-    const response = await sendPasswordReset(emailRef.current.value)
-    notAwaiting();
-    if (response === 'NOTFOUND') {
-      // The message is the same here as if the account was found to prevent people digging for valid accounts.
-      enqueueSnackbar('If an account with this email exists, you will receive an email to reset your password.', { variant: 'success' })
-    } else if (response === 'FAILURE') {
-      enqueueSnackbar('There was a problem sending the password reset email.', { variant: 'error' })
-    } else if (response === 'ASYNCERROR') {
-      enqueueSnackbar('The server could not process the request.', { variant: 'error' });
-    } else if (response.details) {
-      generateJoiError(response.details, enqueueSnackbar);
-    } else {
-      enqueueSnackbar('If an account with this email exists, you will receive an email to reset your password.', { variant: 'success' })
-    }
+    apiCall(() => sendPasswordReset(emailRef.current.value), {
+      SUCCESS: 'If an account with this email exists, you will receive an email to reset your password.',
+      NOTFOUND: 'If an account with this email exists, you will receive an email to reset your password.',
+    });
   };
 
   return (

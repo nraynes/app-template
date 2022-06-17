@@ -7,13 +7,10 @@ import compareObjects from '@/utils/core/compareObjects';
 function RootRoutes(props) {
   const { buttons, setButtons } = useButtons();
   const buttonConfig = {
-    notifications: true,
     home: false,
     profile: true,
     logIn: true,
     logOut: true,
-    adminDash: true,
-    terms: true,
   };
   if (!compareObjects(buttons, buttonConfig)) {
     setButtons(buttonConfig)
