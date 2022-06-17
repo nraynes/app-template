@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import PostWallPage from './PostWall';
+import PostWallPage from './Landing';
 import { useButtons } from '@/stores/topBarButtons';
 import compareObjects from '@/utils/core/compareObjects';
 

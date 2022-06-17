@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import '@/styles/fadeIn.css';
 import { Box, Typography, Checkbox } from '@mui/material';
 import TextField from '@/components/TextField';
 import Button from '@/components/Button';

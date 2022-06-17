@@ -9,7 +9,8 @@ export const deviceType = getDeviceType();
 export const onMobile = deviceType === 'mobile' || deviceType === 'tablet';
 export const backgroundColor = colors.primary.one
 export const backgroundOpacity = 1
-export const backgroundImage = `${apiURL.substring(0, apiURL.length-4)}/background`;
+// export const backgroundImage = `${apiURL.substring(0, apiURL.length-4)}/background`;
+export const backgroundImage = null;
 export const backgroundGradientEffect = false
 export const commonFormColor = colors.secondary.one
 export const commonFormOpacity = 0.8
@@ -25,7 +26,6 @@ export const postOpacity = 0.15
 export const postFrostedGlassEffect = true
 export const postFrostLevel = 10
 export const backgroundImageCode = `url(${backgroundImage}) no-repeat center top fixed; background-size: cover; background-color: rgba(${backgroundColor.main}, ${backgroundOpacity});`;
-// export const backgroundImageCode = `url(${backgroundImage}) no-repeat center top fixed; background-size: cover; background-color: rgba(${backgroundColor.main}, ${backgroundOpacity});`;
 export const showGlow = true;
 export const touchConfig = {
   swipe: {

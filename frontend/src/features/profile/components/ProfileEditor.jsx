@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useRef, useState, useEffect } from 'react';
-import '@/styles/fadeIn.css';
 import { Box, Typography, Checkbox } from '@mui/material';
 import TextField from '@/components/TextField';
 import Button from '@/components/Button';

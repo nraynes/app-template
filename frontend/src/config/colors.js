@@ -4,9 +4,9 @@ export const darkModifier = 20;
 
 export const myTheme = {
   primaryOne: {
-    red: 0,
-    green: 0,
-    blue: 0,
+    red: 255,
+    green: 255,
+    blue: 255,
   },
   primaryTwo: {
     red: 255,
