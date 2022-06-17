@@ -19,9 +19,4 @@ const editUserInfo = {
 module.exports = {
   verifyEmail,
   editUserInfo,
-  getUsers,
-  accountAction,
-  accountMessage,
-  readNotifications,
-  allMessage,
 };
