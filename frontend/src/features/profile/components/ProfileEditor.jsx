@@ -2,6 +2,8 @@
 import React, { useRef, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import TextField from '@/components/TextField';
+import Card from '@/components/Card';
+import CardHead from '@/components/CardHead';
 import Button from '@/components/Button';
 import { useQuery  } from 'react-query';
 import { useAuth } from '@/lib/auth';
@@ -95,33 +97,13 @@ function ProfileEditor(props) {
   }
 
   return (
-    <Box
+    <Card
       id="ProfileEditor"
       component="form"
       onSubmit={(e) => e.preventDefault()}
-      sx={{
-        boxShadow: '0 0 1rem 0 rgba(255, 255, 255, .3)',
-        borderRadius: '1em',
-        maxWidth: '100vw',
-        margin: '1em',
-        width: [['75%', '90%'], ['max-content', '30em']],
-        animation: 'fade-in-from-center 0.66s',
-        backgroundColor: `rgba(${commonFormColor.main}, ${commonFormOpacity})`,
-      }}
+      type={2}
     >
-      <Box
-        sx={{
-          borderBottom: `2px solid rgba(${opposingColor})`,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '100%',
-          height: 'max-content',
-          py: '0.3em'
-        }}
-      >
-        <Typography sx={{ color: `rgba(${opposingColor})` }} variant="h6">Profile</Typography>
-      </Box>
+      <CardHead>Profile</CardHead>
       <Box
         sx={{
           margin: '1em',
@@ -180,7 +162,7 @@ function ProfileEditor(props) {
           >Cancel</Button>}
         </Box>
       </Box>
-    </Box>
+    </Card>
   );
 }
 

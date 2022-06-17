@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { Box, Typography } from '@mui/material';
+import Card from '@/components/Card';
 import TextField from '@/components/TextField';
 import Button from '@/components/Button';
 import { useNavigate } from 'react-router-dom';
@@ -31,18 +32,10 @@ function LogInForm(props) {
   };
 
   return (
-    <Box
+    <Card
       id="LogInForm"
       component="form"
       onSubmit={(e)=>e.preventDefault()}
-      sx={{
-        boxShadow: '0 0 1rem 0 rgba(255, 255, 255, .3)',
-        borderRadius: '1em',
-        maxWidth: '100vw',
-        margin: '1em',
-        animation: 'fade-in-from-center 0.66s',
-        backgroundColor: `rgba(${commonFormColor.main}, ${commonFormOpacity})`,
-      }}
     >
       <Box
         sx={{
@@ -109,7 +102,7 @@ function LogInForm(props) {
           >Log-In</Button>
         </Box>
       </Box>
-    </Box>
+    </Card>
   );
 }
 
