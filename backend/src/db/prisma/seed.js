@@ -31,20 +31,20 @@ async function main() {
   const accounts = [
     {
       email: 'johndoe@email.com',
-      password_hash: '8KzhbqGTeBZpYo33aj/MygmH7upFUY/rq3C+8EwlHgf8zeqSFyVCalkB/YyFYIn3U46ArMWfsRbO2QGBCZxUB+9yBqWd67ZPmfXU5l6kVjm5M7pRdrCIqRZpiMUoNSSt',
-      dynamic_salt: 'Ymr4OVGO/cyrxxSy',
+      password_hash: 'M834YbJlSuwCEER7fgnhy9NKoJm2fNYsomYoiG6zfOfWjD8tGxNdfKbcn+xPWdBkqewtcc+aVBH4YrCQslZ9joEywNGJy/s7auXyntvtv6ZsbvNW7rxVGFXnL7sbknc/',
+      dynamic_salt: 'c31334c6e9ffe97bf7c35cb29a6b7f50',
       verified: true,
     },
     {
       email: 'bobfisher@email.com',
-      password_hash: '5HDMqRyjVp4PrjqASYdWojzsOs0A/795GDpj+pxiQg5kJgwcOdkM4YyU7XczxBRdoYFTli908KldcetTTk+7tg3WFE/5duCwj1d0o7SPSkis09Ne7B9z8og9VwgmGfFX',
-      dynamic_salt: 'LS5klDME2yxw7LEt',
+      password_hash: 'kIIkfozPz631yhh5vzi7KvEiXYrI5FDJ0jZInROvEz/yx4T1jd9VJ+8jqSbAN6lgr756AyXg/CxBrwfAFCQw53kfSH0lpsRhLkXiFxpR2ralxSK//XvJBj0KXoTzCzMn',
+      dynamic_salt: '8ba2505938bb251ff361376ebf556429',
       verified: true,
     },
     {
       email: 'markwhite@email.com',
-      password_hash: 'MI8bBMAGfSyNdky1q7xgdl0hUpHMMdmpQVo0FDbACclIh9KtLE1FCWBWIIVOTCz2RvQ5/SmJyA5qaIr5JAlecdlML0fthlsS6sb9LzGB38s0bxykPAclZiR3wHbm2KKA',
-      dynamic_salt: '3iQOJRbYx+SQC6Uk',
+      password_hash: 'lozftn3E85JET9KAhGum49Jj2UTKQEOJXOPeaaI1Xz5eukxbHDnqfoU6d1my6DyMQdh3cap0HmEYbCoWex/Fa07G+98BgffyuTVznpDWW1kRMXroHTPjGw0tt+1SZsW7',
+      dynamic_salt: '45433333a6fd04d5ac29cd027f5e8cda',
       verified: true,
     }
   ];

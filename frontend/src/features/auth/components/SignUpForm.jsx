@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Box, Typography, Checkbox } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import TextField from '@/components/TextField';
 import Button from '@/components/Button';
 import { useNavigate } from 'react-router-dom';
@@ -14,12 +14,9 @@ function SignUpForm(props) {
   const componentColor = commonFormOpacity > 0.5 ? commonFormColor : backgroundColor;
   const { enqueueSnackbar } = useSnackbar();
   const auth = useAuth();
-  const usernameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
-  const phoneNumberRef = useRef();
-  const anonymousRef = useRef();
   const [captcha, setCaptcha] = useState('');
 
   const logInButton = () => {
@@ -29,11 +26,8 @@ function SignUpForm(props) {
   const signUpButton = () => {
     if (passwordRef.current.value === confirmPasswordRef.current.value) {
       auth.register({
-        username: usernameRef.current.value,
         email: emailRef.current.value,
         password: passwordRef.current.value,
-        phoneNumber: phoneNumberRef.current.value,
-        anonymous: anonymousRef.current.checked,
         captcha,
       })
     } else {
@@ -92,16 +86,6 @@ function SignUpForm(props) {
             py: '0.5em',
           }}
         >
-          <Typography sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Username:</Typography>
-          <TextField componentColor={componentColor} inputRef={usernameRef} sx={{ width: '100%' }} />
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            py: '0.5em',
-          }}
-        >
           <Typography sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Email:</Typography>
           <TextField componentColor={componentColor} inputRef={emailRef} type="email" sx={{ width: '100%' }} />
         </Box>
@@ -124,27 +108,6 @@ function SignUpForm(props) {
         >
           <Typography sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Confirm Password:</Typography>
           <TextField componentColor={componentColor} inputRef={confirmPasswordRef} type="password" sx={{ width: '100%' }} />
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            py: '0.5em',
-          }}
-        >
-          <Typography sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Phone #:</Typography>
-          <TextField componentColor={componentColor} inputRef={phoneNumberRef} sx={{ width: '100%' }} />
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            pr: '1em'
-          }}
-        >
-          <Checkbox style={{ color: `rgba(${opposingColor})` }} inputRef={anonymousRef} />
-          <Typography sx={{ color: `rgba(${opposingColor})` }}>Hide contact info?</Typography>
         </Box>
         <Box
           sx={{

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useRef, useState, useEffect } from 'react';
-import { Box, Typography, Checkbox } from '@mui/material';
+import React, { useRef, useState } from 'react';
+import { Box, Typography } from '@mui/material';
 import TextField from '@/components/TextField';
 import Button from '@/components/Button';
 import { useQuery  } from 'react-query';
@@ -37,24 +37,8 @@ function ProfileEditor(props) {
     }
     return null;
   });
-  const [checked, setChecked] = useState(false);
   const [editing, setEditing] = useState(false);
-  const usernameRef = useRef();
   const emailRef = useRef();
-  const phoneNumberRef = useRef();
-  const anonymousRef = useRef();
-
-  useEffect(() => {
-    setChecked(data && data.anonymous)
-  }, [data])
-
-  const handleCheckboxChange = (event) => {
-    if (!editing) {
-      setChecked(data && data.anonymous)
-    } else {
-      setChecked(event.target.checked);
-    }
-  }
 
   const deleteAccountButton = () => {
     ask('Confirm', 'Are you sure you want to delete your account?', async (answer) => {
@@ -79,15 +63,11 @@ function ProfileEditor(props) {
 
   const editAccountButton = async () => {
     if (!editing) {
-      setChecked(data && data.anonymous);
       setEditing(true);
     } else {
       const editInfo = async () => {
         const response = await editProfileInfo(
-          usernameRef.current.value,
           emailRef.current.value,
-          phoneNumberRef.current.value,
-          anonymousRef.current.checked,
         );
         if (response === 'ASYNCERROR') {
           enqueueSnackbar("The server could not process the request.", { variant: 'error' })
@@ -108,7 +88,6 @@ function ProfileEditor(props) {
           }
         }
         refetch();
-        setChecked(anonymousRef.current.checked);
         setEditing(false);
       }
       const changingEmail = emailRef.current.value !== (data && data.email);
@@ -125,7 +104,6 @@ function ProfileEditor(props) {
   }
 
   const cancelButton = () => {
-    setChecked(data && data.anonymous);
     setEditing(false)
   }
 
@@ -188,39 +166,8 @@ function ProfileEditor(props) {
             py: '0.5em',
           }}
         >
-          <Typography sx={{ color: `rgba(${opposingColor})`, mr: '0.5em' }}>Username:</Typography>
-          <TextField componentColor={componentColor} value={(data && !editing) ? data.username : undefined} disabled={!editing} inputRef={usernameRef} sx={{ width: '100%' }} />
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            py: '0.5em',
-          }}
-        >
           <Typography sx={{ color: `rgba(${opposingColor})`, mr: '0.5em' }}>Email:</Typography>
           <TextField componentColor={componentColor} value={(data && !editing) ? data.email : undefined} disabled={!editing} inputRef={emailRef} type="email" sx={{ width: '100%' }} />
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            py: '0.5em',
-          }}
-        >
-          <Typography sx={{ color: `rgba(${opposingColor})`, mr: '0.5em', whiteSpace: 'nowrap' }}>Phone #:</Typography>
-          <TextField componentColor={componentColor} value={(data && !editing) ? data.phone_number : undefined} disabled={!editing} inputRef={phoneNumberRef} sx={{ width: '100%' }} />
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            pr: '1em'
-          }}
-        >
-          <Checkbox style={{ color: editing && `rgba(${opposingColor})` }} checked={checked} inputRef={anonymousRef} disabled={!editing} onChange={handleCheckboxChange} inputProps={{ 'aria-label': 'controlled' }} />
-          <Typography sx={{ color: `rgba(${opposingColor})` }} >Hide contact info?</Typography>
         </Box>
         <Box
           sx={{

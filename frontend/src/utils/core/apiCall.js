@@ -1,10 +1,10 @@
 import processResponse from './processResponse';
 
-const apiCall = async (requestCallback, responseOptions) => {
+const apiCall = async (requestCallback, responseOptions, showLoadingIcon = true) => {
   const { nowAwaiting, notAwaiting } = window;
-  nowAwaiting();
+  if (showLoadingIcon) nowAwaiting();
   const response = await requestCallback();
-  notAwaiting();
+  if (showLoadingIcon) notAwaiting();
   return await processResponse(response, responseOptions)
 };
 
