@@ -48,6 +48,7 @@ function ProfileEditor(props) {
     if (!editing) {
       setEditing(true);
     } else {
+      const changingEmail = emailRef.current.value !== (data && data.email);
       const editInfo = async () => {
         await apiCall(() => editProfileInfo(emailRef.current.value), {
           SUCCESS: () => {
@@ -60,10 +61,11 @@ function ProfileEditor(props) {
           NOTFOUND: "We couldn't find the account.",
           UNAUTHORIZED: 'You are not authorized to edit account information.',
         })
-        refetch();
+        if (!changingEmail) {
+          refetch();
+        }
         setEditing(false);
       }
-      const changingEmail = emailRef.current.value !== (data && data.email);
       if (changingEmail) {
         ask('Re-verify', 'If you change your email, you will need to reverify it. You will recieve an email to the new email to verify your account.', (answer) => {
           if (answer) {
