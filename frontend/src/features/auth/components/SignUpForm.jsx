@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import TextField from '@/components/TextField';
 import Card from '@/components/Card';
+import CardHead from '@/components/CardHead';
 import Button from '@/components/Button';
 import { useNavigate } from 'react-router-dom';
 import ReCAPTCHA from "react-google-recaptcha";
@@ -54,19 +55,7 @@ function SignUpForm(props) {
       component="form"
       onSubmit={(e) => e.preventDefault()}
     >
-      <Box
-        sx={{
-          borderBottom: `2px solid rgba(${opposingColor})`,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '100%',
-          height: 'max-content',
-          py: '0.3em'
-        }}
-      >
-        <Typography sx={{ color: `rgba(${opposingColor})` }} variant="h6">Sign-Up</Typography>
-      </Box>
+      <CardHead>Sign-Up</CardHead>
       <Box
         sx={{
           margin: '1em',

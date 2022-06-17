@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { Box, Typography } from '@mui/material';
 import TextField from '@/components/TextField';
 import Card from '@/components/Card';
+import CardHead from '@/components/CardHead';
 import Button from '@/components/Button';
 import { useNavigate } from 'react-router-dom';
 import sendPasswordReset from '@/features/forgotPassword/api/sendEmail';
@@ -31,20 +32,9 @@ function ForgotPasswordForm(props) {
       id="LogInForm"
       component="form"
       onSubmit={(e) => e.preventDefault()}
+      type={2}
     >
-      <Box
-        sx={{
-          borderBottom: `2px solid rgba(${opposingColor})`,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '100%',
-          height: 'max-content',
-          py: '0.3em'
-        }}
-      >
-        <Typography sx={{ color: `rgba(${opposingColor})` }} variant="h6">Forgot Password</Typography>
-      </Box>
+      <CardHead>Forgot Password</CardHead>
       <Box
         sx={{
           margin: '1em',
@@ -58,7 +48,7 @@ function ForgotPasswordForm(props) {
           }}
         >
           <Typography sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Email:</Typography>
-          <TextField componentColor={componentColor} inputRef={emailRef} type="email" sx={{ width: ['100%', '20em'] }} />
+          <TextField componentColor={componentColor} inputRef={emailRef} type="email" sx={{ width: '100%' }} />
         </Box>
         <Box
           sx={{

@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { Box, Typography } from '@mui/material';
 import Card from '@/components/Card';
+import CardHead from '@/components/CardHead';
 import TextField from '@/components/TextField';
 import Button from '@/components/Button';
 import { useNavigate } from 'react-router-dom';
@@ -37,19 +38,7 @@ function LogInForm(props) {
       component="form"
       onSubmit={(e)=>e.preventDefault()}
     >
-      <Box
-        sx={{
-          borderBottom: `s2px solid rgba(${opposingColor})`,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '100%',
-          height: 'max-content',
-          py: '0.3em'
-        }}
-      >
-        <Typography sx={{ color: `rgba(${opposingColor})` }} variant="h6">Log-In</Typography>
-      </Box>
+      <CardHead>Log-In</CardHead>
       <Box
         sx={{
           margin: '1em',

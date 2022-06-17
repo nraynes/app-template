@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { Box, Typography } from '@mui/material';
 import TextField from '@/components/TextField';
 import Card from '@/components/Card';
+import CardHead from '@/components/CardHead';
 import Button from '@/components/Button';
 import { useNavigate } from 'react-router-dom';
 import changePassword from '@/features/forgotPassword/api/changePassword';
@@ -41,19 +42,7 @@ function ChangePasswordForm({ accountID, code }) {
       id="LogInForm"
       component="form"
     >
-      <Box
-        sx={{
-          borderBottom: `2px solid rgba(${opposingColor})`,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '100%',
-          height: 'max-content',
-          py: '0.3em'
-        }}
-      >
-        <Typography sx={{ color: `rgba(${opposingColor})`}} variant="h6">Change Password</Typography>
-      </Box>
+      <CardHead>Change Password</CardHead>
       <Box
         sx={{
           margin: '1em',
