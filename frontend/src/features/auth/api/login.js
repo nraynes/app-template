@@ -1,6 +1,6 @@
 import acquire from '@/utils/core/acquire';
 
-export const loginWithUsernameAndPassword = async (email, password) => {
+export const loginWithEmailAndPassword = async (email, password) => {
   const response = await acquire({
     route: '/auth/login',
     method: 'POST',
@@ -12,4 +12,4 @@ export const loginWithUsernameAndPassword = async (email, password) => {
   return response.content;
 };
 
-export default loginWithUsernameAndPassword;
+export default loginWithEmailAndPassword;

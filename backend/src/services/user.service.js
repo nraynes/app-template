@@ -11,7 +11,6 @@ const respond = require('@/utils/core/respond');
 const codes = require('@/config/responseCodes');
 const config = require('@/config/config');
 const compareObjects = require('@/utils/core/compareObjects');
-const pick = require('@/utils/formatters/pick');
 
 const prisma = new PrismaClient();
 
@@ -141,6 +140,7 @@ const unverifyUser = async (account_id) => {
 module.exports = {
   createUser,
   getUserByID,
+  deleteUserByID,
   getUserByEmail,
   verifyEmail,
   editUserInfo,

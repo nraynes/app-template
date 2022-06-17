@@ -2,9 +2,9 @@ import React from 'react';
 import { initReactQueryAuth } from 'react-query-auth';
 import { queryClient } from './react-query';
 import LoadingPage from '@/components/LoadingPage';
-import { setToken } from '@/utils/browser/tokens';
+import { setToken, clearTokens } from '@/utils/browser/tokens';
 import getUser from '@/features/auth/api/getUser';
-import loginWithUsernameAndPassword from '@/features/auth/api/login';
+import loginWithEmailAndPassword from '@/features/auth/api/login';
 import logout from '@/features/auth/api/logout';
 import refreshToken from '@/features/auth/api/refreshTokens';
 import createAccount from '@/features/auth/api/createAccount';
@@ -36,7 +36,7 @@ async function sendVerificationEmail(email) {
 
 async function loginFn({ email, password }) {
   const { navigate } = window;
-  return await apiCall(() => loginWithUsernameAndPassword(email, password), {
+  return await apiCall(() => loginWithEmailAndPassword(email, password), {
     SUCCESS: (response) => {
       const accessCheck = setToken('access', response.tokens.accessToken);
       const refreshCheck = setToken('refresh', response.tokens.refreshToken);
@@ -52,11 +52,15 @@ async function loginFn({ email, password }) {
 }
 
 async function logoutFn() {
-  const { navigate } = window;
+  const { enqueueSnackbar, nowAwaiting, notAwaiting, navigate } = window;
   queryClient.clear();
-  await apiCall(() => logout(), {
-    FAILURE: 'There was a problem logging you out',
-  })
+  nowAwaiting();
+  const success = await logout();
+  notAwaiting();
+  const checkClear = clearTokens();
+  if (success === 'FAILURE' || !checkClear) {
+    enqueueSnackbar('There was a problem logging you out.', { variant: 'error' });
+  }
   navigate('/');
   return {};
 }
@@ -79,9 +83,9 @@ async function loadUser() {
   return null;
 }
 
-async function registerFn({ username, email, password, phoneNumber, anonymous, captcha }) {
+async function registerFn({ email, password, captcha }) {
   const { enqueueSnackbar, navigate } = window;
-  await apiCall(() => createAccount(username, email, password, phoneNumber, anonymous, captcha), {
+  await apiCall(() => createAccount(email, password, captcha), {
     SUCCESS: () => {
       enqueueSnackbar('Created the account successfully! Check your email to verify it.', { variant: 'success' })
       navigate('/auth/login')

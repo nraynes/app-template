@@ -34,7 +34,9 @@ function ProfileEditor(props) {
     ask('Confirm', 'Are you sure you want to delete your account?', async (answer) => {
       if (answer) {
         await apiCall(() => deleteUser(), {
-          SUCCESS: "Successfully deleted user account. You will now be logged out.",
+          SUCCESS: () => {
+            enqueueSnackbar("Successfully deleted user account. You will now be logged out.", { variant: 'success', onClose: auth.logout })
+          },
           UNAUTHORIZED: 'You are not authorized to delete this account.',
           NOTFOUND: "We couldn't find the account.",
         })

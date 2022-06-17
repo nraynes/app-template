@@ -19,7 +19,7 @@ function ForgotPasswordForm(props) {
   };
 
   const resetPasswordButton = async () => {
-    apiCall(() => sendPasswordReset(emailRef.current.value), {
+    await apiCall(() => sendPasswordReset(emailRef.current.value), {
       SUCCESS: 'If an account with this email exists, you will receive an email to reset your password.',
       NOTFOUND: 'If an account with this email exists, you will receive an email to reset your password.',
     });
