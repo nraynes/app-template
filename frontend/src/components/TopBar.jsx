@@ -50,9 +50,11 @@ function TopBar(props) {
     navigate('/');
   };
 
-  const topBarIconSX = {
-    width: [`${100 / buttonAmount}%`, 'max-content'],
-  };
+  const topBarIconSX = {};
+
+  if (buttonAmount > 4) {
+    topBarIconSX.width = [`${100 / buttonAmount}%`, 'max-content'];
+  }
 
   return (
     <Box
