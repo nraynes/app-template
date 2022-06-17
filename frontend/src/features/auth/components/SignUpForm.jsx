@@ -119,7 +119,7 @@ function SignUpForm(props) {
           }}
         >
           <ReCAPTCHA
-            sitekey="6LdRj6wfAAAAAERkJmkrP-303oEIuygoaSmgtgs9"
+            sitekey="6LdiG3wgAAAAAAVmWDo1FLx4NEZWi2TycAXEJdNr"
             nonce="{NONCE}"
             onChange={recaptchaLoadedCallback}
             onError={recaptchaErrorCallback}
