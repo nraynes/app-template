@@ -16,6 +16,7 @@ import Awaiting from '@/components/Awaiting';
 import { queryClient } from '@/lib/react-query';
 import GlobalProvider from './GlobalProvider';
 import { useAwaiting } from '@/stores/awaitingStore';
+import ColorDrawer from '@/components/ColorDrawer';
 
 const ErrorFallback = () => (
   <ErrorPage />
@@ -45,6 +46,7 @@ export const AppProvider = ({ children }) => {
                     <Awaiting 
                       open={awaiting}
                     />
+                    <ColorDrawer />
                     <InputAlert
                       open={inputStatus}
                       onClose={(response) => {
