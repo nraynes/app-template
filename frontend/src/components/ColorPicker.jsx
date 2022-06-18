@@ -122,22 +122,23 @@ function ColorPicker({
 
   const typeSx = {};
 
-  if (type === 1) {
+  if (type === 2) {
     typeSx.width = '6em';
     typeSx.height = '6em';
-  } else if (type === 2) {
+  } else if (type === 1) {
     typeSx.transform = 'scale(1.1)';
   }
 
   return (
     <Box
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        transition: 'transform 0.5s',
+        top: sx.position ? sx.top : 0,
+        left: sx.position ? sx.left : 0 ,
+        right: sx.position ? sx.right : 0,
+        bottom: sx.position ? sx.bottom : 0,
+        position: sx.position || 'initial',
         ...sx,
+        transition: '0.5s',
       }}
     >
       <Box
@@ -152,7 +153,7 @@ function ColorPicker({
           borderRadius: '5em',
           width: '5em',
           height: '5em',
-          transition: 'width 0.5s, height 0.5s, transform 0.5s',
+          transition: '0.5s',
           '&:hover': {
             cursor: 'pointer',
             ...typeSx,
