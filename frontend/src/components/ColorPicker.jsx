@@ -10,6 +10,10 @@ function ColorPicker({
   defaultAlpha = 1,
   showAlpha = false,
   label,
+  sx,
+  colorSx,
+  colorHoverSx,
+  type = 1,
   onChange = () => {},
   id = `${(Math.random() * 100).toFixed(1)}`
 }) {
@@ -116,6 +120,15 @@ function ColorPicker({
     alignItems: 'center',
   }
 
+  const typeSx = {};
+
+  if (type === 1) {
+    typeSx.width = '6em';
+    typeSx.height = '6em';
+  } else if (type === 2) {
+    typeSx.transform = 'scale(1.1)';
+  }
+
   return (
     <Box
       sx={{
@@ -123,6 +136,8 @@ function ColorPicker({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        transition: 'transform 0.5s',
+        ...sx,
       }}
     >
       <Box
@@ -137,15 +152,16 @@ function ColorPicker({
           borderRadius: '5em',
           width: '5em',
           height: '5em',
-          transition: 'width 0.5s, height 0.5s',
+          transition: 'width 0.5s, height 0.5s, transform 0.5s',
           '&:hover': {
             cursor: 'pointer',
-            width: '6em',
-            height: '6em',
-          }
+            ...typeSx,
+            ...colorHoverSx,
+          },
+          ...colorSx,
         }}
       />
-      {label && <Typography sx={{ width: '100%', textAlign: 'center' }}>{label}</Typography>}
+      {label && <Typography sx={{ width: '100%', textAlign: 'center', height: '1em' }}>{label}</Typography>}
       <Menu
         id={`color_menu_${id}`}
         anchorEl={anchorEl}
