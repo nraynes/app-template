@@ -19,7 +19,6 @@ export const buttonOpacity = 1
 export const consoleColor = colors.secondary.three
 export const buttonBarOpacity = 0.6
 export const titleBarOpacity = 0
-export const notificationsOpacity = 0.9
 export const drawerOpacity = 0.8
 export const postColor = colors.primary.two
 export const postOpacity = 0.15

@@ -24,11 +24,13 @@ const ErrorFallback = () => (
 
 const theme = createTheme({});
 
+
 export const AppProvider = ({ children }) => {
   const { awaiting } = useAwaiting();
   const { askStatus, askTitle, askMessage, askElement, allowEnter, askCallBack, closeAsk } = useAskAlert();
   const { inputStatus, inputTitle, inputMessage, inputCallBack, closeInput } = useInputAlert();
-  
+
+
   return (
   <React.Suspense
     fallback={(

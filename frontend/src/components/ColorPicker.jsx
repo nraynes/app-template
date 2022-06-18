@@ -1,15 +1,25 @@
 import React, { useState, useRef } from 'react';
-import { TextField, Menu, Slider } from '@mui/material';
+import { TextField, Menu, Slider, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
-function ColorPicker({ defaultRed = 0, defaultGreen = 0, defaultBlue = 0, defaultAlpha = 1, onChange = () => {}, id = `${(Math.random() * 100).toFixed(1)}` }) {
+
+function ColorPicker({
+  defaultRed = 0,
+  defaultGreen = 0,
+  defaultBlue = 0,
+  defaultAlpha = 1,
+  showAlpha = false,
+  label,
+  onChange = () => {},
+  id = `${(Math.random() * 100).toFixed(1)}`
+}) {
   const redRef = useRef();
   const greenRef = useRef();
   const blueRef = useRef();
   const alphaRef = useRef();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -18,12 +28,16 @@ function ColorPicker({ defaultRed = 0, defaultGreen = 0, defaultBlue = 0, defaul
     setAnchorEl(null);
   };
 
-  const [color, setColor] = useState({
+  const defaultColors = {
     red: defaultRed,
     green: defaultGreen,
     blue: defaultBlue,
-    alpha: defaultAlpha,
-  });
+  }
+  if (showAlpha) {
+    defaultColors.alpha = defaultAlpha;
+  }
+
+  const [color, setColor] = useState(defaultColors);
 
   const setMinMax = (ref) => {
     if (ref.current.value > 255) {
@@ -50,7 +64,7 @@ function ColorPicker({ defaultRed = 0, defaultGreen = 0, defaultBlue = 0, defaul
     for (let i = 0; i < fields.length; i++) {
       setMinMax(fields[i]);
     }
-    setAlphaMinMax(alphaRef);
+    if (showAlpha) setAlphaMinMax(alphaRef);
   }
 
   const getValue = (number) => {
@@ -75,7 +89,9 @@ function ColorPicker({ defaultRed = 0, defaultGreen = 0, defaultBlue = 0, defaul
       red: getValue(redRef.current.value),
       green: getValue(greenRef.current.value),
       blue: getValue(blueRef.current.value),
-      alpha: getAlphaValue(alphaRef.current.value),
+    };
+    if (showAlpha) {
+      stateObj.alpha = getAlphaValue(alphaRef.current.value);
     };
     setColor(stateObj);
     onChange(stateObj);
@@ -116,13 +132,14 @@ function ColorPicker({ defaultRed = 0, defaultGreen = 0, defaultBlue = 0, defaul
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
         sx={{
-          backgroundColor: `rgba(${color.red},${color.green},${color.blue},${color.alpha})`,
+          backgroundColor: `rgba(${color.red},${color.green},${color.blue}${showAlpha ? `,${color.alpha}` : ''})`,
           border: '2px solid black',
           borderRadius: '0.5em',
           width: '5em',
           height: '5em',
         }}
       />
+      {label && <Typography sx={{ width: '100%', textAlign: 'center' }}>{label}</Typography>}
       <Menu
         id={`color_menu_${id}`}
         anchorEl={anchorEl}
@@ -166,15 +183,17 @@ function ColorPicker({ defaultRed = 0, defaultGreen = 0, defaultBlue = 0, defaul
             <TextField type="number" defaultValue={color.blue} onChange={changeColor} inputRef={blueRef} label="Blue" sx={{ width: '5em' }} />
             <Slider sx={{ mt: '1em', height: '10em' }} orientation="vertical" defaultValue={(color.blue / 255) * 100} value={(color.blue / 255) * 100} onChange={(e) => sliderFunc(e, blueRef)} />
           </Box>
-          <Box
-            sx={{
-              ...pickerBoxSx,
-              ml: '0.5em',
-            }}
-          >
-            <TextField type="number" defaultValue={color.alpha} onChange={changeColor} inputRef={alphaRef} label="Alpha" sx={{ width: '5em' }} />
-            <Slider sx={{ mt: '1em', height: '10em' }} orientation="vertical" defaultValue={color.alpha * 100} value={color.alpha * 100} onChange={(e) => sliderAlphaFunc(e, alphaRef)} />
-          </Box>
+          {showAlpha && (
+            <Box
+              sx={{
+                ...pickerBoxSx,
+                ml: '0.5em',
+              }}
+            >
+              <TextField type="number" defaultValue={color.alpha} onChange={changeColor} inputRef={alphaRef} label="Alpha" sx={{ width: '5em' }} />
+              <Slider sx={{ mt: '1em', height: '10em' }} orientation="vertical" defaultValue={color.alpha * 100} value={color.alpha * 100} onChange={(e) => sliderAlphaFunc(e, alphaRef)} />
+            </Box>
+          )}
         </Box>
       </Menu>
     </Box>

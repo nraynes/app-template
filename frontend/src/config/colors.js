@@ -1,8 +1,12 @@
+import { getCookie } from "@/utils/browser/cookies";
+
+const currentTheme = getCookie('theme');
+
 export const modifier = 20;
 export const lightModifier = 20;
 export const darkModifier = 20;
 
-export const myTheme = {
+const defaultTheme = {
   primaryOne: {
     red: 255,
     green: 255,
@@ -75,3 +79,4 @@ export const myTheme = {
     blue: 0,
   },
 }
+export const myTheme = currentTheme || defaultTheme;

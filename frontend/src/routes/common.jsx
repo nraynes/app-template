@@ -9,7 +9,7 @@ const App = (value) => (
 );
 
 export const commonRoutes = [
-  { path: '/', element: App(<RootRoutes />) },
+  { path: '/*', element: App(<RootRoutes />) },
 ];
 
 export default commonRoutes
