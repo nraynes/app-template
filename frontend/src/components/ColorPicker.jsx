@@ -134,9 +134,15 @@ function ColorPicker({
         sx={{
           backgroundColor: `rgba(${color.red},${color.green},${color.blue}${showAlpha ? `,${color.alpha}` : ''})`,
           border: '2px solid black',
-          borderRadius: '0.5em',
+          borderRadius: '5em',
           width: '5em',
           height: '5em',
+          transition: 'width 0.5s, height 0.5s',
+          '&:hover': {
+            cursor: 'pointer',
+            width: '6em',
+            height: '6em',
+          }
         }}
       />
       {label && <Typography sx={{ width: '100%', textAlign: 'center' }}>{label}</Typography>}

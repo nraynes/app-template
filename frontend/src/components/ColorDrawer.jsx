@@ -126,6 +126,15 @@ function ColorDrawer(props) {
             sx={{
               boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
             }}
+            onClick={setClose}
+          >
+            Cancel
+          </Button>
+          <Button
+            sx={{
+              boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+              ml: '1em',
+            }}
             onClick={resetColorTheme}
           >
             Reset Color Theme
