@@ -16,6 +16,7 @@ import Awaiting from '@/components/Awaiting';
 import { queryClient } from '@/lib/react-query';
 import GlobalProvider from './GlobalProvider';
 import { useAwaiting } from '@/stores/awaitingStore';
+import ColorDrawer from '@/components/ColorDrawer';
 
 const ErrorFallback = () => (
   <ErrorPage />
@@ -23,11 +24,13 @@ const ErrorFallback = () => (
 
 const theme = createTheme({});
 
+
 export const AppProvider = ({ children }) => {
   const { awaiting } = useAwaiting();
   const { askStatus, askTitle, askMessage, askElement, allowEnter, askCallBack, closeAsk } = useAskAlert();
   const { inputStatus, inputTitle, inputMessage, inputCallBack, closeInput } = useInputAlert();
-  
+
+
   return (
   <React.Suspense
     fallback={(
@@ -45,6 +48,7 @@ export const AppProvider = ({ children }) => {
                     <Awaiting 
                       open={awaiting}
                     />
+                    <ColorDrawer />
                     <InputAlert
                       open={inputStatus}
                       onClose={(response) => {

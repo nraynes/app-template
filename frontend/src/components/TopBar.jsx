@@ -4,13 +4,15 @@ import { Box, Typography } from '@mui/material';
 import IconButton from '@/components/IconButton';
 import { useNavigate } from 'react-router-dom';
 import PersonIcon from '@mui/icons-material/Person';
+import PaletteIcon from '@mui/icons-material/Palette';
 import HomeIcon from '@mui/icons-material/Home';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import useButtons from '@/stores/topBarButtons';
 import { topBarHeight } from '@/config/config';
 import { useAuth } from '@/lib/auth';
-import { backgroundColor, consoleColor, buttonBarOpacity, titleBarOpacity } from '@/config/config';
+import { useColorPicker } from '@/stores/colorPickerStore';
+import { backgroundColor, consoleColor, buttonBarOpacity, titleBarOpacity, activateColorDrawer } from '@/config/config';
 
 function TopBar(props) {
   const componentColor = consoleColor
@@ -19,10 +21,12 @@ function TopBar(props) {
   const navigate = useNavigate();
   const auth = useAuth();
   const [buttonAmount, setButtonAmount] = useState(0);
+  const { open, setOpen, setClose } = useColorPicker();
 
   const getButtonAmount = () => {
     let amount = 0;
     if (buttons.profile && auth.user) amount++
+    if (buttons.colorPicker && auth.user && activateColorDrawer) amount++
     if (buttons.home) amount++
     if (buttons.logIn && !auth.user) amount++
     if (buttons.logOut && auth.user) amount++
@@ -32,6 +36,14 @@ function TopBar(props) {
   useEffect(() => {
     setButtonAmount(getButtonAmount())
   }, [])
+
+  const colorPickerButton = () => {
+    if (open) {
+      setClose();
+    } else {
+      setOpen();
+    }
+  };
 
   const profileButton = () => {
     navigate('/user/profile');
@@ -114,6 +126,7 @@ function TopBar(props) {
             background: `linear-gradient(to left, rgba(${componentColor.main}, ${buttonBarOpacity}) 0%, rgba(${componentColor.main}, ${buttonBarOpacity}) 75%, rgba(${componentColor.main}, 0) 100%)`,
           }}
         >
+          {(buttons.colorPicker && auth.user && activateColorDrawer) && <IconButton sx={topBarIconSX} description="Color scheme" onClick={colorPickerButton}><PaletteIcon sx={{ color: `rgba(${opposingColor})` }} /></IconButton>}
           {(buttons.profile && auth.user) && <IconButton sx={topBarIconSX} description="Profile" onClick={profileButton}><PersonIcon sx={{ color: `rgba(${opposingColor})` }} /></IconButton>}
           {buttons.home && <IconButton sx={topBarIconSX} description="Home" onClick={homeButton}><HomeIcon sx={{ color: `rgba(${opposingColor})` }} /></IconButton>}
           {(buttons.logIn && !auth.user) && <IconButton sx={topBarIconSX} description="Log-in" onClick={logInButton}><LoginIcon sx={{ color: `rgba(${opposingColor})` }} /></IconButton>}

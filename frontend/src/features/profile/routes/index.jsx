@@ -7,6 +7,7 @@ import compareObjects from '@/utils/core/compareObjects';
 function ProfileRoutes(props) {
   const { buttons, setButtons } = useButtons();
   const buttonConfig = {
+    colorPicker: 'true',
     home: true,
     profile: false,
     logIn: false,
