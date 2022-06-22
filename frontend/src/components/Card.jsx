@@ -1,6 +1,7 @@
 import React from 'react';
 import Box from '@mui/system/Box';
 import { commonFormColor, commonFormOpacity } from '@/config/config';
+import '@/styles/fade.css';
 
 function Card({ children, sx, type, ...args }) {
   const sxObj = {
@@ -8,6 +9,7 @@ function Card({ children, sx, type, ...args }) {
     borderRadius: '1em',
     maxWidth: '100vw',
     margin: '1em',
+    animation: 'fade-in-from-center 0.5s',
     backgroundColor: `rgba(${commonFormColor.main}, ${commonFormOpacity})`,
     ...sx
   };
