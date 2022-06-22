@@ -10,10 +10,6 @@ function ColorPicker({
   defaultAlpha = 1,
   showAlpha = false,
   label,
-  sx,
-  colorSx,
-  colorHoverSx,
-  type = 1,
   onChange = () => {},
   id = `${(Math.random() * 100).toFixed(1)}`
 }) {
@@ -23,6 +19,7 @@ function ColorPicker({
   const alphaRef = useRef();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const sliderColor = 'rgba(255,0,100)';
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -120,24 +117,9 @@ function ColorPicker({
     alignItems: 'center',
   }
 
-  const typeSx = {};
-
-  if (type === 2) {
-    typeSx.width = '6em';
-    typeSx.height = '6em';
-  } else if (type === 1) {
-    typeSx.transform = 'scale(1.1)';
-  }
-
   return (
     <Box
       sx={{
-        top: sx.position ? sx.top : 0,
-        left: sx.position ? sx.left : 0 ,
-        right: sx.position ? sx.right : 0,
-        bottom: sx.position ? sx.bottom : 0,
-        position: sx.position || 'initial',
-        ...sx,
         transition: '0.5s',
       }}
     >
@@ -156,10 +138,9 @@ function ColorPicker({
           transition: '0.5s',
           '&:hover': {
             cursor: 'pointer',
-            ...typeSx,
-            ...colorHoverSx,
+            width: '6em',
+            height: '6em',
           },
-          ...colorSx,
         }}
       />
       {label && <Typography sx={{ width: '100%', textAlign: 'center', height: '1em' }}>{label}</Typography>}
@@ -186,7 +167,7 @@ function ColorPicker({
             sx={pickerBoxSx}
           >
             <TextField type="number" defaultValue={color.red} onChange={changeColor} inputRef={redRef} label="Red" sx={{ width: '5em' }} />
-            <Slider sx={{ mt: '1em', height: '10em' }} orientation="vertical" defaultValue={(color.red / 255) * 100} value={(color.red / 255) * 100} onChange={(e) => sliderFunc(e, redRef)} />
+            <Slider sx={{ mt: '1em', height: '10em', color: sliderColor }} orientation="vertical" defaultValue={(color.red / 255) * 100} value={(color.red / 255) * 100} onChange={(e) => sliderFunc(e, redRef)} />
           </Box>
           <Box
             sx={{
@@ -195,7 +176,7 @@ function ColorPicker({
             }}
           >
             <TextField type="number" defaultValue={color.green} onChange={changeColor} inputRef={greenRef} label="Green" sx={{ width: '5em' }} />
-            <Slider sx={{ mt: '1em', height: '10em' }} orientation="vertical" defaultValue={(color.green / 255) * 100} value={(color.green / 255) * 100} onChange={(e) => sliderFunc(e, greenRef)} />
+            <Slider sx={{ mt: '1em', height: '10em', color: sliderColor }} orientation="vertical" defaultValue={(color.green / 255) * 100} value={(color.green / 255) * 100} onChange={(e) => sliderFunc(e, greenRef)} />
           </Box>
           <Box
             sx={{
@@ -204,7 +185,7 @@ function ColorPicker({
             }}
           >
             <TextField type="number" defaultValue={color.blue} onChange={changeColor} inputRef={blueRef} label="Blue" sx={{ width: '5em' }} />
-            <Slider sx={{ mt: '1em', height: '10em' }} orientation="vertical" defaultValue={(color.blue / 255) * 100} value={(color.blue / 255) * 100} onChange={(e) => sliderFunc(e, blueRef)} />
+            <Slider sx={{ mt: '1em', height: '10em', color: sliderColor }} orientation="vertical" defaultValue={(color.blue / 255) * 100} value={(color.blue / 255) * 100} onChange={(e) => sliderFunc(e, blueRef)} />
           </Box>
           {showAlpha && (
             <Box
@@ -214,7 +195,7 @@ function ColorPicker({
               }}
             >
               <TextField type="number" defaultValue={color.alpha} onChange={changeColor} inputRef={alphaRef} label="Alpha" sx={{ width: '5em' }} />
-              <Slider sx={{ mt: '1em', height: '10em' }} orientation="vertical" defaultValue={color.alpha * 100} value={color.alpha * 100} onChange={(e) => sliderAlphaFunc(e, alphaRef)} />
+              <Slider sx={{ mt: '1em', height: '10em', color: sliderColor }} orientation="vertical" defaultValue={color.alpha * 100} value={color.alpha * 100} onChange={(e) => sliderAlphaFunc(e, alphaRef)} />
             </Box>
           )}
         </Box>

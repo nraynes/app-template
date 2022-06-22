@@ -1,54 +1,42 @@
 import React, { useState } from 'react';
-import { Drawer } from '@mui/material';
+import { Drawer, TextField } from '@mui/material';
 import { Box } from '@mui/system';
 import { useColorPicker } from '@/stores/colorPickerStore';
 import ColorPicker from './ColorPicker';
+import TransparencySetter from './TransparencySetter';
 import { myTheme } from '@/config/colors';
-// import * as config from '@/config/config';
-import { setCookie, clearCookie } from '@/utils/browser/cookies';
+import { backgroundOpacity, commonFormOpacity, buttonOpacity, buttonBarOpacity, titleBarOpacity, drawerOpacity, componentOpacity } from '@/config/config';
+import { setCookie, clearCookie, getCookie } from '@/utils/browser/cookies';
 import Button from './Button';
 
 function ColorDrawer(props) {
   const { open, setClose } = useColorPicker();
-  const [configuration, setConfiguration] = useState(2);
+  const customCookie = getCookie('customConfig');
+  const [custom, setCustom] = useState(customCookie ? customCookie : {});
 
-  const changePrimaryOneColor = (rgba) => {
-    myTheme.primaryOne.red = rgba.red;
-    myTheme.primaryOne.green = rgba.green;
-    myTheme.primaryOne.blue = rgba.blue;
+
+  const changeColor = (rgba, key) => {
+    myTheme[key].red = rgba.red;
+    myTheme[key].green = rgba.green;
+    myTheme[key].blue = rgba.blue;
   };
 
-  const changePrimaryTwoColor = (rgba) => {
-    myTheme.primaryTwo.red = rgba.red;
-    myTheme.primaryTwo.green = rgba.green;
-    myTheme.primaryTwo.blue = rgba.blue;
-  };
-
-  const changeSecondaryOneColor = (rgba) => {
-    myTheme.secondaryOne.red = rgba.red;
-    myTheme.secondaryOne.green = rgba.green;
-    myTheme.secondaryOne.blue = rgba.blue;
-  };
-
-  const changeSecondaryTwoColor = (rgba) => {
-    myTheme.secondaryTwo.red = rgba.red;
-    myTheme.secondaryTwo.green = rgba.green;
-    myTheme.secondaryTwo.blue = rgba.blue;
-  };
-
-  const changeSecondaryThreeColor = (rgba) => {
-    myTheme.secondaryThree.red = rgba.red;
-    myTheme.secondaryThree.green = rgba.green;
-    myTheme.secondaryThree.blue = rgba.blue;
-  };
+  const changeCustom = (key, value) => {
+    const clone = {...custom};
+    const newValue = value || 0.01
+    clone[key] = newValue;
+    setCustom(clone);
+  }
   
   const applyColorTheme = () => {
     setCookie('theme', myTheme);
+    setCookie('customConfig', custom);
     window.location.reload()
   }
 
   const resetColorTheme = () => {
     clearCookie('theme');
+    clearCookie('customConfig');
     window.location.reload()
   }
 
@@ -70,88 +58,94 @@ function ColorDrawer(props) {
         }}
       >
         <Box
-          id="main_colors"
+          id="custom_theme_console"
           sx={{
+            width: '100%',
+            height: 'max-content',
             display: 'flex',
-            justifyContent: 'space-evenly',
-            width: configuration === 1 ? '16em' : '100%',
-            pt: configuration === 2 && '1em',
-            height: configuration === 1 ? '16em' : 'auto',
-            mt: configuration === 1 && '2em',
-            position: configuration === 1 && 'relative',
-            transition: '1s ease',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
         >
-          <ColorPicker
-            id="primary_one"
-            label="Primary 1"
-            type={configuration}
-            sx={configuration === 1 && {
-              position: 'absolute',
-              top: '-0.972em',
-              left: '0.797em',
+          <Box
+            id="main_colors"
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-evenly',
+              width: '100%',
+              pt: '1em',
+              height: 'auto',
+              transition: '1s ease',
             }}
-            defaultRed={myTheme.primaryOne.red}
-            defaultGreen={myTheme.primaryOne.green}
-            defaultBlue={myTheme.primaryOne.blue}
-            onChange={(rgba) => changePrimaryOneColor(rgba)}
-          />
-          <ColorPicker
-            id="primary_two"
-            label="Primary 2"
-            type={configuration}
-            sx={configuration === 1 && {
-              position: 'absolute',
-              top: '-0.972em',
-              right: '0.797em',
+          >
+            <ColorPicker
+              id="primary_one"
+              label="Primary 1"
+              defaultRed={myTheme.primaryOne.red}
+              defaultGreen={myTheme.primaryOne.green}
+              defaultBlue={myTheme.primaryOne.blue}
+              onChange={(rgba) => changeColor(rgba, 'primaryOne')}
+            />
+            <ColorPicker
+              id="primary_two"
+              label="Primary 2"
+              defaultRed={myTheme.primaryTwo.red}
+              defaultGreen={myTheme.primaryTwo.green}
+              defaultBlue={myTheme.primaryTwo.blue}
+              onChange={(rgba) => changeColor(rgba, 'primaryTwo')}
+            />
+            <ColorPicker
+              id="secondary_one"
+              label="Secondary 1"
+              defaultRed={myTheme.secondaryOne.red}
+              defaultGreen={myTheme.secondaryOne.green}
+              defaultBlue={myTheme.secondaryOne.blue}
+              onChange={(rgba) => changeColor(rgba, 'secondaryOne')}
+            />
+            <ColorPicker
+              id="secondary_two"
+              label="Secondary 2"
+              defaultRed={myTheme.secondaryTwo.red}
+              defaultGreen={myTheme.secondaryTwo.green}
+              defaultBlue={myTheme.secondaryTwo.blue}
+              onChange={(rgba) => changeColor(rgba, 'secondaryTwo')}
+            />
+            <ColorPicker
+              id="secondary_three"
+              label="Secondary 3"
+              defaultRed={myTheme.secondaryThree.red}
+              defaultGreen={myTheme.secondaryThree.green}
+              defaultBlue={myTheme.secondaryThree.blue}
+              onChange={(rgba) => changeColor(rgba, 'secondaryThree')}
+            />
+          </Box>
+          <Box
+            id="transparency_setters_one"
+            sx={{
+              mt: '2em',
+              display: 'flex',
+              width: '100%',
+              justifyContent: 'space-evenly',
             }}
-            defaultRed={myTheme.primaryTwo.red}
-            defaultGreen={myTheme.primaryTwo.green}
-            defaultBlue={myTheme.primaryTwo.blue}
-            onChange={(rgba) => changePrimaryTwoColor(rgba)}
-          />
-          <ColorPicker
-            id="secondary_one"
-            label="Secondary 1"
-            type={configuration}
-            sx={configuration === 1 && {
-              position: 'absolute',
-              bottom: '3.02em',
-              right: '-2.108em',
+          >
+            <TransparencySetter defaultValue={backgroundOpacity * 100} label="Background Opacity" onChange={(e) => changeCustom('backgroundOpacity', (e.target.value / 100))} />
+            <TransparencySetter defaultValue={commonFormOpacity * 100} label="Card Opacity" onChange={(e) => changeCustom('commonFormOpacity', (e.target.value / 100))} />
+            <TransparencySetter defaultValue={buttonOpacity * 100} label="Button Opacity" onChange={(e) => changeCustom('buttonOpacity', (e.target.value / 100))} />
+            <TransparencySetter defaultValue={buttonBarOpacity * 100} label="Button Bar Opacity" onChange={(e) => changeCustom('buttonBarOpacity', (e.target.value / 100))} />
+          </Box>
+          <Box
+            id="transparency_setters_two"
+            sx={{
+              mt: '2em',
+              display: 'flex',
+              width: '100%',
+              justifyContent: 'space-evenly',
             }}
-            defaultRed={myTheme.secondaryOne.red}
-            defaultGreen={myTheme.secondaryOne.green}
-            defaultBlue={myTheme.secondaryOne.blue}
-            onChange={(rgba) => changeSecondaryOneColor(rgba)}
-          />
-          <ColorPicker
-            id="secondary_two"
-            label="Secondary 2"
-            type={configuration}
-            sx={configuration === 1 && {
-              position: 'absolute',
-              bottom: '-2.5em',
-              left: '5.5em',
-            }}
-            defaultRed={myTheme.secondaryTwo.red}
-            defaultGreen={myTheme.secondaryTwo.green}
-            defaultBlue={myTheme.secondaryTwo.blue}
-            onChange={(rgba) => changeSecondaryTwoColor(rgba)}
-          />
-          <ColorPicker
-            id="secondary_three"
-            label="Secondary 3"
-            type={configuration}
-            sx={configuration === 1 && {
-              position: 'absolute',
-              bottom: '3.02em',
-              left: '-2.108em',
-            }}
-            defaultRed={myTheme.secondaryThree.red}
-            defaultGreen={myTheme.secondaryThree.green}
-            defaultBlue={myTheme.secondaryThree.blue}
-            onChange={(rgba) => changeSecondaryThreeColor(rgba)}
-          />
+          >
+            <TransparencySetter orientation="horizontal" defaultValue={titleBarOpacity * 100} label="Title Bar Opacity" onChange={(e) => changeCustom('titleBarOpacity', (e.target.value / 100))} />
+            <TransparencySetter orientation="horizontal" defaultValue={drawerOpacity * 100} label="Drawer Opacity" onChange={(e) => changeCustom('drawerOpacity', (e.target.value / 100))} />
+            <TransparencySetter orientation="horizontal" defaultValue={componentOpacity * 100} label="Component Opacity" onChange={(e) => changeCustom('componentOpacity', (e.target.value / 100))} />
+          </Box>
         </Box>
         <Box
           sx={{
@@ -165,16 +159,7 @@ function ColorDrawer(props) {
             }}
             onClick={setClose}
           >
-            Cancel
-          </Button>
-          <Button
-            sx={{
-              boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
-              ml: '1em',
-            }}
-            onClick={() => setConfiguration(configuration === 1 ? 2 : 1)}
-          >
-            {configuration === 1 ? 'Configuration 2' : 'Configuration 1'}
+            Close
           </Button>
           <Button
             sx={{
