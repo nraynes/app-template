@@ -1,31 +1,34 @@
 import React from 'react';
 import { Box } from '@mui/system';
 import { Typography, Slider } from '@mui/material';
+import { onMobile } from '@/config/config';
 
 function TransparencySetter({ defaultValue, onChange, label, orientation = 'vertical' }) {
   const sliderLength = {};
   const boxSx = {};
   const labelSx = {};
+  const sliderLengthValue = onMobile ? '6em' : '10em';
+  const marginFactor = onMobile ? 0.8 : 1;
 
   if (orientation === 'vertical') {
-    sliderLength.height = '10em';
+    sliderLength.height = sliderLengthValue;
     boxSx.width = '6em';
-    boxSx.px = '0.5em';
-    boxSx.pt = '0.5em';
-    boxSx.pb = '1em';
+    boxSx.px = `${marginFactor/2}em`;
+    boxSx.pt = `${marginFactor/2}em`;
+    boxSx.pb = `${marginFactor}em`;
     boxSx['&:hover'] = {
-      px: '0.7em',
-      pt: '0.7em',
-      pb: '1.2em',
+      px: `${marginFactor*0.7}em`,
+      pt: `${marginFactor*0.7}em`,
+      pb: `${marginFactor*1.2}em`,
     };
     labelSx.mb = '1em';
   } else if (orientation === 'horizontal') {
-    sliderLength.width = '10em';
-    boxSx.px = '1em';
-    boxSx.py = '0.5em';
+    sliderLength.width = sliderLengthValue;
+    boxSx.px = `${marginFactor}em`;
+    boxSx.py = `${marginFactor/2}em`;
     boxSx['&:hover'] = {
-      px: '1.2em',
-      py: '0.7em',
+      px: `${marginFactor*1.2}em`,
+      py: `${marginFactor*0.7}em`,
     };
   }
 

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Drawer, TextField } from '@mui/material';
+import { Drawer } from '@mui/material';
 import { Box } from '@mui/system';
 import { useColorPicker } from '@/stores/colorPickerStore';
 import ColorPicker from './ColorPicker';
 import TransparencySetter from './TransparencySetter';
 import { myTheme } from '@/config/colors';
-import { backgroundOpacity, commonFormOpacity, buttonOpacity, buttonBarOpacity, titleBarOpacity, drawerOpacity, componentOpacity } from '@/config/config';
+import { onMobile, backgroundOpacity, commonFormOpacity, buttonOpacity, buttonBarOpacity, titleBarOpacity, drawerOpacity, componentOpacity } from '@/config/config';
 import { setCookie, clearCookie, getCookie } from '@/utils/browser/cookies';
 import Button from './Button';
 
@@ -40,6 +40,27 @@ function ColorDrawer(props) {
     window.location.reload()
   }
 
+  const renderColorPickers = () => (
+    <>
+      <ColorPicker
+        id="secondary_two"
+        label="Secondary 2"
+        defaultRed={myTheme.secondaryTwo.red}
+        defaultGreen={myTheme.secondaryTwo.green}
+        defaultBlue={myTheme.secondaryTwo.blue}
+        onChange={(rgba) => changeColor(rgba, 'secondaryTwo')}
+      />
+      <ColorPicker
+        id="secondary_three"
+        label="Secondary 3"
+        defaultRed={myTheme.secondaryThree.red}
+        defaultGreen={myTheme.secondaryThree.green}
+        defaultBlue={myTheme.secondaryThree.blue}
+        onChange={(rgba) => changeColor(rgba, 'secondaryThree')}
+      />
+    </>
+  );
+
   return (
     <Drawer
       anchor="right"
@@ -53,7 +74,7 @@ function ColorDrawer(props) {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'space-between',
-          width: '40em',
+          width: ['100vw', '40em'],
           height: '100%',
         }}
       >
@@ -102,23 +123,23 @@ function ColorDrawer(props) {
               defaultBlue={myTheme.secondaryOne.blue}
               onChange={(rgba) => changeColor(rgba, 'secondaryOne')}
             />
-            <ColorPicker
-              id="secondary_two"
-              label="Secondary 2"
-              defaultRed={myTheme.secondaryTwo.red}
-              defaultGreen={myTheme.secondaryTwo.green}
-              defaultBlue={myTheme.secondaryTwo.blue}
-              onChange={(rgba) => changeColor(rgba, 'secondaryTwo')}
-            />
-            <ColorPicker
-              id="secondary_three"
-              label="Secondary 3"
-              defaultRed={myTheme.secondaryThree.red}
-              defaultGreen={myTheme.secondaryThree.green}
-              defaultBlue={myTheme.secondaryThree.blue}
-              onChange={(rgba) => changeColor(rgba, 'secondaryThree')}
-            />
+            {!onMobile && renderColorPickers()}
           </Box>
+          {onMobile && (
+            <Box
+              id="main_colors_second_row"
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-evenly',
+                width: '100%',
+                pt: '1em',
+                height: 'auto',
+                transition: '1s ease',
+              }}
+            >
+              {renderColorPickers()}
+            </Box>
+          )}
           <Box
             id="transparency_setters_one"
             sx={{
@@ -131,10 +152,25 @@ function ColorDrawer(props) {
             <TransparencySetter defaultValue={backgroundOpacity * 100} label="Background Opacity" onChange={(e) => changeCustom('backgroundOpacity', (e.target.value / 100))} />
             <TransparencySetter defaultValue={commonFormOpacity * 100} label="Card Opacity" onChange={(e) => changeCustom('commonFormOpacity', (e.target.value / 100))} />
             <TransparencySetter defaultValue={buttonOpacity * 100} label="Button Opacity" onChange={(e) => changeCustom('buttonOpacity', (e.target.value / 100))} />
-            <TransparencySetter defaultValue={buttonBarOpacity * 100} label="Button Bar Opacity" onChange={(e) => changeCustom('buttonBarOpacity', (e.target.value / 100))} />
+            {!onMobile && <TransparencySetter defaultValue={buttonBarOpacity * 100} label="Button Bar Opacity" onChange={(e) => changeCustom('buttonBarOpacity', (e.target.value / 100))} />}
           </Box>
           <Box
             id="transparency_setters_two"
+            sx={{
+              mt: '2em',
+              display: 'flex',
+              // flexDirection: onMobile ? 'column' : 'row',
+              width: '100%',
+              justifyContent: 'space-evenly',
+            }}
+          >
+            <TransparencySetter orientation={onMobile ? 'vertical' : 'horizontal'} defaultValue={titleBarOpacity * 100} label="Title Bar Opacity" onChange={(e) => changeCustom('titleBarOpacity', (e.target.value / 100))} />
+            <TransparencySetter orientation={onMobile ? 'vertical' : 'horizontal'} defaultValue={drawerOpacity * 100} label="Drawer Opacity" onChange={(e) => changeCustom('drawerOpacity', (e.target.value / 100))} />
+            <TransparencySetter orientation={onMobile ? 'vertical' : 'horizontal'} defaultValue={componentOpacity * 100} label="Component Opacity" onChange={(e) => changeCustom('componentOpacity', (e.target.value / 100))} />
+          </Box>
+          {onMobile && (
+            <Box
+            id="transparency_setters_three"
             sx={{
               mt: '2em',
               display: 'flex',
@@ -142,14 +178,14 @@ function ColorDrawer(props) {
               justifyContent: 'space-evenly',
             }}
           >
-            <TransparencySetter orientation="horizontal" defaultValue={titleBarOpacity * 100} label="Title Bar Opacity" onChange={(e) => changeCustom('titleBarOpacity', (e.target.value / 100))} />
-            <TransparencySetter orientation="horizontal" defaultValue={drawerOpacity * 100} label="Drawer Opacity" onChange={(e) => changeCustom('drawerOpacity', (e.target.value / 100))} />
-            <TransparencySetter orientation="horizontal" defaultValue={componentOpacity * 100} label="Component Opacity" onChange={(e) => changeCustom('componentOpacity', (e.target.value / 100))} />
+            <TransparencySetter orientation="horizontal" defaultValue={buttonBarOpacity * 100} label="Button Bar Opacity" onChange={(e) => changeCustom('buttonBarOpacity', (e.target.value / 100))} />
           </Box>
+          )}
         </Box>
         <Box
           sx={{
             display: 'flex',
+            alignItems: 'center',
             mb: '1em',
           }}
         >
@@ -168,7 +204,7 @@ function ColorDrawer(props) {
             }}
             onClick={resetColorTheme}
           >
-            Reset Color Theme
+            Set Defaults
           </Button>
           <Button
             sx={{
@@ -177,7 +213,7 @@ function ColorDrawer(props) {
             }}
             onClick={applyColorTheme}
           >
-            Apply Color Theme
+            Apply
           </Button>
         </Box>
       </Box>
