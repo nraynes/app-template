@@ -15,6 +15,7 @@ const envVarsSchema = Joi.object()
     SENDGRID_API_KEY: Joi.string().required().description('SendGrid Api Key'),
     APP_EMAIL: Joi.string().required().email().description('Paladin Official Email Address'),
     RECAPTCHA_SECRET_KEY: Joi.string().required().description('Google recaptcha secrete'),
+    SECRET_KEY: Joi.string().required().description('AES secret key'),
   })
   .unknown();
 
@@ -56,4 +57,6 @@ module.exports = {
   tempCodeExpiration: 2,
   userPayloadKeys: ['account_id'],
   userAccountInfoKeys: ['email'],
+  secretKey: envVars.SECRET_KEY,
+  useEncryption: true,
 };
