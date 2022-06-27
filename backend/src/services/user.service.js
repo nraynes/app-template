@@ -11,29 +11,42 @@ const respond = require('@/utils/core/respond');
 const codes = require('@/config/responseCodes');
 const config = require('@/config/config');
 const compareObjects = require('@/utils/core/compareObjects');
+const { encrypt, decrypt } = require('@/utils/core/AES');
 
 const prisma = new PrismaClient();
 
-const getUserByEmail = (email) => (
-  prisma.accounts.findFirst({
+const getUserByEmail = async (email) => {
+  const queryEmail = config.useEncryption ? encrypt(email) : email;
+  const user = await prisma.accounts.findFirst({
     where: {
       email: {
-        equals: email,
-        mode: 'insensitive'
+        equals: queryEmail,
+        mode: 'insensitive',
       },
       deleted_on: null,
     }
   })
-)
+  if (config.useEncryption && user) {
+    console.log('USER:', user);
+    const decryptedEmail = decrypt(user.email);
+    user.email = decryptedEmail;
+  }
+  return user;
+}
 
-const getUserByID = (account_id) => (
-  prisma.accounts.findFirst({
+const getUserByID = async (account_id) => {
+  const user = await prisma.accounts.findFirst({
     where: {
       account_id,
       deleted_on: null,
     }
   })
-)
+  if (config.useEncryption) {
+    const decryptedEmail = decrypt(user.email);
+    user.email = decryptedEmail;
+  }
+  return user;
+}
 
 const deleteUserByID = async (account_id) => {
   const user = await prisma.accounts.update({
@@ -63,7 +76,7 @@ async function createUser(email, password, dynamicSalt, res) {
       }
       const password_hash = key.toString('base64');
       const userObject = {
-        email: email.toLowerCase(),
+        email: config.useEncryption ? encrypt(email) : email,
         password_hash,
         dynamic_salt: dynamicSalt,
         verified: false,
@@ -74,7 +87,7 @@ async function createUser(email, password, dynamicSalt, res) {
       const tempKey = await tempService.generateEmailCode(newUser.account_id)
       if (newUser && compareObjects(userObject, newUser)) {
         if (tempKey) {
-          emailService.sendVerifyEmail(newUser.email, tempKey)
+          emailService.sendVerifyEmail(email, tempKey)
           respond(res, codes.success);
         } else {
           await deleteUserByID(newUser.account_id);
@@ -104,7 +117,7 @@ const verifyEmail = async (account_id) => {
 
 const editUserInfo = async (account_id, email) => {
   const parcel = {
-    email: email.toLowerCase(),
+    email: config.useEncryption ? encrypt(email) : email,
   };
   const updatedUser = await prisma.accounts.update({
     data: parcel,
@@ -130,7 +143,7 @@ const unverifyUser = async (account_id) => {
   if (user) {
     const tempKey = await tempService.generateEmailCode(account_id)
     if (tempKey) {
-      emailService.sendVerifyEmail(user.email, tempKey)
+      emailService.sendVerifyEmail(config.useEncryption ? decrypt(user.email) : user.email, tempKey)
       return true;
     }
   }

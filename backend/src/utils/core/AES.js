@@ -1,17 +1,20 @@
 const sjcl = require('sjcl');
-const { secretKey, useEncryption } = require('@/config/config')
+const { secretKey, useEncryption, encryption } = require('@/config/config')
 
 const encrypt = (message) => {
   if (useEncryption) {
-    const encrypted = sjcl.encrypt(secretKey, message);
-    return encrypted;
+    const encrypted = sjcl.encrypt(secretKey, message, encryption.config);
+    return JSON.parse(encrypted).ct;
   }
   return message;
 }
 
 const decrypt = (message) => {
   if (useEncryption) {
-    const decrypted = sjcl.decrypt(secretKey, message);
+    const encrypted = encryption.config;
+    encrypted.ct = message;
+    const encryptedJSON = JSON.stringify(encrypted);
+    const decrypted = sjcl.decrypt(secretKey, encryptedJSON);
     return decrypted;
   }
   return message;

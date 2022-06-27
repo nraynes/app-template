@@ -9,6 +9,7 @@ const config = require('@/config/config');
 const purgeTempKeys = require('@/middlewares/purgeTempKeys');
 const routes = require('@/routes/index');
 const logConnection = require('@/middlewares/logConnection');
+const changeCaseParams = require('@/middlewares/changeCaseParams');
 
 const app = express();
 
@@ -32,6 +33,9 @@ app.use(express.json());
 
 // Purge temp keys after every hour on api call.
 app.use(purgeTempKeys());
+
+// Change all params specified to lower or uppercase.
+app.use(changeCaseParams());
 
 // parse urlencoded request body
 app.use(express.urlencoded({ extended: true }));
