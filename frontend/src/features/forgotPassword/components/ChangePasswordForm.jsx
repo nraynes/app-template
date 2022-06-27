@@ -39,11 +39,12 @@ function ChangePasswordForm({ accountID, code }) {
 
   return (
     <Card
-      id="LogInForm"
+      id="change-password"
       component="form"
     >
-      <CardHead>Change Password</CardHead>
+      <CardHead id="change-password-header">Change Password</CardHead>
       <Box
+        id="change-password-header"
         sx={{
           margin: '1em',
         }}

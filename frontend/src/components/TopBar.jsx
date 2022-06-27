@@ -85,7 +85,7 @@ function TopBar(props) {
 
   return (
     <Box
-      id="TopBar"
+      id="top-bar"
       sx={{
         position: 'absolute',
         left: 0,
@@ -98,7 +98,7 @@ function TopBar(props) {
       }}
     >
       <Box
-        id="AppTitle"
+        id="app-title-container"
         sx={{
           height: '100%',
           display: 'flex',
@@ -113,6 +113,7 @@ function TopBar(props) {
         }}
       >
         <Typography
+          id="app-title"
           variant='h5'
           component="h1"
           onClick={homeButton}
@@ -128,7 +129,7 @@ function TopBar(props) {
         >App Template</Typography>
       </Box>
       <Box
-        id="ButtonBar"
+        id="top-bar-button-bar-container"
         sx={{
           width: ['max-content', '100%'],
           display: 'flex',
@@ -136,6 +137,7 @@ function TopBar(props) {
         }}
       >
         <Box
+          id="top-bar-button-bar"
           sx={{
             width: 'max-content',
             pl: ['2em', '5em'],
@@ -145,10 +147,10 @@ function TopBar(props) {
             background: `linear-gradient(to left, rgba(${componentColor.main}, ${buttonBarOpacity}) 0%, rgba(${componentColor.main}, ${buttonBarOpacity}) 75%, rgba(${componentColor.main}, 0) 100%)`,
           }}
         >
-          {buttons.home && <IconButton sx={topBarIconSX} description="Home" onClick={homeButton}><HomeIcon sx={{ color: `rgba(${opposingColor})` }} /></IconButton>}
+          {buttons.home && <IconButton id="home-button" sx={topBarIconSX} description="Home" onClick={homeButton}><HomeIcon sx={{ color: `rgba(${opposingColor})` }} /></IconButton>}
           {(buttons.profile && auth.user) && <IconButton id="profile-button" aria-controls={menuOpen ? 'profile-menu' : undefined} aria-haspopup="true" aria-expanded={menuOpen ? 'true' : undefined} onClick={handleClick} sx={topBarIconSX} description="Profile"><PersonIcon sx={{ color: `rgba(${opposingColor})` }} /></IconButton>}
-          {(buttons.colorPicker && auth.user && activateColorDrawer) && <IconButton sx={topBarIconSX} description="Color scheme" onClick={colorPickerButton}><PaletteIcon sx={{ color: `rgba(${opposingColor})` }} /></IconButton>}
-          {(buttons.logIn && !auth.user) && <IconButton sx={topBarIconSX} description="Log-in" onClick={logInButton}><LoginIcon sx={{ color: `rgba(${opposingColor})` }} /></IconButton>}
+          {(buttons.colorPicker && auth.user && activateColorDrawer) && <IconButton id="colors-button" sx={topBarIconSX} description="Color scheme" onClick={colorPickerButton}><PaletteIcon sx={{ color: `rgba(${opposingColor})` }} /></IconButton>}
+          {(buttons.logIn && !auth.user) && <IconButton id="login-button" sx={topBarIconSX} description="Log-in" onClick={logInButton}><LoginIcon sx={{ color: `rgba(${opposingColor})` }} /></IconButton>}
         </Box>
       </Box>
       <ProfileMenu

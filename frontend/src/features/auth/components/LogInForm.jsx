@@ -34,37 +34,41 @@ function LogInForm(props) {
 
   return (
     <Card
-      id="LogInForm"
+      id="login-form"
       component="form"
       onSubmit={(e)=>e.preventDefault()}
     >
-      <CardHead>Log-In</CardHead>
+      <CardHead id="login-form-header">Log-In</CardHead>
       <Box
+        id="login-form-inputs"
         sx={{
           margin: '1em',
         }}
       >
         <Box
+          id="login-email-container"
           sx={{
             display: 'flex',
             alignItems: 'center',
             py: '0.5em',
           }}
         >
-          <Typography sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Email:</Typography>
-          <TextField componentColor={componentColor} type="email" inputRef={emailRef} sx={{ width: '100%' }} />
+          <Typography id="login-email-label" sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Email:</Typography>
+          <TextField id="login-email-input" componentColor={componentColor} type="email" inputRef={emailRef} sx={{ width: '100%' }} />
         </Box>
         <Box
+          id="login-password-container"
           sx={{
             display: 'flex',
             alignItems: 'center',
             py: '0.5em',
           }}
         >
-          <Typography sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Password:</Typography>
-          <TextField componentColor={componentColor} type="password" inputRef={passwordRef} sx={{ width: '100%' }} />
+          <Typography id="login-password-label" sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Password:</Typography>
+          <TextField id="login-password-input" componentColor={componentColor} type="password" inputRef={passwordRef} sx={{ width: '100%' }} />
         </Box>
         <Box
+          id="login-form-actions"
           sx={{
             display: 'flex',
             alignItems: 'center',
@@ -74,16 +78,19 @@ function LogInForm(props) {
           }}
         >
           <Button
+            id="login-form-forgot-password-button"
             variant='contained'
             sx={{ wordWrap: 'break-word', mr: '0.5em' }}
             onClick={forgotPasswordButton}
           >Forgot Password</Button>
           <Button
+            id="login-form-signup-button"
             variant='contained'
             sx={{ wordWrap: 'break-word', mx: '0.5em' }}
             onClick={signUpButton}
           >Sign-Up</Button>
           <Button
+            id="login-form-login-button"
             variant='contained'
             type='submit'
             sx={{ wordWrap: 'break-word', ml: '0.5em' }}
