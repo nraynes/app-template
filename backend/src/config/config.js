@@ -57,7 +57,7 @@ module.exports = {
   },
   defaultURL: mainURL,
   tempCodeExpiration: 2,
-  userPayloadKeys: ['account_id'],
+  userPayloadKeys: ['account_id', 'email'],
   userAccountInfoKeys: ['email'],
   secretKey: envVars.SECRET_KEY,
   useEncryption: true,
