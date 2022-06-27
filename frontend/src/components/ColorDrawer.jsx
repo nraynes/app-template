@@ -79,7 +79,6 @@ function ColorDrawer(props) {
           justifyContent: 'space-between',
           width: ['100vw', '40em'],
           height: '100%',
-          pb: '2em',
         }}
         onTouchStart={(e) => {
           touchStartCoords.x = e.touches[0].clientX
@@ -171,7 +170,7 @@ function ColorDrawer(props) {
           <Box
             id="transparency_setters_one"
             sx={{
-              mt: '2em',
+              mt: onMobile ? '1em' : '2em',
               display: 'flex',
               width: '100%',
               justifyContent: 'space-evenly',
@@ -185,7 +184,7 @@ function ColorDrawer(props) {
           <Box
             id="transparency_setters_two"
             sx={{
-              mt: '2em',
+              mt: '1em',
               display: 'flex',
               // flexDirection: onMobile ? 'column' : 'row',
               width: '100%',
@@ -200,7 +199,7 @@ function ColorDrawer(props) {
             <Box
             id="transparency_setters_three"
             sx={{
-              my: '2em',
+              my: '1em',
               display: 'flex',
               width: '100%',
               justifyContent: 'space-evenly',
@@ -215,6 +214,7 @@ function ColorDrawer(props) {
           sx={{
             display: 'flex',
             alignItems: 'center',
+            pb: '1em',
           }}
         >
           <Button
