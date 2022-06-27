@@ -14,6 +14,7 @@ const InputAlert = ({ onClose, title, message, ...args }) => {
 
   return (
     <Dialog
+      id="alert_dialog"
       onKeyDown={(event) => { handleKeyPress(event); }}
       tabIndex="0"
       PaperProps={{
@@ -33,11 +34,13 @@ const InputAlert = ({ onClose, title, message, ...args }) => {
         <Typography sx={{ color: `rgba(${commonFormColor.opposingText.main})` }} style={{ whiteSpace: 'pre-line' }}>{message}</Typography>
         <TextField multiline rows={3} componentColor={commonFormColor} inputRef={x} sx={{ width: ['100%', '25em'] }} />
       </DialogContent>
-      <DialogActions>
-        <Button  variant='contained' onClick={() => { onClose(null); }}>
+      <DialogActions
+        id="alert-dialog-actions"
+      >
+        <Button id="alert-dialog-cancel" variant='contained' onClick={() => { onClose(null); }}>
           Cancel
         </Button>
-        <Button  variant='contained' onClick={() => { onClose(x.current.value); }}>
+        <Button id="alert-dialog-submit" variant='contained' onClick={() => { onClose(x.current.value); }}>
           Submit
         </Button>
       </DialogActions>

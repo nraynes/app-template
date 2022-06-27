@@ -119,6 +119,7 @@ function ColorPicker({
 
   return (
     <Box
+    id={`color_box_${id}_container`}
       sx={{
         transition: '0.5s',
       }}
@@ -143,7 +144,7 @@ function ColorPicker({
           },
         }}
       />
-      {label && <Typography sx={{ width: '100%', textAlign: 'center', height: '1em' }}>{label}</Typography>}
+      {label && <Typography id={`color_box_${id}_label`} sx={{ width: '100%', textAlign: 'center', height: '1em' }}>{label}</Typography>}
       <Menu
         id={`color_menu_${id}`}
         anchorEl={anchorEl}
@@ -154,6 +155,7 @@ function ColorPicker({
         }}
       >
         <Box
+          id={`color_menu_${id}_container`}
           sx={{
             display: 'flex',
             width: 'max-content',
@@ -164,38 +166,42 @@ function ColorPicker({
           }}
         >
           <Box
+            id={`color_menu_${id}_red_slider`}
             sx={pickerBoxSx}
           >
-            <TextField type="number" defaultValue={color.red} onChange={changeColor} inputRef={redRef} label="Red" sx={{ width: '5em' }} />
-            <Slider sx={{ mt: '1em', height: '10em', color: sliderColor }} orientation="vertical" defaultValue={(color.red / 255) * 100} value={(color.red / 255) * 100} onChange={(e) => sliderFunc(e, redRef)} />
+            <TextField id={`color_menu_${id}_red_slider_text`} type="number" defaultValue={color.red} onChange={changeColor} inputRef={redRef} label="Red" sx={{ width: '5em' }} />
+            <Slider id={`color_menu_${id}_red_slider_slider`} sx={{ mt: '1em', height: '10em', color: sliderColor }} orientation="vertical" defaultValue={(color.red / 255) * 100} value={(color.red / 255) * 100} onChange={(e) => sliderFunc(e, redRef)} />
           </Box>
           <Box
+            id={`color_menu_${id}_green_slider`}
             sx={{
               ...pickerBoxSx,
               ml: '0.5em',
             }}
           >
-            <TextField type="number" defaultValue={color.green} onChange={changeColor} inputRef={greenRef} label="Green" sx={{ width: '5em' }} />
-            <Slider sx={{ mt: '1em', height: '10em', color: sliderColor }} orientation="vertical" defaultValue={(color.green / 255) * 100} value={(color.green / 255) * 100} onChange={(e) => sliderFunc(e, greenRef)} />
+            <TextField id={`color_menu_${id}_green_slider_text`} type="number" defaultValue={color.green} onChange={changeColor} inputRef={greenRef} label="Green" sx={{ width: '5em' }} />
+            <Slider id={`color_menu_${id}_green_slider_slider`} sx={{ mt: '1em', height: '10em', color: sliderColor }} orientation="vertical" defaultValue={(color.green / 255) * 100} value={(color.green / 255) * 100} onChange={(e) => sliderFunc(e, greenRef)} />
           </Box>
           <Box
+            id={`color_menu_${id}_blue_slider`}
             sx={{
               ...pickerBoxSx,
               ml: '0.5em',
             }}
           >
-            <TextField type="number" defaultValue={color.blue} onChange={changeColor} inputRef={blueRef} label="Blue" sx={{ width: '5em' }} />
-            <Slider sx={{ mt: '1em', height: '10em', color: sliderColor }} orientation="vertical" defaultValue={(color.blue / 255) * 100} value={(color.blue / 255) * 100} onChange={(e) => sliderFunc(e, blueRef)} />
+            <TextField id={`color_menu_${id}_blue_slider_text`} type="number" defaultValue={color.blue} onChange={changeColor} inputRef={blueRef} label="Blue" sx={{ width: '5em' }} />
+            <Slider id={`color_menu_${id}_blue_slider_slider`} sx={{ mt: '1em', height: '10em', color: sliderColor }} orientation="vertical" defaultValue={(color.blue / 255) * 100} value={(color.blue / 255) * 100} onChange={(e) => sliderFunc(e, blueRef)} />
           </Box>
           {showAlpha && (
             <Box
+            id={`color_menu_${id}_alpha_slider`}
               sx={{
                 ...pickerBoxSx,
                 ml: '0.5em',
               }}
             >
-              <TextField type="number" defaultValue={color.alpha} onChange={changeColor} inputRef={alphaRef} label="Alpha" sx={{ width: '5em' }} />
-              <Slider sx={{ mt: '1em', height: '10em', color: sliderColor }} orientation="vertical" defaultValue={color.alpha * 100} value={color.alpha * 100} onChange={(e) => sliderAlphaFunc(e, alphaRef)} />
+              <TextField id={`color_menu_${id}_alpha_slider_text`} type="number" defaultValue={color.alpha} onChange={changeColor} inputRef={alphaRef} label="Alpha" sx={{ width: '5em' }} />
+              <Slider id={`color_menu_${id}_alpha_slider_slider`} sx={{ mt: '1em', height: '10em', color: sliderColor }} orientation="vertical" defaultValue={color.alpha * 100} value={color.alpha * 100} onChange={(e) => sliderAlphaFunc(e, alphaRef)} />
             </Box>
           )}
         </Box>

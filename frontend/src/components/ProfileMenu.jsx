@@ -33,24 +33,24 @@ function ProfileMenu({
           <Box
             id="mini_profile_container"
           >
-            <Typography sx={{ mx: '1em', my: '0.5em', fontStyle: 'italic' }}>{auth.user.email}</Typography>
+            <Typography id="profile-email" sx={{ mx: '1em', my: '0.5em', fontStyle: 'italic' }}>{auth.user.email}</Typography>
           </Box>
-          <Divider sx={{ mb: '0.5em' }} />
+          <Divider id="profile-divider" sx={{ mb: '0.5em' }} />
         </>
       )}
-      {(buttons.profile && auth.user) && <MenuItem onClick={() => {
+      {(buttons.profile && auth.user) && <MenuItem id="profile-menu-profile" onClick={() => {
         profileButton()
         handleClose()
       }}><PersonIcon sx={{ mr: '0.5em' }} />Profile</MenuItem>}
-      {(buttons.settings && auth.user) && <MenuItem onClick={() => {
+      {(buttons.settings && auth.user) && <MenuItem id="profile-menu-settings" onClick={() => {
         settingsButton()
         handleClose()
       }}><SettingsIcon sx={{ mr: '0.5em' }} />Settings</MenuItem>}
-      {(buttons.help && auth.user) && <MenuItem onClick={() => {
+      {(buttons.help && auth.user) && <MenuItem id="profile-menu-help" onClick={() => {
         helpButton()
         handleClose()
       }}><HelpIcon sx={{ mr: '0.5em' }} />Help</MenuItem>}
-      {(buttons.logOut && auth.user) && <MenuItem onClick={() => {
+      {(buttons.logOut && auth.user) && <MenuItem id="profile-menu-logout" onClick={() => {
         logOutButton()
         handleClose()
       }}><LogoutIcon sx={{ mr: '0.5em' }} />Log-Out</MenuItem>}

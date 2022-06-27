@@ -12,6 +12,7 @@ const AskAlert = ({ onClose, title, message, allowEnter, element, ...args }) => 
 
   return (
     <Dialog
+      id="alert-dialog"
       onKeyDown={(event) => { handleKeyPress(event); }}
       tabIndex="0"
       PaperProps={{
@@ -31,11 +32,13 @@ const AskAlert = ({ onClose, title, message, allowEnter, element, ...args }) => 
         <Typography sx={{ color: `rgba(${commonFormColor.opposingText.main})` }} style={{ whiteSpace: 'pre-line' }}>{message}</Typography>
         {element && element}
       </DialogContent>
-      <DialogActions>
-        <Button variant='contained' onClick={() => { onClose(false); }}>
+      <DialogActions
+        id="alert-dialog-actions"
+      >
+        <Button id="alert-dialog-no" variant='contained' onClick={() => { onClose(false); }}>
           No
         </Button>
-        <Button variant='contained' onClick={() => { onClose(true); }}>
+        <Button id="alert-dialog-yes" variant='contained' onClick={() => { onClose(true); }}>
           Yes
         </Button>
       </DialogActions>
