@@ -41,7 +41,7 @@ const getUserByID = async (account_id) => {
       deleted_on: null,
     }
   })
-  if (config.useEncryption) {
+  if (config.useEncryption && user) {
     const decryptedEmail = decrypt(user.email);
     user.email = decryptedEmail;
   }

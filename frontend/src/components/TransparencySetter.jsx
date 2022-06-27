@@ -3,7 +3,7 @@ import { Box } from '@mui/system';
 import { Typography, Slider } from '@mui/material';
 import { onMobile } from '@/config/config';
 
-function TransparencySetter({ defaultValue, onChange, label, orientation = 'vertical' }) {
+function TransparencySetter({ defaultValue, onChange, label, orientation = 'vertical', id, ...args }) {
   const sliderLength = {};
   const boxSx = {};
   const labelSx = {};
@@ -36,6 +36,7 @@ function TransparencySetter({ defaultValue, onChange, label, orientation = 'vert
   
   return (
     <Box
+      id={id}
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -46,9 +47,11 @@ function TransparencySetter({ defaultValue, onChange, label, orientation = 'vert
         transition: '0.5s',
         ...boxSx,
       }}
+      {...args}
     >
-      <Typography sx={{ cursor: 'default', wrap: 'break-word', textAlign: 'center', ...labelSx }}>{label}</Typography>
+      <Typography id={`${id}_label`} sx={{ cursor: 'default', wrap: 'break-word', textAlign: 'center', ...labelSx }}>{label}</Typography>
       <Slider
+        id={`${id}_slider`}
         defaultValue={defaultValue}
         onChange={onChange}
         orientation={orientation}

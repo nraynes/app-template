@@ -1,11 +1,13 @@
 import React from 'react';
 import { TextField as GoogleTextField } from '@mui/material';
 
-function TextField({ children, sx, componentColor, ...args }) {
+function TextField({ children, sx, componentColor, id, ...args }) {
   return (
     <GoogleTextField
+      id={id}
       InputProps={{ sx: { color: `rgba(${componentColor.opposingText.main})` } }}
-      MenuProps={{
+      autoComplete={id}
+      menuprops={{
         sx: {
           backgroundColor: 'white',
         }

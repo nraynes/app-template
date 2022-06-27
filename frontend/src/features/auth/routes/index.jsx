@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import LogInPage from './LogIn';
 import SignUpPage from './SignUp';
@@ -16,9 +16,12 @@ function AuthRoutes(props) {
     settings: false,
     help: false,
   };
-  if (!compareObjects(buttons, buttonConfig)) {
-    setButtons(buttonConfig)
-  }
+
+  useEffect(() => {
+    if (!compareObjects(buttons, buttonConfig)) {
+      setButtons(buttonConfig)
+    }
+  }, [])
   
   return (
     <Routes>

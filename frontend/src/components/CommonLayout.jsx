@@ -15,7 +15,7 @@ function CommonLayout({ children, useMobileDrawer, mobileDrawerHeaders }) {
   
   return (
     <Box
-      id='CommonLayout'
+      id='common_layout'
       sx={{
         position: 'absolute',
         left: 0,
@@ -34,6 +34,7 @@ function CommonLayout({ children, useMobileDrawer, mobileDrawerHeaders }) {
           <>
             {children[displayChild]}
             <Box
+              id="drawer_menu"
               sx={{
                 height: bottomBarHeight,
                 display: 'flex',
@@ -48,9 +49,10 @@ function CommonLayout({ children, useMobileDrawer, mobileDrawerHeaders }) {
                 zIndex: 999,
               }}
             >
-              <IconButton sx={{ width: 'max-content' }} onClick={() => setOpen(true)}><MenuIcon sx={{ color: `rgba(${opposingColor})`}} /></IconButton>
+              <IconButton id="drawer_menu_icon_button" sx={{ width: 'max-content' }} onClick={() => setOpen(true)}><MenuIcon sx={{ color: `rgba(${opposingColor})`}} /></IconButton>
             </Box>
             <Drawer
+              id="page_drawer_container"
               anchor="bottom"
               open={open}
               onClose={() => setOpen(false)}
@@ -61,18 +63,21 @@ function CommonLayout({ children, useMobileDrawer, mobileDrawerHeaders }) {
               }}
             >
               <Box
+                id="page_drawer"
                 sx={{
                   my: '0.25em',
                 }}
               >
                 {mobileDrawerHeaders.map((header, i) => (
                   <Box
+                    id={`drawer_box_${i}`}
                     sx={{
                       mx: '1em',
                       my: '0.5em',
                     }}
                   >
                     <Button
+                      id={`drawer_button_${i}`}
                       variant='contained'
                       sx={{
                         display: 'flex',

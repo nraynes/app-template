@@ -66,6 +66,7 @@ function ColorDrawer(props) {
 
   return (
     <Drawer
+      id="color_drawer_container"
       anchor="right"
       open={open}
       onClose={setClose}
@@ -176,24 +177,23 @@ function ColorDrawer(props) {
               justifyContent: 'space-evenly',
             }}
           >
-            <TransparencySetter defaultValue={backgroundOpacity * 100} label="Background Opacity" onChange={(e) => changeCustom('backgroundOpacity', (e.target.value / 100))} />
-            <TransparencySetter defaultValue={commonFormOpacity * 100} label="Card Opacity" onChange={(e) => changeCustom('commonFormOpacity', (e.target.value / 100))} />
-            <TransparencySetter defaultValue={buttonOpacity * 100} label="Button Opacity" onChange={(e) => changeCustom('buttonOpacity', (e.target.value / 100))} />
-            {!onMobile && <TransparencySetter defaultValue={buttonBarOpacity * 100} label="Button Bar Opacity" onChange={(e) => changeCustom('buttonBarOpacity', (e.target.value / 100))} />}
+            <TransparencySetter id="background_opacity_setter" defaultValue={backgroundOpacity * 100} label="Background Opacity" onChange={(e) => changeCustom('backgroundOpacity', (e.target.value / 100))} />
+            <TransparencySetter id="form_opacity_setter" defaultValue={commonFormOpacity * 100} label="Card Opacity" onChange={(e) => changeCustom('commonFormOpacity', (e.target.value / 100))} />
+            <TransparencySetter id="button_opacity_setter" defaultValue={buttonOpacity * 100} label="Button Opacity" onChange={(e) => changeCustom('buttonOpacity', (e.target.value / 100))} />
+            {!onMobile && <TransparencySetter id="button_bar_opacity_setter" defaultValue={buttonBarOpacity * 100} label="Button Bar Opacity" onChange={(e) => changeCustom('buttonBarOpacity', (e.target.value / 100))} />}
           </Box>
           <Box
             id="transparency_setters_two"
             sx={{
               mt: '1em',
               display: 'flex',
-              // flexDirection: onMobile ? 'column' : 'row',
               width: '100%',
               justifyContent: 'space-evenly',
             }}
           >
-            <TransparencySetter orientation={onMobile ? 'vertical' : 'horizontal'} defaultValue={titleBarOpacity * 100} label="Title Bar Opacity" onChange={(e) => changeCustom('titleBarOpacity', (e.target.value / 100))} />
-            <TransparencySetter orientation={onMobile ? 'vertical' : 'horizontal'} defaultValue={drawerOpacity * 100} label="Drawer Opacity" onChange={(e) => changeCustom('drawerOpacity', (e.target.value / 100))} />
-            <TransparencySetter orientation={onMobile ? 'vertical' : 'horizontal'} defaultValue={componentOpacity * 100} label="Component Opacity" onChange={(e) => changeCustom('componentOpacity', (e.target.value / 100))} />
+            <TransparencySetter id="title_bar_opacity_setter" orientation={onMobile ? 'vertical' : 'horizontal'} defaultValue={titleBarOpacity * 100} label="Title Bar Opacity" onChange={(e) => changeCustom('titleBarOpacity', (e.target.value / 100))} />
+            <TransparencySetter id="drawer_opacity_setter" orientation={onMobile ? 'vertical' : 'horizontal'} defaultValue={drawerOpacity * 100} label="Drawer Opacity" onChange={(e) => changeCustom('drawerOpacity', (e.target.value / 100))} />
+            <TransparencySetter id="component_opacity_setter" orientation={onMobile ? 'vertical' : 'horizontal'} defaultValue={componentOpacity * 100} label="Component Opacity" onChange={(e) => changeCustom('componentOpacity', (e.target.value / 100))} />
           </Box>
           {onMobile && (
             <Box
@@ -205,7 +205,7 @@ function ColorDrawer(props) {
               justifyContent: 'space-evenly',
             }}
           >
-            <TransparencySetter orientation="horizontal" defaultValue={buttonBarOpacity * 100} label="Button Bar Opacity" onChange={(e) => changeCustom('buttonBarOpacity', (e.target.value / 100))} />
+            <TransparencySetter id="button_bar_opacity_setter" orientation="horizontal" defaultValue={buttonBarOpacity * 100} label="Button Bar Opacity" onChange={(e) => changeCustom('buttonBarOpacity', (e.target.value / 100))} />
           </Box>
           )}
         </Box>
@@ -218,6 +218,7 @@ function ColorDrawer(props) {
           }}
         >
           <Button
+            id="color_drawer_close_button"
             sx={{
               boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
             }}
@@ -226,6 +227,7 @@ function ColorDrawer(props) {
             Close
           </Button>
           <Button
+            id="color_drawer_defaults_button"
             sx={{
               boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
               ml: '1em',
@@ -235,6 +237,7 @@ function ColorDrawer(props) {
             Set Defaults
           </Button>
           <Button
+            id="color_drawer_apply_button"
             sx={{
               boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
               ml: '1em',

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import ProfilePage from './Profile';
 import { useButtons } from '@/stores/topBarButtons';
@@ -15,9 +15,12 @@ function ProfileRoutes(props) {
     settings: false,
     help: false,
   };
-  if (!compareObjects(buttons, buttonConfig)) {
-    setButtons(buttonConfig)
-  }
+  
+  useEffect(() => {
+    if (!compareObjects(buttons, buttonConfig)) {
+      setButtons(buttonConfig)
+    }
+  }, [])
   
   return (
     <Routes>
