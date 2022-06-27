@@ -27,3 +27,9 @@ export const drawerOpacity = custom.drawerOpacity || 0.8
 export const componentColor = colors.primary.two
 export const componentOpacity = custom.componentOpacity || 0.15
 export const backgroundImageCode = `url(${backgroundImage}) no-repeat center top fixed; background-size: cover; background-color: rgba(${backgroundColor.main}, ${backgroundOpacity});`;
+export const touchConfig = {
+  swipe: {
+    YTolerance: 35,
+    XTolerance: 50,
+  }
+}
