@@ -5,7 +5,7 @@ import { useColorPicker } from '@/stores/colorPickerStore';
 import ColorPicker from './ColorPicker';
 import TransparencySetter from './TransparencySetter';
 import { myTheme } from '@/config/colors';
-import { onMobile, backgroundOpacity, commonFormOpacity, buttonOpacity, buttonBarOpacity, titleBarOpacity, drawerOpacity, componentOpacity } from '@/config/config';
+import { onMobile, backgroundOpacity, commonFormOpacity, buttonOpacity, buttonBarOpacity, titleBarOpacity, drawerOpacity, componentOpacity, touchConfig } from '@/config/config';
 import { setCookie, clearCookie, getCookie } from '@/utils/browser/cookies';
 import Button from './Button';
 
@@ -13,7 +13,10 @@ function ColorDrawer(props) {
   const { open, setClose } = useColorPicker();
   const customCookie = getCookie('customConfig');
   const [custom, setCustom] = useState(customCookie ? customCookie : {});
-
+  const { XTolerance, YTolerance } = touchConfig.swipe
+  const touchStartCoords = { x: 0, y: 0}
+  const touchMoveCoords = { x: 0, y: 0}
+  let stayedInPath = true;
 
   const changeColor = (rgba, key) => {
     myTheme[key].red = rgba.red;
@@ -76,6 +79,30 @@ function ColorDrawer(props) {
           justifyContent: 'space-between',
           width: ['100vw', '40em'],
           height: '100%',
+        }}
+        onTouchStart={(e) => {
+          touchStartCoords.x = e.touches[0].clientX
+          touchStartCoords.y = e.touches[0].clientY
+        }}
+        onTouchMove={(e) => {
+          touchMoveCoords.x = e.touches[0].clientX
+          touchMoveCoords.y = e.touches[0].clientY
+          if (Math.abs(touchStartCoords.y - touchMoveCoords.y) > YTolerance) {
+            stayedInPath = false;
+          }
+        }}
+        onTouchEnd={(e) => {
+          if (stayedInPath && Math.abs(touchStartCoords.y - touchMoveCoords.y) < YTolerance) {
+            const xDif = touchStartCoords.x - touchMoveCoords.x;
+            if (xDif < 0 && Math.abs(xDif) > XTolerance) { // Swiped towards right
+              setClose();
+            }
+          }
+          touchStartCoords.x = 0
+          touchStartCoords.y = 0
+          touchMoveCoords.x = 0
+          touchMoveCoords.y = 0
+          stayedInPath = true;
         }}
       >
         <Box
