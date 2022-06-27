@@ -79,6 +79,7 @@ function ColorDrawer(props) {
           justifyContent: 'space-between',
           width: ['100vw', '40em'],
           height: '100%',
+          pb: onMobile ? '1em' : 'initial',
         }}
         onTouchStart={(e) => {
           touchStartCoords.x = e.touches[0].clientX
@@ -210,6 +211,7 @@ function ColorDrawer(props) {
           )}
         </Box>
         <Box
+          id="color_drawer_button_bar"
           sx={{
             display: 'flex',
             alignItems: 'center',
