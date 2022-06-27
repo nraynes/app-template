@@ -57,7 +57,7 @@ function SignUpForm(props) {
     >
       <CardHead id="signup-form-header">Sign-Up</CardHead>
       <Box
-        id="signup-form-inputs"
+        id="signup-form-inputs-container"
         sx={{
           margin: '1em',
         }}

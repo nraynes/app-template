@@ -40,7 +40,7 @@ function LogInForm(props) {
     >
       <CardHead id="login-form-header">Log-In</CardHead>
       <Box
-        id="login-form-inputs"
+        id="login-form-inputs-container"
         sx={{
           margin: '1em',
         }}

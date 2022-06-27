@@ -44,32 +44,35 @@ function ChangePasswordForm({ accountID, code }) {
     >
       <CardHead id="change-password-header">Change Password</CardHead>
       <Box
-        id="change-password-header"
+        id="change-password-inputs-container"
         sx={{
           margin: '1em',
         }}
       >
         <Box
+          id="change-password-password-container"
           sx={{
             display: 'flex',
             alignItems: 'center',
             py: '0.5em',
           }}
         >
-          <Typography sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Password:</Typography>
-          <TextField componentColor={componentColor} inputRef={passwordRef} type="password" sx={{ width: '100%' }} />
+          <Typography id="change-password-password-label" sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Password:</Typography>
+          <TextField id="change-password-password-input" componentColor={componentColor} inputRef={passwordRef} type="password" sx={{ width: '100%' }} />
         </Box>
         <Box
+          id="change-password-confirm-password-container"
           sx={{
             display: 'flex',
             alignItems: 'center',
             py: '0.5em',
           }}
         >
-          <Typography sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Confirm Password:</Typography>
-          <TextField componentColor={componentColor} inputRef={confirmPasswordRef} type="password" sx={{ width: ['100%', '20em'] }} />
+          <Typography id="change-password-confirm-password-label" sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Confirm Password:</Typography>
+          <TextField id="change-password-confirm-password-input" componentColor={componentColor} inputRef={confirmPasswordRef} type="password" sx={{ width: ['100%', '20em'] }} />
         </Box>
         <Box
+          id="change-password-form-actions"
           sx={{
             display: 'flex',
             alignItems: 'center',
@@ -79,11 +82,13 @@ function ChangePasswordForm({ accountID, code }) {
           }}
         >
           <Button
+            id="change-password-form-cancel-button"
             variant='contained'
             sx={{ wordWrap: 'break-word', mr: '0.5em' }}
             onClick={cancelButton}
           >Cancel</Button>
           <Button
+            id="change-password-form-change-password-button"
             variant='contained'
             sx={{ wordWrap: 'break-word', ml: '0.5em' }}
             onClick={changePasswordButton}
