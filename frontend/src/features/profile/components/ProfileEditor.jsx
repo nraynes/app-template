@@ -119,7 +119,14 @@ function ProfileEditor(props) {
           }}
         >
           <Typography id="profile-editor-email-label" sx={{ color: `rgba(${opposingColor})`, mr: '0.5em' }}>Email:</Typography>
-          <TextField id="profile-editor-email-input" componentColor={componentColor} value={(data && !editing) ? data.email : undefined} disabled={!editing} inputRef={emailRef} type="email" sx={{ width: '100%' }} />
+          {editing
+            && (
+              <TextField id="profile-editor-email-input-editing" componentColor={componentColor} defaultValue={data ? data.email : ''} inputRef={emailRef} type="email" sx={{ width: '100%' }} />
+            )}
+          {!editing
+            && (
+              <TextField id="profile-editor-email-input" componentColor={componentColor} value={data ? data.email : ''} disabled inputRef={emailRef} type="email" sx={{ width: '100%' }} />
+            )}
         </Box>
         <Box
           id="profile-editor-form-actions"

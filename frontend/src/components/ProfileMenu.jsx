@@ -18,6 +18,49 @@ function ProfileMenu({
 }) {
   const { buttons } = useButtons();
   const auth = useAuth();
+
+  const menulist = [];
+
+  if (auth.user && auth.user.email) {
+    menulist.push((
+      <Box
+        id="mini_profile_arch_container"
+        key="mini_profile_arch_container"
+      >
+        <Box
+          id="mini_profile_container"
+        >
+          <Typography id="profile-email" sx={{ mx: '1em', my: '0.5em', fontStyle: 'italic' }}>{auth.user.email}</Typography>
+        </Box>
+        <Divider id="profile-divider" sx={{ mb: '0.5em' }} />
+      </Box>
+    ))
+  }
+  if (buttons.profile && auth.user) {
+    menulist.push((<MenuItem id="profile-menu-profile" key="profile-menu-profile" onClick={() => {
+      profileButton()
+      handleClose()
+    }}><PersonIcon sx={{ mr: '0.5em' }} />Profile</MenuItem>))
+  }
+  if (buttons.settings && auth.user) {
+    menulist.push((<MenuItem id="profile-menu-settings" key="profile-menu-settings" onClick={() => {
+      settingsButton()
+      handleClose()
+    }}><SettingsIcon sx={{ mr: '0.5em' }} />Settings</MenuItem>))
+  }
+  if (buttons.help && auth.user) {
+    menulist.push((<MenuItem id="profile-menu-help" key="profile-menu-help" onClick={() => {
+      helpButton()
+      handleClose()
+    }}><HelpIcon sx={{ mr: '0.5em' }} />Help</MenuItem>))
+  }
+  if (buttons.logOut && auth.user) {
+    menulist.push((<MenuItem id="profile-menu-logout" key="profile-menu-logout" onClick={() => {
+      logOutButton()
+      handleClose()
+    }}><LogoutIcon sx={{ mr: '0.5em' }} />Log-Out</MenuItem>))
+  }
+
   return (
     <Menu
       id="profile-menu"
@@ -28,32 +71,7 @@ function ProfileMenu({
         'aria-labelledby': 'profile-button',
       }}
     >
-      {(auth.user && auth.user.email) && (
-        <>
-          <Box
-            id="mini_profile_container"
-          >
-            <Typography id="profile-email" sx={{ mx: '1em', my: '0.5em', fontStyle: 'italic' }}>{auth.user.email}</Typography>
-          </Box>
-          <Divider id="profile-divider" sx={{ mb: '0.5em' }} />
-        </>
-      )}
-      {(buttons.profile && auth.user) && <MenuItem id="profile-menu-profile" onClick={() => {
-        profileButton()
-        handleClose()
-      }}><PersonIcon sx={{ mr: '0.5em' }} />Profile</MenuItem>}
-      {(buttons.settings && auth.user) && <MenuItem id="profile-menu-settings" onClick={() => {
-        settingsButton()
-        handleClose()
-      }}><SettingsIcon sx={{ mr: '0.5em' }} />Settings</MenuItem>}
-      {(buttons.help && auth.user) && <MenuItem id="profile-menu-help" onClick={() => {
-        helpButton()
-        handleClose()
-      }}><HelpIcon sx={{ mr: '0.5em' }} />Help</MenuItem>}
-      {(buttons.logOut && auth.user) && <MenuItem id="profile-menu-logout" onClick={() => {
-        logOutButton()
-        handleClose()
-      }}><LogoutIcon sx={{ mr: '0.5em' }} />Log-Out</MenuItem>}
+      {menulist.map((item) => item)}
     </Menu>
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import ForgotPasswordPage from './ForgotPassword';
 import ChangePasswordPage from './ChangePassword';
@@ -16,9 +16,12 @@ function PasswordRoutes(props) {
     settings: false,
     help: false,
   };
-  if (!compareObjects(buttons, buttonConfig)) {
-    setButtons(buttonConfig)
-  }
+  
+  useEffect(() => {
+    if (!compareObjects(buttons, buttonConfig)) {
+      setButtons(buttonConfig)
+    }
+  }, [])
   
   return (
     <Routes>

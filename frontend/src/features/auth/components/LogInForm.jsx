@@ -29,7 +29,6 @@ function LogInForm(props) {
       email: emailRef.current.value,
       password: passwordRef.current.value,
     });
-    window.refetchNotifications();
   };
 
   return (

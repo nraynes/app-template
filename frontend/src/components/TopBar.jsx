@@ -153,15 +153,17 @@ function TopBar(props) {
           {(buttons.logIn && !auth.user) && <IconButton id="login-button" sx={topBarIconSX} description="Log-in" onClick={logInButton}><LoginIcon sx={{ color: `rgba(${opposingColor})` }} /></IconButton>}
         </Box>
       </Box>
-      <ProfileMenu
-        handleClose={handleClose}
-        anchorEl={anchorEl}
-        menuOpen={menuOpen}
-        profileButton={profileButton}
-        settingsButton={settingsButton}
-        helpButton={helpButton}
-        logOutButton={logOutButton}
-      />
+      {menuOpen && (
+        <ProfileMenu
+          handleClose={handleClose}
+          anchorEl={anchorEl}
+          menuOpen={menuOpen}
+          profileButton={profileButton}
+          settingsButton={settingsButton}
+          helpButton={helpButton}
+          logOutButton={logOutButton}
+        />
+      )}
     </Box>
   );
 }
