@@ -16,6 +16,8 @@ const envVarsSchema = Joi.object()
     APP_EMAIL: Joi.string().required().email().description('Paladin Official Email Address'),
     RECAPTCHA_SECRET_KEY: Joi.string().required().description('Google recaptcha secrete'),
     SECRET_KEY: Joi.string().required().description('AES secret key'),
+    SECRET_STATIC_SALT: Joi.string().required().description('AES secret static salt'),
+    SECRET_IV: Joi.string().required().description('AES secret IV'),
   })
   .unknown();
 
@@ -59,4 +61,17 @@ module.exports = {
   userAccountInfoKeys: ['email'],
   secretKey: envVars.SECRET_KEY,
   useEncryption: true,
+  encryption: {
+    config: {
+      iv: envVars.SECRET_IV,
+      v: 1,
+      iter: 10000,
+      ks: 128,
+      ts: 64,
+      mode: 'ccm',
+      adata: '',
+      cipher: 'aes',
+      salt: envVars.SECRET_STATIC_SALT
+    }
+  }
 };
