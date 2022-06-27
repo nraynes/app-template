@@ -7,6 +7,8 @@ export const useButtons = create((set) => ({
     profile: false,
     logIn: false,
     logOut: false,
+    help: false,
+    settings: false,
   },
   setButtons: (value) => set(() => ({
     buttons: value,

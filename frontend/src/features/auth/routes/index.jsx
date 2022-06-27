@@ -8,10 +8,13 @@ import compareObjects from '@/utils/core/compareObjects';
 function AuthRoutes(props) {
   const { buttons, setButtons } = useButtons();
   const buttonConfig = {
+    colorPicker: true,
     home: true,
     profile: false,
     logIn: false,
     logOut: false,
+    settings: false,
+    help: false,
   };
   if (!compareObjects(buttons, buttonConfig)) {
     setButtons(buttonConfig)
