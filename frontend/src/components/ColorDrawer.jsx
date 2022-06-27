@@ -172,7 +172,7 @@ function ColorDrawer(props) {
             <Box
             id="transparency_setters_three"
             sx={{
-              mt: '2em',
+              my: '2em',
               display: 'flex',
               width: '100%',
               justifyContent: 'space-evenly',
