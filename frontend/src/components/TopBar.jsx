@@ -115,11 +115,15 @@ function TopBar(props) {
         <Typography
           variant='h5'
           component="h1"
+          onClick={homeButton}
           sx={{
             mr: '1em',
             textAlign: 'center',
             fontSize: ['1.2em', '1.5em'],
             color: titleBarOpacity >= 0.5 ? `rgba(${opposingColor})` : `rgba(${backgroundColor.opposingText.main})`,
+            '&:hover': {
+              cursor: 'pointer',
+            }
           }}
         >App Template</Typography>
       </Box>
