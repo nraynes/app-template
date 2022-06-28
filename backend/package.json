@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "build": "prisma generate",
-    "test": "test",
+    "test": "jest",
     "dev:node": "cross-env DEBUG=ellsworth-idea-bin:* nodemon --watch ./src ./bin/www",
     "dev": "npm-run-all -p dev:*",
     "start": "node ./bin/www"
@@ -15,6 +15,11 @@
   "prisma": {
     "schema": "src/db/prisma/schema.prisma",
     "seed": "node src/db/prisma/seed.js"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^@/(.+)": "<rootDir>/src/$1"
+    }
   },
   "dependencies": {
     "@prisma/client": "^3.15.2",
