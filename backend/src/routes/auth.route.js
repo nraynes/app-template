@@ -12,7 +12,7 @@ router.post('/login', validate(authValidation.login), authController.login);
 router.post('/register', validate(authValidation.register), authController.register);
 router.post('/token', validate(authValidation.tokenHeader), authController.refreshTokens);
 
-router.delete('/logout', validate(authValidation.tokenHeader), authorize(), authController.logout);
+router.delete('/logout', validate(authValidation.tokenHeader), authController.logout);
 router.delete('/logoutOfAllDevices', validate(authValidation.tokenHeader), authorize(), authController.logoutOfAllDevices);
 
 module.exports = router;

@@ -27,7 +27,6 @@ const getUserByEmail = async (email) => {
     }
   })
   if (config.useEncryption && user) {
-    console.log('USER:', user);
     const decryptedEmail = decrypt(user.email);
     user.email = decryptedEmail;
   }

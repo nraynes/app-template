@@ -79,7 +79,6 @@ async function deleteToken(passedToken) {
       log('Could not delete token... ', secondCheck);
     } else {
       log('Token was not found...');
-      return true;
     }
   } else {
     log('No token was passed...');

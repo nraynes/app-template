@@ -99,10 +99,8 @@ async function checkRefreshToken(account_id) {
     }
   })
   if (token) {
-    console.log('accepted refresh')
     return true;
   }
-  console.log('denied refresh')
   return false;
 }
 

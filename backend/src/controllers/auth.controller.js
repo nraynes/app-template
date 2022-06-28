@@ -57,11 +57,11 @@ const refreshTokens = catchAsync(async (req, res) => {
 
 const logout = catchAsync(async (req, res) => {
   const token = tokenService.getTokenFromHeader(req);
-  const success = tokenService.deleteToken(token);
+  const success = await tokenService.deleteToken(token);
   if (success) {
     respond(res, codes.success);
   } else {
-    respond(res, codes.failure);
+    respond(res, codes.unauthorized);
   }
 });
 

@@ -4,7 +4,7 @@ export const logout = async () => {
   const response = await acquire({
     route: '/auth/logout',
     method: 'DELETE',
-    includeAuth: true,
+    includeRefresh: true,
   })
   return response.content;
 };
