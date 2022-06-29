@@ -27,6 +27,12 @@ const accounts = [
     password_hash: 'UWRzveefhktgbmDmnnW6CdSEHBQ3v9+UgcVhDwbB8umjIYzrU0GIRNISrd9g2iQxbDb6RU3JSJv6tfAJTEmX/kuP/84vB4H8xjqtZCZjImlVHuuCI+UL14xXKE1paAMJ',
     dynamic_salt: '6826af47871e8cf5a02c8190a12c1c6d',
     verified: false,
+  },
+  {
+    email: useEncryption ? encrypt('maxmiller@email.com') : 'maxmiller@email.com',
+    password_hash: 'x2MCQFOwjLMJZ0myIYBEDRktLlN1Wt9IvoTFBVfKvmgwXE/zgqCbmBkZrbmRRdyJrPwu+28PlodwAPgTki9a5wuF+afUBAX0EQoUjDCarBBHEon20vMHpAwSIXubQ4Jo',
+    dynamic_salt: '63e7ef77a14c08382d9b0f7a839b195c',
+    verified: true,
   }
 ];
 

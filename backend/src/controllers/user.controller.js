@@ -13,7 +13,7 @@ const verifyEmail = catchAsync(async (req, res) => {
   } else if (accountID === 'NOTFOUND') {
     respond(res, codes.notFound);
   } else {
-    const verifiedEmail = userService.verifyEmail(accountID);
+    const verifiedEmail = await userService.verifyEmail(accountID);
     if (verifiedEmail) {
       respond(res, codes.success);
     } else {

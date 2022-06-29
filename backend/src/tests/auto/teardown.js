@@ -1,15 +1,29 @@
 const accounts = require('./users');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const sjcl = require('sjcl');
+const { useEncryption, secretKey, encryption } = require('../../config/config');
+
+const encrypt = (message) => {
+  if (useEncryption) {
+    const encrypted = sjcl.encrypt(secretKey, message, encryption.config);
+    return JSON.parse(encrypted).ct;
+  }
+  return message;
+}
+
+const emails = accounts.map((item) => item.email)
+emails.push(useEncryption ? encrypt('test@email.com') : 'test@email.com',)
+
 
 async function main() {
-  for (let i = 0; i < accounts.length; i++) {
+  for (let i = 0; i < emails.length; i++) {
     const userArr = await prisma.accounts.findMany({
       select: {
         account_id: true,
       },
       where: {
-        email: accounts[i].email
+        email: emails[i]
       }
     })
     if (userArr) {
@@ -40,15 +54,15 @@ async function main() {
   }
 }
 
-const resetDatabase = () => {
+const resetDatabase = () => (
   main()
     .catch((e) => {
       process.exit(1);
     })
     .finally(async () => {
       await prisma.$disconnect();
-    });
-}
+    })
+)
 
 module.exports = resetDatabase;
 
