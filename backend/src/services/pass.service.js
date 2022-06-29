@@ -46,27 +46,31 @@ const deleteKey = async (tempKey) => {
 
 const resetUserPassword = async (id, password, res) => {
   const user = await userService.getUserByID(id);
-  const salt = `${user.dynamic_salt}${config.static.salt}`;
-  crypto.scrypt(password, salt, 96, {}, async (err, key) => {
-    if (err) {
-      respond(res, codes.failure);
-      return null;
-    }
-    const newPasswordHash = key.toString('base64');
-    const changedUser = await prisma.accounts.update({
-      data: {
-        password_hash: newPasswordHash,
-      },
-      where: {
-        account_id: id,
-      },
+  if (user) {
+    const salt = `${user.dynamic_salt}${config.static.salt}`;
+    crypto.scrypt(password, salt, 96, {}, async (err, key) => {
+      if (err) {
+        respond(res, codes.failure);
+        return null;
+      }
+      const newPasswordHash = key.toString('base64');
+      const changedUser = await prisma.accounts.update({
+        data: {
+          password_hash: newPasswordHash,
+        },
+        where: {
+          account_id: id,
+        },
+      });
+      if (changedUser.password_hash === newPasswordHash) {
+        respond(res, codes.success);
+      } else {
+        respond(res, codes.failure);
+      }
     });
-    if (changedUser.password_hash === newPasswordHash) {
-      respond(res, codes.success);
-    } else {
-      respond(res, codes.failure);
-    }
-  });
+  } else {
+    respond(res, codes.notFound)
+  }
 };
 
 const generateTempCode = async (id) => {
@@ -108,10 +112,31 @@ const validateTempCode = async (tempCode) => {
   return null;
 };
 
-module.exports = {
+const getTempCodeByID = async (account_id) => {
+  const code = await prisma.pass_temp_keys.findFirst({
+    select: {
+      pass_key: true,
+    },
+    where: {
+      account_id,
+      expires: {
+        gt: new Date(),
+      }
+    }
+  })
+  return code;
+}
+
+const myExports = {
   generateTempCode,
   validateTempCode,
   resetUserPassword,
   deleteKey,
   deleteExpiredTempKeys,
-};
+}
+
+if (process.env.NODE_ENV === 'test') {
+  myExports.getTempCodeByID = getTempCodeByID;
+}
+
+module.exports = myExports;

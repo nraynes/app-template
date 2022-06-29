@@ -139,7 +139,6 @@ let colors = getColors();
 
 export const setColors = () => {
   const newColors = getColors();
-  console.log('NEW COLORS:', newColors);
   colors = newColors;
 }
 

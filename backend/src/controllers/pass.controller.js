@@ -14,7 +14,9 @@ const sendPasswordReset = catchAsync(async (req, res) => {
     if (tempCode) {
       const email = emailService.generateEmail(tempCode);
       const success = await emailService.sendEmail(user.email, email.subject, email.messageBody);
-      if (success) {
+      if (success === 'NOCREDITS') {
+        respond(res, codes.noCredits);
+      } else if (success) {
         respond(res, codes.success);
       } else {
         respond(res, codes.failure);

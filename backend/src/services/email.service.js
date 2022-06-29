@@ -24,16 +24,23 @@ const sendEmail = async (msgRecipient, msgSubject, msgBody) => {
     text: msgBody,
     html: `<strong>${msgBody}</strong>`,
   };
-  return sgMail.send(msg)
+  return process.env.NODE_ENV !== 'test' ? config.noMoreCredits ? 'NOCREDITS' : sgMail.send(msg)
     .then(() => {
       log('Email sent');
       return true;
     })
     .catch((error) => {
       log('There was an ERROR:', error);
-      if (error.response && error.response.body && error.response.body.errors) log('EMBEDDED ERRORS:', error.response.body.errors);
+      if (error.response && error.response.body && error.response.body.errors) {
+        log('EMBEDDED ERRORS:', error.response.body.errors);
+        if (error.response.body.errors[0].message === 'Maximum credits exceeded') {
+          config.noMoreCredits = new Date();
+          log('Set no more credits to true')
+          return 'NOCREDITS'
+        }
+      }
       return false;
-    });
+    }) : true;
 };
 
 const sendVerifyEmail = (email, tempCode) => {

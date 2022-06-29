@@ -26,7 +26,7 @@ const accounts = [
     email: useEncryption ? encrypt('markwhite@email.com') : 'markwhite@email.com',
     password_hash: 'lozftn3E85JET9KAhGum49Jj2UTKQEOJXOPeaaI1Xz5eukxbHDnqfoU6d1my6DyMQdh3cap0HmEYbCoWex/Fa07G+98BgffyuTVznpDWW1kRMXroHTPjGw0tt+1SZsW7',
     dynamic_salt: '45433333a6fd04d5ac29cd027f5e8cda',
-    verified: true,
+    verified: false,
   }
 ];
 

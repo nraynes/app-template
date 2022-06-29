@@ -22,7 +22,8 @@ const processResponse = async (response, o) => {
     EXPIRED: o.EXPIRED || 'Expired',
     NOCAT: o.NOCAT || 'No category specified',
     TOOLARGE: o.TOOLARGE || 'The request/response was too large for the server to handle',
-    SUCCESS: o.SUCCESS || 'Success!'
+    SUCCESS: o.SUCCESS || 'Success!',
+    NOCREDITS: o.NOCREDITS || 'The server ran out of email credits! Could not send email.',
   };
 
   const optionKeys = Object.keys(options);

@@ -18,6 +18,7 @@ const codes = {
   expired: { message: 'EXPIRED', status: 401 },
   noCat: { message: 'NOCAT', status: 400 },
   tooLarge: { message: 'TOOLARGE', status: 503 },
+  noCredits: { message: 'NOCREDITS', status: 503 },
 };
 
 module.exports = codes;
