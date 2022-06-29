@@ -61,6 +61,7 @@ module.exports = {
   userAccountInfoKeys: ['email'],
   secretKey: envVars.SECRET_KEY,
   useEncryption: true,
+  noMoreCredits: false,
   encryption: {
     config: {
       iv: envVars.SECRET_IV,

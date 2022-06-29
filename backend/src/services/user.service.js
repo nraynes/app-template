@@ -86,8 +86,14 @@ async function createUser(email, password, dynamicSalt, res) {
       const tempKey = await tempService.generateEmailCode(newUser.account_id)
       if (newUser && compareObjects(userObject, newUser)) {
         if (tempKey) {
-          emailService.sendVerifyEmail(email, tempKey)
-          respond(res, codes.success);
+          const success = emailService.sendVerifyEmail(email, tempKey)
+          if (success === 'NOCREDITS') {
+            respond(res, codes.noCredits);
+          } else if (success) {
+            respond(res, codes.success);
+          } else {
+            respond(res, codes.failure)
+          }
         } else {
           await deleteUserByID(newUser.account_id);
           respond(res, codes.failure);
@@ -142,8 +148,12 @@ const unverifyUser = async (account_id) => {
   if (user) {
     const tempKey = await tempService.generateEmailCode(account_id)
     if (tempKey) {
-      emailService.sendVerifyEmail(config.useEncryption ? decrypt(user.email) : user.email, tempKey)
-      return true;
+      const success = emailService.sendVerifyEmail(config.useEncryption ? decrypt(user.email) : user.email, tempKey)
+      if (success === 'NOCREDITS') {
+        return 'NOCREDITS'
+      } else {
+        return true;
+      }
     }
   }
   return false;

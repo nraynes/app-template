@@ -19,7 +19,9 @@
   "jest": {
     "moduleNameMapper": {
       "^@/(.+)": "<rootDir>/src/$1"
-    }
+    },
+    "globalSetup": "./src/tests/auto/setup.js",
+    "globalTeardown": "./src/tests/auto/teardown.js"
   },
   "dependencies": {
     "@prisma/client": "^3.15.2",

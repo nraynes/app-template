@@ -1,4 +1,4 @@
-const formatDate = require('@/utils/formatters/format');
+const formatDate = require('../formatters/format');
 
 function log(message, ...args) {
   if (

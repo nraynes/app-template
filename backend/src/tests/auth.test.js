@@ -1,11 +1,14 @@
 const supertest = require("supertest");
 const app = require("../../app");
-const seedDatabase = require('./auto/dbseed');
 const request = supertest(app);
+const accounts = require('./auto/users');
+const { decrypt } = require("../utils/core/AES");
+const { useEncryption } = require('../config/config');
 
 process.env.NODE_ENV = 'test'
 
-seedDatabase();
+const emailOne = useEncryption ? decrypt(accounts[0].email) : accounts[0].email;
+const emailThree = useEncryption ? decrypt(accounts[2].email) : accounts[2].email;
 
 // Cannot test register feature without front end integration. Successful registering will be tested with front end e2e test.
 describe('AUTH', () => {
@@ -99,7 +102,7 @@ describe('AUTH', () => {
 
     test('Should accept an email and password and return a user object.', async () => {
       const response = await request.post('/api/auth/login').send({
-        email: 'johndoe@email.com',
+        email: emailOne,
         password: 'asdfASDF1',
       })
       expect(response.statusCode).toBe(200);
@@ -126,7 +129,7 @@ describe('AUTH', () => {
 
     test('Should respond with not verified when trying to log in to an unverified account.', async () => {
       const response = await request.post('/api/auth/login').send({
-        email: 'markwhite@email.com',
+        email: emailThree,
         password: 'asdfASDF1',
       })
       expect(response.statusCode).toBe(400);
@@ -135,7 +138,7 @@ describe('AUTH', () => {
 
     test('Should respond with wrong password when trying to log in with the wrong password.', async () => {
       const response = await request.post('/api/auth/login').send({
-        email: 'johndoe@email.com',
+        email: emailOne,
         password: 'asdfASDF2',
       })
       expect(response.statusCode).toBe(401)
@@ -148,7 +151,7 @@ describe('AUTH', () => {
     
     test('Should return a user object when passing in a logged in users access token.', async () => {
       const userObj = await request.post('/api/auth/login').send({
-        email: 'johndoe@email.com',
+        email: emailOne,
         password: 'asdfASDF1',
       })
       const { tokens } = userObj.body;
@@ -172,7 +175,7 @@ describe('AUTH', () => {
 
     test('Should provide an access token when passing in a valid refresh token.', async () => {
       const userObj = await request.post('/api/auth/login').send({
-        email: 'johndoe@email.com',
+        email: emailOne,
         password: 'asdfASDF1',
       })
       const { tokens } = userObj.body;
@@ -193,7 +196,7 @@ describe('AUTH', () => {
 
     test('Should delete refresh token and respond with success upon call.', async () => {
       const userObj = await request.post('/api/auth/login').send({
-        email: 'johndoe@email.com',
+        email: emailOne,
         password: 'asdfASDF1',
       })
       const { tokens } = userObj.body;
@@ -214,7 +217,7 @@ describe('AUTH', () => {
 
     test('Should return success upon providing a valid access token.', async () => {
       const userObj = await request.post('/api/auth/login').send({
-        email: 'johndoe@email.com',
+        email: emailOne,
         password: 'asdfASDF1',
       })
       const { tokens } = userObj.body;

@@ -41,7 +41,9 @@ const editInfo = catchAsync(async (req, res) => {
       if (success) {
         if (email !== user.email) {
           const unverified = await userService.unverifyUser(req.user.account_id)
-          if (unverified) {
+          if (unverified === 'NOCREDITS') {
+            respond(res, codes.noCredits);
+          } else if (unverified) {
             respond(res, codes.success);
           } else {
             respond(res, codes.failure);
