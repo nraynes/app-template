@@ -24,7 +24,8 @@ const sendEmail = async (msgRecipient, msgSubject, msgBody) => {
     text: msgBody,
     html: `<strong>${msgBody}</strong>`,
   };
-  return process.env.NODE_ENV !== 'test' ? config.noMoreCredits ? 'NOCREDITS' : sgMail.send(msg)
+  const today = new Date();
+  return process.env.NODE_ENV !== 'test' ? config.noMoreCredits && (today.getMonth() <= config.noMoreCredits.getMonth()) ? 'NOCREDITS' : sgMail.send(msg)
     .then(() => {
       log('Email sent');
       return true;
