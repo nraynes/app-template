@@ -34,7 +34,7 @@ const sendEmail = async (msgRecipient, msgSubject, msgBody) => {
       if (error.response && error.response.body && error.response.body.errors) {
         log('EMBEDDED ERRORS:', error.response.body.errors);
         if (error.response.body.errors[0].message === 'Maximum credits exceeded') {
-          config.noMoreCredits = true;
+          config.noMoreCredits = new Date();
           log('Set no more credits to true')
           return 'NOCREDITS'
         }
