@@ -30,7 +30,8 @@
     "dev": "craco start",
     "lint": "eslint --ext=js --ext=jsx .",
     "start": "craco start",
-    "test": "craco test --watchAll=false --passWithNoTests"
+    "test": "craco test --watchAll=false --passWithNoTests",
+    "cypress": "node ./node_modules/.bin/cypress open"
   },
   "eslintConfig": {
     "extends": [
