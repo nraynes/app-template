@@ -47,6 +47,7 @@ function ColorDrawer(props) {
     <>
       <ColorPicker
         id="secondary_two"
+        data-testid="secondary_two"
         label="Secondary 2"
         defaultRed={myTheme.secondaryTwo.red}
         defaultGreen={myTheme.secondaryTwo.green}
@@ -55,6 +56,7 @@ function ColorDrawer(props) {
       />
       <ColorPicker
         id="secondary_three"
+        data-testid="secondary_three"
         label="Secondary 3"
         defaultRed={myTheme.secondaryThree.red}
         defaultGreen={myTheme.secondaryThree.green}
@@ -67,12 +69,14 @@ function ColorDrawer(props) {
   return (
     <Drawer
       id="color_drawer_container"
+      data-testid="color_drawer_container"
       anchor="right"
       open={open}
       onClose={setClose}
     >
       <Box
         id="color_drawer"
+        data-testid="color_drawer"
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -108,6 +112,7 @@ function ColorDrawer(props) {
       >
         <Box
           id="custom_theme_console"
+          data-testid="custom_theme_console"
           sx={{
             width: '100%',
             height: 'max-content',
@@ -118,6 +123,7 @@ function ColorDrawer(props) {
         >
           <Box
             id="main_colors"
+            data-testid="main_colors"
             sx={{
               display: 'flex',
               justifyContent: 'space-evenly',
@@ -129,6 +135,7 @@ function ColorDrawer(props) {
           >
             <ColorPicker
               id="primary_one"
+              data-testid="primary_one"
               label="Primary 1"
               defaultRed={myTheme.primaryOne.red}
               defaultGreen={myTheme.primaryOne.green}
@@ -137,6 +144,7 @@ function ColorDrawer(props) {
             />
             <ColorPicker
               id="primary_two"
+              data-testid="primary_two"
               label="Primary 2"
               defaultRed={myTheme.primaryTwo.red}
               defaultGreen={myTheme.primaryTwo.green}
@@ -145,6 +153,7 @@ function ColorDrawer(props) {
             />
             <ColorPicker
               id="secondary_one"
+              data-testid="secondary_one"
               label="Secondary 1"
               defaultRed={myTheme.secondaryOne.red}
               defaultGreen={myTheme.secondaryOne.green}
@@ -156,6 +165,7 @@ function ColorDrawer(props) {
           {onMobile && (
             <Box
               id="main_colors_second_row"
+              data-testid="main_colors_second_row"
               sx={{
                 display: 'flex',
                 justifyContent: 'space-evenly',
@@ -170,6 +180,7 @@ function ColorDrawer(props) {
           )}
           <Box
             id="transparency_setters_one"
+            data-testid="transparency_setters_one"
             sx={{
               mt: onMobile ? '1em' : '2em',
               display: 'flex',
@@ -177,13 +188,14 @@ function ColorDrawer(props) {
               justifyContent: 'space-evenly',
             }}
           >
-            <TransparencySetter id="background_opacity_setter" defaultValue={backgroundOpacity * 100} label="Background Opacity" onChange={(e) => changeCustom('backgroundOpacity', (e.target.value / 100))} />
-            <TransparencySetter id="form_opacity_setter" defaultValue={commonFormOpacity * 100} label="Card Opacity" onChange={(e) => changeCustom('commonFormOpacity', (e.target.value / 100))} />
-            <TransparencySetter id="button_opacity_setter" defaultValue={buttonOpacity * 100} label="Button Opacity" onChange={(e) => changeCustom('buttonOpacity', (e.target.value / 100))} />
-            {!onMobile && <TransparencySetter id="button_bar_opacity_setter" defaultValue={buttonBarOpacity * 100} label="Button Bar Opacity" onChange={(e) => changeCustom('buttonBarOpacity', (e.target.value / 100))} />}
+            <TransparencySetter id="background_opacity_setter" data-testid="background_opacity_setter" defaultValue={backgroundOpacity * 100} label="Background Opacity" onChange={(e) => changeCustom('backgroundOpacity', (e.target.value / 100))} />
+            <TransparencySetter id="form_opacity_setter" data-testid="form_opacity_setter" defaultValue={commonFormOpacity * 100} label="Card Opacity" onChange={(e) => changeCustom('commonFormOpacity', (e.target.value / 100))} />
+            <TransparencySetter id="button_opacity_setter" data-testid="button_opacity_setter" defaultValue={buttonOpacity * 100} label="Button Opacity" onChange={(e) => changeCustom('buttonOpacity', (e.target.value / 100))} />
+            {!onMobile && <TransparencySetter id="button_bar_opacity_setter" data-testid="button_bar_opacity_setter" defaultValue={buttonBarOpacity * 100} label="Button Bar Opacity" onChange={(e) => changeCustom('buttonBarOpacity', (e.target.value / 100))} />}
           </Box>
           <Box
             id="transparency_setters_two"
+            data-testid="transparency_setters_two"
             sx={{
               mt: '1em',
               display: 'flex',
@@ -191,13 +203,14 @@ function ColorDrawer(props) {
               justifyContent: 'space-evenly',
             }}
           >
-            <TransparencySetter id="title_bar_opacity_setter" orientation={onMobile ? 'vertical' : 'horizontal'} defaultValue={titleBarOpacity * 100} label="Title Bar Opacity" onChange={(e) => changeCustom('titleBarOpacity', (e.target.value / 100))} />
-            <TransparencySetter id="drawer_opacity_setter" orientation={onMobile ? 'vertical' : 'horizontal'} defaultValue={drawerOpacity * 100} label="Drawer Opacity" onChange={(e) => changeCustom('drawerOpacity', (e.target.value / 100))} />
-            <TransparencySetter id="component_opacity_setter" orientation={onMobile ? 'vertical' : 'horizontal'} defaultValue={componentOpacity * 100} label="Component Opacity" onChange={(e) => changeCustom('componentOpacity', (e.target.value / 100))} />
+            <TransparencySetter id="title_bar_opacity_setter" data-testid="title_bar_opacity_setter" orientation={onMobile ? 'vertical' : 'horizontal'} defaultValue={titleBarOpacity * 100} label="Title Bar Opacity" onChange={(e) => changeCustom('titleBarOpacity', (e.target.value / 100))} />
+            <TransparencySetter id="drawer_opacity_setter" data-testid="drawer_opacity_setter" orientation={onMobile ? 'vertical' : 'horizontal'} defaultValue={drawerOpacity * 100} label="Drawer Opacity" onChange={(e) => changeCustom('drawerOpacity', (e.target.value / 100))} />
+            <TransparencySetter id="component_opacity_setter" data-testid="component_opacity_setter" orientation={onMobile ? 'vertical' : 'horizontal'} defaultValue={componentOpacity * 100} label="Component Opacity" onChange={(e) => changeCustom('componentOpacity', (e.target.value / 100))} />
           </Box>
           {onMobile && (
             <Box
             id="transparency_setters_three"
+            data-testid="transparency_setters_three"
             sx={{
               my: '1em',
               display: 'flex',
@@ -205,12 +218,13 @@ function ColorDrawer(props) {
               justifyContent: 'space-evenly',
             }}
           >
-            <TransparencySetter id="button_bar_opacity_setter" orientation="horizontal" defaultValue={buttonBarOpacity * 100} label="Button Bar Opacity" onChange={(e) => changeCustom('buttonBarOpacity', (e.target.value / 100))} />
+            <TransparencySetter id="button_bar_opacity_setter" data-testid="button_bar_opacity_setter" orientation="horizontal" defaultValue={buttonBarOpacity * 100} label="Button Bar Opacity" onChange={(e) => changeCustom('buttonBarOpacity', (e.target.value / 100))} />
           </Box>
           )}
         </Box>
         <Box
           id="color_drawer_button_bar"
+          data-testid="color_drawer_button_bar"
           sx={{
             display: 'flex',
             alignItems: 'center',
@@ -219,6 +233,7 @@ function ColorDrawer(props) {
         >
           <Button
             id="color_drawer_close_button"
+            data-testid="color_drawer_close_button"
             sx={{
               boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
             }}
@@ -228,6 +243,7 @@ function ColorDrawer(props) {
           </Button>
           <Button
             id="color_drawer_defaults_button"
+            data-testid="color_drawer_defaults_button"
             sx={{
               boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
               ml: '1em',
@@ -238,6 +254,7 @@ function ColorDrawer(props) {
           </Button>
           <Button
             id="color_drawer_apply_button"
+            data-testid="color_drawer_apply_button"
             sx={{
               boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
               ml: '1em',

@@ -5,6 +5,7 @@ function TextField({ children, sx, componentColor, id, ...args }) {
   return (
     <GoogleTextField
       id={id}
+      data-testid={id}
       InputProps={{ sx: { color: `rgba(${componentColor.opposingText.main})` } }}
       autoComplete={id}
       menuprops={{

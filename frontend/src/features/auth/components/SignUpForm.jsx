@@ -52,51 +52,57 @@ function SignUpForm(props) {
   return (
     <Card
       id="signup-form"
+      data-testid="signup-form"
       component="form"
       onSubmit={(e) => e.preventDefault()}
     >
-      <CardHead id="signup-form-header">Sign-Up</CardHead>
+      <CardHead id="signup-form-header" data-testid="signup-form-header">Sign-Up</CardHead>
       <Box
         id="signup-form-inputs-container"
+        data-testid="signup-form-inputs-container"
         sx={{
           margin: '1em',
         }}
       >
         <Box
           id="signup-email-container"
+          data-testid="signup-email-container"
           sx={{
             display: 'flex',
             alignItems: 'center',
             py: '0.5em',
           }}
         >
-          <Typography id="signup-email-label" sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Email:</Typography>
-          <TextField id="signup-email-input" componentColor={componentColor} inputRef={emailRef} type="email" sx={{ width: '100%' }} />
+          <Typography id="signup-email-label" data-testid="signup-email-label" sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Email:</Typography>
+          <TextField id="signup-email-input" data-testid="signup-email-input" componentColor={componentColor} inputRef={emailRef} type="email" sx={{ width: '100%' }} />
         </Box>
         <Box
           id="signup-password-container"
+          data-testid="signup-password-container"
           sx={{
             display: 'flex',
             alignItems: 'center',
             py: '0.5em',
           }}
         >
-          <Typography id="signup-password-label" sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Password:</Typography>
-          <TextField id="signup-password-input" componentColor={componentColor} inputRef={passwordRef} type="password" sx={{ width: '100%' }} />
+          <Typography id="signup-password-label" data-testid="signup-password-label" sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Password:</Typography>
+          <TextField id="signup-password-input" data-testid="signup-password-input" componentColor={componentColor} inputRef={passwordRef} type="password" sx={{ width: '100%' }} />
         </Box>
         <Box
           id="signup-confirm-password-container"
+          data-testid="signup-confirm-password-container"
           sx={{
             display: 'flex',
             alignItems: 'center',
             py: '0.5em',
           }}
         >
-          <Typography id="signup-confirm-password-label" sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Confirm Password:</Typography>
-          <TextField id="signup-confirm-password-input" componentColor={componentColor} inputRef={confirmPasswordRef} type="password" sx={{ width: '100%' }} />
+          <Typography id="signup-confirm-password-label" data-testid="signup-confirm-password-label" sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Confirm Password:</Typography>
+          <TextField id="signup-confirm-password-input" data-testid="signup-confirm-password-input" componentColor={componentColor} inputRef={confirmPasswordRef} type="password" sx={{ width: '100%' }} />
         </Box>
         <Box
           id="signup-recaptcha-container"
+          data-testid="signup-recaptcha-container"
           sx={{
             display: 'flex',
             width: '100%',
@@ -115,6 +121,7 @@ function SignUpForm(props) {
         </Box>
         <Box
           id="signup-form-actions"
+          data-testid="signup-form-actions"
           sx={{
             display: 'flex',
             alignItems: 'center',
@@ -125,12 +132,14 @@ function SignUpForm(props) {
         >
           <Button
             id="signup-form-login-button"
+            data-testid="signup-form-login-button"
             variant='contained'
             sx={{ wordWrap: 'break-word', ml: '0.5em' }}
             onClick={logInButton}
           >Log-In</Button>
           <Button
             id="signup-form-signup-button"
+            data-testid="signup-form-signup-button"
             variant='contained'
             type="submit"
             sx={{ wordWrap: 'break-word', mr: '0.5em' }}

@@ -99,37 +99,41 @@ function ProfileEditor(props) {
   return (
     <Card
       id="profile-editor"
+      data-testid="profile-editor"
       component="form"
       onSubmit={(e) => e.preventDefault()}
       type={2}
     >
-      <CardHead id="profile-editor-header">Profile</CardHead>
+      <CardHead id="profile-editor-header" data-testid="profile-editor-header">Profile</CardHead>
       <Box
         id="profile-editor-container"
+        data-testid="profile-editor-container"
         sx={{
           margin: '1em',
         }}
       >
         <Box
           id="profile-editor-email-container"
+          data-testid="profile-editor-email-container"
           sx={{
             display: 'flex',
             alignItems: 'center',
             py: '0.5em',
           }}
         >
-          <Typography id="profile-editor-email-label" sx={{ color: `rgba(${opposingColor})`, mr: '0.5em' }}>Email:</Typography>
+          <Typography id="profile-editor-email-label" data-testid="profile-editor-email-label" sx={{ color: `rgba(${opposingColor})`, mr: '0.5em' }}>Email:</Typography>
           {editing
             && (
-              <TextField id="profile-editor-email-input-editing" componentColor={componentColor} defaultValue={data ? data.email : ''} inputRef={emailRef} type="email" sx={{ width: '100%' }} />
+              <TextField id="profile-editor-email-input-editing" data-testid="profile-editor-email-input-editing" componentColor={componentColor} defaultValue={data ? data.email : ''} inputRef={emailRef} type="email" sx={{ width: '100%' }} />
             )}
           {!editing
             && (
-              <TextField id="profile-editor-email-input" componentColor={componentColor} value={data ? data.email : ''} disabled inputRef={emailRef} type="email" sx={{ width: '100%' }} />
+              <TextField id="profile-editor-email-input" data-testid="profile-editor-email-input" componentColor={componentColor} value={data ? data.email : ''} disabled inputRef={emailRef} type="email" sx={{ width: '100%' }} />
             )}
         </Box>
         <Box
           id="profile-editor-form-actions"
+          data-testid="profile-editor-form-actions"
           sx={{
             display: 'flex',
             alignItems: 'center',
@@ -140,12 +144,14 @@ function ProfileEditor(props) {
         >
           <Button
             id="profile-editor-form-delete-account-button"
+            data-testid="profile-editor-form-delete-account-button"
             variant='contained'
             sx={{ wordWrap: 'break-word', mr: '0.5em', width: '100%' }}
             onClick={deleteAccountButton}
           >Delete Account</Button>
           <Button
             id="profile-editor-form-edit-submit-button"
+            data-testid="profile-editor-form-edit-submit-button"
             variant='contained'
             type="submit"
             sx={{ wordWrap: 'break-word', ml: '0.5em', width: 'max-content' }}
@@ -154,6 +160,7 @@ function ProfileEditor(props) {
         </Box>
         <Box
           id="profile-editor-form-actions-two"
+          data-testid="profile-editor-form-actions-two"
           sx={{
             display: 'flex',
             alignItems: 'center',
@@ -164,12 +171,14 @@ function ProfileEditor(props) {
         >
           <Button
             id="profile-editor-form-log-out-all-button"
+            data-testid="profile-editor-form-log-out-all-button"
             variant='contained'
             sx={{ wordWrap: 'break-word', mr: editing && '0.5em', width: '100%' }}
             onClick={allLogOutButton}
           >Log out of all devices</Button>
           {editing && <Button
             id="profile-editor-form-cancel-button"
+            data-testid="profile-editor-form-cancel-button"
             variant='contained'
             sx={{ wordWrap: 'break-word', ml: '0.5em', width: 'max-content' }}
             onClick={cancelButton}

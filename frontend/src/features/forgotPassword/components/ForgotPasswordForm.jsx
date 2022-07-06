@@ -30,11 +30,12 @@ function ForgotPasswordForm(props) {
   return (
     <Card
       id="forgot-password"
+      data-testid="forgot-password"
       component="form"
       onSubmit={(e) => e.preventDefault()}
       type={2}
     >
-      <CardHead id="forgot-password-header">Forgot Password</CardHead>
+      <CardHead id="forgot-password-header" data-testid="forgot-password-header">Forgot Password</CardHead>
       <Box
         id="forgot-password-inputs-container"
         sx={{
@@ -43,17 +44,19 @@ function ForgotPasswordForm(props) {
       >
         <Box
           id="forgot-password-email-container"
+          data-testid="forgot-password-email-container"
           sx={{
             display: 'flex',
             alignItems: 'center',
             py: '0.5em',
           }}
         >
-          <Typography id="forgot-password-email-label" sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Email:</Typography>
-          <TextField id="forgot-password-email-input" componentColor={componentColor} inputRef={emailRef} type="email" sx={{ width: '100%' }} />
+          <Typography id="forgot-password-email-label" data-testid="forgot-password-email-label" sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Email:</Typography>
+          <TextField id="forgot-password-email-input" data-testid="forgot-password-email-input" componentColor={componentColor} inputRef={emailRef} type="email" sx={{ width: '100%' }} />
         </Box>
         <Box
           id="forgot-password-form-actions"
+          data-testid="forgot-password-form-actions"
           sx={{
             display: 'flex',
             alignItems: 'center',
@@ -64,12 +67,14 @@ function ForgotPasswordForm(props) {
         >
           <Button
             id="forgot-password-form-back-button"
+            data-testid="forgot-password-form-back-button"
             variant='contained'
             sx={{ wordWrap: 'break-word', mr: '0.5em' }}
             onClick={backButton}
           >Back</Button>
           <Button
             id="forgot-password-form-reset-password-button"
+            data-testid="forgot-password-form-reset-password-button"
             variant='contained'
             type="submit"
             sx={{ wordWrap: 'break-word', ml: '0.5em' }}
