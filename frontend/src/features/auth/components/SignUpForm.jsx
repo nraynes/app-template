@@ -20,7 +20,6 @@ function SignUpForm(props) {
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
   const [captcha, setCaptcha] = useState('');
-
   const logInButton = () => {
     navigate('/auth/login')
   };
@@ -112,6 +111,8 @@ function SignUpForm(props) {
           }}
         >
           <ReCAPTCHA
+            id="google-recaptcha"
+            data-testid="google-recaptcha"
             sitekey="6LdiG3wgAAAAAAVmWDo1FLx4NEZWi2TycAXEJdNr"
             nonce="{NONCE}"
             onChange={recaptchaLoadedCallback}

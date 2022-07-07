@@ -12,6 +12,7 @@ const tokenService = require('@/services/token.service');
 const catchAsync = require('@/utils/core/catchAsync');
 const respond = require('@/utils/core/respond');
 const codes = require('@/config/responseCodes');
+const config = require('@/config/config');
 
 const register = catchAsync(async (req, res) => { // * 'Utilizes SCrypt'
   const {
@@ -20,7 +21,7 @@ const register = catchAsync(async (req, res) => { // * 'Utilizes SCrypt'
     captcha,
   } = req.body;
   const dynamicSalt = await authService.createUniqueDynamicSalt();
-  const notABot = await authService.verifyCaptcha(captcha);
+  const notABot = config.frontEndTests || await authService.verifyCaptcha(captcha);
   if (dynamicSalt && notABot) {
     userService.createUser(email, password, dynamicSalt, res);
   } else if (!notABot) {

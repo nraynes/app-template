@@ -8,7 +8,9 @@
     "test": "jest",
     "dev:node": "cross-env DEBUG=ellsworth-idea-bin:* nodemon --watch ./src ./bin/www",
     "dev": "npm-run-all -p dev:*",
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test:setup": "node src/tests/frontend/setup.js",
+    "test:teardown": "node src/tests/frontend/teardown.js"
   },
   "author": "Nicholas R Raynes",
   "license": "ISC",
