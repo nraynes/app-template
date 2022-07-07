@@ -1,13 +1,4 @@
-const compareObjects = require('../../utils/core/compareObjects');
-
-// types:
-// Strings
-// Numbers
-// Boolean
-// Dates
-// Arrays
-// Objects
-// Functions
+const { compareObjects } = require('../../utils/core/compare');
 
 let milliseconds = 0;
 let timesRun = 0;
@@ -91,7 +82,7 @@ describe('Test for Compare Objects function.', () => {
       five: today,
     };
     const retVal = runFunction(objOne, objTwo, { totalEquality: true });
-    expect(retVal).toBe(false);
+    expect(retVal).toBe(true);
   })
 
   test('Should recurse and return false if it is specified that total equality be checked and the objects do not equal each other exactly.', () => {
@@ -161,7 +152,7 @@ describe('Test for Compare Objects function.', () => {
       },
     };
     const retVal = runFunction(objOne, objTwo, { totalEquality: true });
-    expect(retVal).toBe(false);
+    expect(retVal).toBe(true);
   })
 
   test('Should return false when strings are not the correct case.', () => {
@@ -285,7 +276,7 @@ describe('Test for Compare Objects function.', () => {
   describe('Should return false if even one of the values of each object does not match. This should work for any variable type.', () => {
 
     const today = new Date();
-    const objOne = {
+    let objOne = {
       one: 'Some String Extra content',
       two: 419,
       three: true,
@@ -304,7 +295,7 @@ describe('Test for Compare Objects function.', () => {
       nine: null,
       ten: undefined,
     };
-    const objTwo = {
+    let objTwo = {
       one: 'Some String Something else',
       two: 419,
       three: true,
@@ -348,7 +339,7 @@ describe('Test for Compare Objects function.', () => {
 
     test('Should return false when date values are different.', () => {
       objOne.three = true;
-      objOne.five = new Date();
+      objOne.five = new Date(4324234);
       retVal = runFunction(objOne, objTwo);
       expect(retVal).toBe(false);
     })
@@ -370,8 +361,14 @@ describe('Test for Compare Objects function.', () => {
     })
 
     test('Should return true when all values are set back to matching.', () => {
-      objTwo.seven = {
-        test: {
+      objOne = {
+        one: 'Some String',
+        two: 419,
+        three: true,
+        four: false,
+        five: today,
+        six: ['someval', 335, true, false, today],
+        seven: {
           one: 'Some String',
           two: 599.99,
           three: true,
@@ -379,7 +376,31 @@ describe('Test for Compare Objects function.', () => {
           five: today,
           six: ['someval', 335, true, false, today],
         },
-      }
+        eight: () => {},
+        nine: null,
+        ten: undefined,
+      };
+      objTwo = {
+        one: 'Some String',
+        two: 419,
+        three: true,
+        four: false,
+        five: today,
+        six: ['someval', 335, true, false, today],
+        seven: {
+          one: 'Some String',
+          two: 599.99,
+          three: true,
+          four: false,
+          five: today,
+          six: ['someval', 335, true, false, today],
+        },
+        eight: () => {},
+        nine: null,
+        ten: undefined,
+        eleven: 'some more values',
+        twelve: 99995,
+      };
       retVal = runFunction(objOne, objTwo);
       expect(retVal).toBe(true);
     })

@@ -6,7 +6,7 @@
 const { PrismaClient } = require('@prisma/client');
 const crypto = require('crypto');
 const addHours = require('@/utils/misc/addHours');
-const compareObjects = require('@/utils/core/compareObjects');
+const { compareObjects } = require('@/utils/core/compare');
 
 const prisma = new PrismaClient();
 

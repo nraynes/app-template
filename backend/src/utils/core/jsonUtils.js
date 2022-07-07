@@ -11,7 +11,7 @@ const isDate = (x, checkExact = false) => {
 };
 
 const isObject = (x, checkEmpty = false) => {
-  const isObj = !isDate(x) && typeof x === 'object' && !Array.isArray(x);
+  const isObj = x !== null && !isDate(x) && !Array.isArray(x) && typeof x === 'object';
   return (checkEmpty && isObj ? isObj && Object.keys(x).length : isObj) ? true : false;
 };
 
@@ -41,14 +41,14 @@ const toJson = (value) => (
 );
 
 const parseJson = (value) => {
-  const validTypes = ['number', 'string', 'boolean'];
   const val = JSON.parse(value);
   return Array.isArray(val)
     ? convertJsonArr(val)
-    : validTypes.includes(typeof val)
-      ? val : isDate(val)
-        ? new Date(val)
-        : convertJsonObj(val);
+    : isDate(val)
+      ? new Date(val)
+      : isObject(val)
+        ? convertJsonObj(val)
+        : val;
 };
 
 module.exports = {

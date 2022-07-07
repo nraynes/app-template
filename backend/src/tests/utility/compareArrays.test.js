@@ -1,4 +1,4 @@
-const compareArrays = require('../../utils/core/compareArrays');
+const { compareArrays } = require('../../utils/core/compare');
 
 let milliseconds = 0;
 let timesRun = 0;
