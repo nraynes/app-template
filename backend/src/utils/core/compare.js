@@ -25,7 +25,7 @@ const compareObjects = (object1, object2, options = {}) => {
     if (isObject(value1)) {
       if (!compareObjects(value1, value2, options)) return false;
     } else if (Array.isArray(value1)) {
-      if (!compareArrays(value1, value2, options)) return false;
+      if (!compareArrays(value1, value2)) return false;
     } else {
       const testValue1 = convertValue(value1, options);
       const testValue2 = convertValue(value2, options);
@@ -35,33 +35,25 @@ const compareObjects = (object1, object2, options = {}) => {
   return true;
 };
 
-const compareArrays = (arr1, arr2) => {
+const compareArrays = (arr1, arr2, options = {}) => {
   if (arr1.length !== arr2.length) return false;
   const a = [...arr1].sort();
   const b = [...arr2].sort();
-  for (let i = 0; i < a.length; i += 1) {
-    if (isObject(a[i]) && isObject(b[i])) {
-      if (!compareObjects(a[i], b[i])) return false;
-    } else if (Array.isArray(a[i]) && Array.isArray(b[i])) {
-      if (!compareArrays(a[i], b[i])) return false;
-    } else if (isDate(a[i]) && isDate(b[i])) {
-      if (`${a[i]}` !== `${b[i]}`) return false;
-    } else if (a[i] !== b[i]) return false;
+  for (let i = 0; i < a.length; i++) {
+    const curA = a[i];
+    const curB = b[i];
+    if (isObject(curA) && isObject(curB)) {
+      if (!compareObjects(curA, curB)) return false;
+    } else if (Array.isArray(curA) && Array.isArray(curB)) {
+      if (!compareArrays(curA, curB)) return false;
+    } else if (isDate(curA) && isDate(curB)) {
+      if (`${curA}` !== `${curB}`) return false;
+    } else if (curA !== curB) return false;
   }
   return true;
-}
-
-const compareValues = (val1, val2, options = {}) => {
-  if (!val1 || !val2) return false;
-  if (isObject(val1) && isObject(val2)) return compareObjects(val1, val2, options);
-  if (Array.isArray(val1) && Array.isArray(val2)) return compareArrays(val1, val2, options);
-  const value1 = convertValue(val1, options)
-  const value2 = convertValue(val2, options)
-  return value1 === value2;
 }
 
 module.exports = {
   compareArrays,
   compareObjects,
-  compareValues,
 };
