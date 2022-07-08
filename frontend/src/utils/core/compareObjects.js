@@ -1,6 +1,6 @@
 import { isDate } from './jsonUtils';
 
-const { compareObjects } = (object1, object2) => {
+const compareObjects = (object1, object2) => {
   if (!object1 || !object2 || typeof object1 !== 'object' || typeof object2 !== 'object') return false;
   const object1Keys = Object.keys(object1);
   for (let i = 0; i < object1Keys.length; i++) {
