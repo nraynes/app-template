@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import LogInPage from './LogIn';
 import SignUpPage from './SignUp';
 import { useButtons } from '@/stores/topBarButtons';
-import compareObjects from '@/utils/core/compareObjects';
+import { compareObjects } from '@/utils/core/compare';
 
 function AuthRoutes(props) {
   const { buttons, setButtons } = useButtons();

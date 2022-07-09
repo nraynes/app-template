@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import PostWallPage from './Landing';
 import { useButtons } from '@/stores/topBarButtons';
-import compareObjects from '@/utils/core/compareObjects';
+import { compareObjects } from '@/utils/core/compare';
 
 function RootRoutes(props) {
   const { buttons, setButtons } = useButtons();
