@@ -11,7 +11,7 @@ import { useSnackbar } from 'notistack';
 import { commonFormColor, commonFormOpacity, backgroundColor } from '@/config/config';
 import apiCall from '@/utils/core/apiCall';
 
-function ChangePasswordForm({ accountID, code }) {
+function ChangePasswordForm({ code }) {
   const navigate = useNavigate();
   const opposingColor = commonFormOpacity > 0.5 ? commonFormColor.opposingText.main : backgroundColor.opposingText.main;
   const componentColor = commonFormOpacity > 0.5 ? commonFormColor : backgroundColor;
@@ -25,7 +25,7 @@ function ChangePasswordForm({ accountID, code }) {
 
   const changePasswordButton = async () => {
     if (passwordRef.current.value === confirmPasswordRef.current.value) {
-      apiCall(() => changePassword(accountID, passwordRef.current.value), {
+      apiCall(() => changePassword(code, passwordRef.current.value), {
         SUCCESS: () => {
           deleteKey(code);
           enqueueSnackbar('Password successfully changed.', { variant: 'success' });

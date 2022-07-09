@@ -6,6 +6,6 @@
 // If the node environment is production, this variable will have
 // no effect and captcha will always be turned on.
 
-const frontEndIsBeingTested = true;
+const frontEndIsBeingTested = false;
 
 module.exports = frontEndIsBeingTested;

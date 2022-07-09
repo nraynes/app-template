@@ -3,7 +3,7 @@ const { password } = require('./custom.validation');
 
 const email = {
   body: Joi.object().keys({
-    email: Joi.string().required(),
+    email: Joi.string().email().required(),
   }),
 };
 
@@ -21,7 +21,7 @@ const deleteTempCode = {
 
 const pass = {
   body: Joi.object().keys({
-    accountId: Joi.number().required(),
+    passKey: Joi.string().required(),
     password: Joi.string().required().custom(password),
   }),
 };

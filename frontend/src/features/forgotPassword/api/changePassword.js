@@ -1,11 +1,11 @@
 import acquire from '@/utils/core/acquire';
 
-async function changePassword(accountId, password) {
+async function changePassword(passKey, password) {
   const response = await acquire({
     route: '/pass/changePassword',
     method: 'PATCH',
     body: {
-      accountId,
+      passKey,
       password,
     },
   })
