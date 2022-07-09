@@ -30,7 +30,8 @@ function ChangePasswordForm({ code }) {
           deleteKey(code);
           enqueueSnackbar('Password successfully changed.', { variant: 'success' });
           navigate('/auth/login');
-        }
+        },
+        EXPIRED: 'The temp key expired.'
       })
     } else {
       enqueueSnackbar('Passwords must match.', { variant: 'error' });

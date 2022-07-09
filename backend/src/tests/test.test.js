@@ -55,6 +55,9 @@ describe('TEST', () => {
     })
 
     test('Should respond with expired when provided with a correct email that has no saved valid pass code.', async () => {
+      const user = await userService.getUserByEmail(emailOne)
+      const key = await passService.getTempCodeByID(user.account_id)
+      await passService.deleteKey(key.pass_key)
       const response = await request.get('/api/test/passTempCode').send({
         email: emailOne,
       })
