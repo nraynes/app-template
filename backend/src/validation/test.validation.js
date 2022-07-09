@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 const email = {
-  body: Joi.object().keys({
+  query: Joi.object().keys({
     email: Joi.string().email().required(),
   }),
 };

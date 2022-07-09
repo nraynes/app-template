@@ -16,7 +16,7 @@ describe('TEST', () => {
   describe('GET /emailTempCode', () => {
 
     test('Should respond with not found when provided with the wrong email.', async () => {
-      const response = await request.get('/api/test/emailTempCode').send({
+      const response = await request.get('/api/test/emailTempCode').query({
         email: 'johndope@email.com',
       })
       expect(response.statusCode).toBe(404)
@@ -24,7 +24,7 @@ describe('TEST', () => {
     })
 
     test('Should respond with expired when provided with a correct email that has no saved valid email code.', async () => {
-      const response = await request.get('/api/test/emailTempCode').send({
+      const response = await request.get('/api/test/emailTempCode').query({
         email: emailOne,
       })
       expect(response.statusCode).toBe(401)
@@ -35,7 +35,7 @@ describe('TEST', () => {
       await request.post('/api/email/verify').send({
         email: emailOne,
       })
-      const response = await request.get('/api/test/emailTempCode').send({
+      const response = await request.get('/api/test/emailTempCode').query({
         email: emailOne,
       })
       expect(response.statusCode).toBe(200)
@@ -47,7 +47,7 @@ describe('TEST', () => {
   describe('GET /passTempCode', () => {
 
     test('Should respond with not found when provided with the wrong email.', async () => {
-      const response = await request.get('/api/test/passTempCode').send({
+      const response = await request.get('/api/test/passTempCode').query({
         email: 'johndope@email.com',
       })
       expect(response.statusCode).toBe(404)
@@ -58,7 +58,7 @@ describe('TEST', () => {
       const user = await userService.getUserByEmail(emailOne)
       const key = await passService.getTempCodeByID(user.account_id)
       await passService.deleteKey(key.pass_key)
-      const response = await request.get('/api/test/passTempCode').send({
+      const response = await request.get('/api/test/passTempCode').query({
         email: emailOne,
       })
       expect(response.statusCode).toBe(401)
@@ -69,7 +69,7 @@ describe('TEST', () => {
       await request.post('/api/pass/forgotPassword').send({
         email: emailOne,
       })
-      const response = await request.get('/api/test/passTempCode').send({
+      const response = await request.get('/api/test/passTempCode').query({
         email: emailOne,
       })
       expect(response.statusCode).toBe(200)

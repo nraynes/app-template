@@ -36,6 +36,19 @@ describe('Login feature tests', () => {
       .should('have.text', 'Verification email has been sent!')
   })
 
+  it('Should be able to verify a user if the correct code is sent in the login query params.', () => {
+    cy.request('http://localhost:3001/api/test/emailTempCode?email=paulblart@email.com')
+      .should((response) => {
+        expect(response.body).to.match(/.{32}/)
+        cy.visit(`http://localhost:3000/auth/login?code=${response.body}`)
+    
+        cy.get('[id="notistack-snackbar"]')
+          .should('exist')
+          .should('have.text', 'Your email has been successfully verified!')
+      })
+    cy.wait(1000)
+  })
+
   it('Should display a wrong password snackbar if the wrong password is input.', () => {
     cy.get('[data-testid="home-button"]')
       .click()
@@ -51,6 +64,8 @@ describe('Login feature tests', () => {
 
     cy.get('[data-testid="login-form-login-button"]')
       .click()
+
+    cy.wait(500)
 
     cy.get('[id="notistack-snackbar"]')
       .should('exist')
@@ -73,9 +88,51 @@ describe('Login feature tests', () => {
     cy.get('[data-testid="login-form-login-button"]')
       .click()
 
+    cy.wait(500)
+
     cy.get('[id="notistack-snackbar"]')
       .should('exist')
       .should('have.text', 'There was no user matching those credentials')
+  })
+
+  it('Should log the user in and display the landing page when correct account information is input.', () => {
+    cy.get('[data-testid="home-button"]')
+      .click()
+
+    cy.get('[data-testid="login-button"]')
+      .click()
+
+    cy.get('[data-testid="login-email-input"]')
+      .type('amydavis@email.com', { delay: 50 })
+
+    cy.get('[data-testid="login-password-input"]')
+      .type('asdfASDF1', { delay: 50 })
+
+    cy.get('[data-testid="login-form-login-button"]')
+      .click()
+
+    cy.wait(500)
+
+    cy.url().should((url) => {
+      expect(url).to.equal('http://localhost:3000/')
+    })
+
+    cy.get('[data-testid="profile-button"]')
+      .should('exist')
+  })
+
+  it('Should be able to log out via the top bar.', () => {
+    cy.get('[data-testid="profile-button"]')
+      .click()
+
+    cy.get('[data-testid="profile-menu-logout"]')
+      .click()
+
+    cy.get('[data-testid="profile-button"]')
+      .should('not.exist')
+
+    cy.get('[data-testid="login-button"]')
+      .should('exist')
   })
 
 })
