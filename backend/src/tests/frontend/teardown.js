@@ -15,6 +15,7 @@ const encrypt = (message) => {
 const emails = accounts.map((item) => item.email)
 emails.push(useEncryption ? encrypt('test@email.com') : 'test@email.com',)
 emails.push(useEncryption ? encrypt('frontend@email.com') : 'frontend@email.com',)
+emails.push(useEncryption ? encrypt('newuseremail@email.com') : 'newuseremail@email.com',)
 
 
 async function main() {
