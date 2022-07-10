@@ -11,7 +11,8 @@ function ColorPicker({
   showAlpha = false,
   label,
   onChange = () => {},
-  id = `${(Math.random() * 100).toFixed(1)}`
+  id = `${(Math.random() * 100).toFixed(1)}`,
+  ...args
 }) {
   const redRef = useRef();
   const greenRef = useRef();
@@ -120,10 +121,10 @@ function ColorPicker({
   return (
     <Box
       id={`color_box_${id}_container`}
-      data-testid={`color_box_${id}_container`}
       sx={{
         transition: '0.5s',
       }}
+      {...args}
     >
       <Box
         id={`color_box_${id}`}

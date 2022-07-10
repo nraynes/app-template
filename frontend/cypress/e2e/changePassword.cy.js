@@ -55,6 +55,11 @@ describe('Change Password feature tests', () => {
       })
   })
 
+  it('Color Picker should exist on change password page', () => {
+    cy.get('[data-testid="colors-button"]')
+      .should('exist')
+  })
+
   it('Should return you to the login page and display a snackbar saying your password was changed when you change your password.', () => {
     cy.get('[data-testid="change-password-password-input"]')
       .type('ASDFasdf1', { delay: 50 })

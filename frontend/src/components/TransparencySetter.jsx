@@ -37,7 +37,6 @@ function TransparencySetter({ defaultValue, onChange, label, orientation = 'vert
   return (
     <Box
       id={id}
-      data-testid={id}
       sx={{
         display: 'flex',
         flexDirection: 'column',
