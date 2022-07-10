@@ -34,7 +34,7 @@ function TopBar(props) {
   const getButtonAmount = () => {
     let amount = 0;
     if (buttons.profile && auth.user) amount++
-    if (buttons.colorPicker && auth.user && activateColorDrawer) amount++
+    if (buttons.colorPicker && activateColorDrawer) amount++
     if (buttons.home) amount++
     if (buttons.logIn && !auth.user) amount++
     return amount;
@@ -154,7 +154,7 @@ function TopBar(props) {
         >
           {buttons.home && <IconButton id="home-button" data-testid="home-button" sx={topBarIconSX} description="Home" onClick={homeButton}><HomeIcon sx={{ color: `rgba(${opposingColor})` }} /></IconButton>}
           {(buttons.profile && auth.user) && <IconButton id="profile-button" data-testid="profile-button" aria-controls={menuOpen ? 'profile-menu' : undefined} aria-haspopup="true" aria-expanded={menuOpen ? 'true' : undefined} onClick={handleClick} sx={topBarIconSX} description="Profile"><PersonIcon sx={{ color: `rgba(${opposingColor})` }} /></IconButton>}
-          {(buttons.colorPicker && auth.user && activateColorDrawer) && <IconButton id="colors-button" data-testid="colors-button" sx={topBarIconSX} description="Color scheme" onClick={colorPickerButton}><PaletteIcon sx={{ color: `rgba(${opposingColor})` }} /></IconButton>}
+          {(buttons.colorPicker && activateColorDrawer) && <IconButton id="colors-button" data-testid="colors-button" sx={topBarIconSX} description="Color scheme" onClick={colorPickerButton}><PaletteIcon sx={{ color: `rgba(${opposingColor})` }} /></IconButton>}
           {(buttons.logIn && !auth.user) && <IconButton id="login-button" data-testid="login-button" sx={topBarIconSX} description="Log-in" onClick={logInButton}><LoginIcon sx={{ color: `rgba(${opposingColor})` }} /></IconButton>}
         </Box>
       </Box>

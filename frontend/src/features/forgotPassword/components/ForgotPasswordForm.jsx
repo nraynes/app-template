@@ -8,12 +8,14 @@ import { useNavigate } from 'react-router-dom';
 import sendPasswordReset from '@/features/forgotPassword/api/sendEmail';
 import { commonFormColor, commonFormOpacity, backgroundColor } from '@/config/config';
 import apiCall from '@/utils/core/apiCall';
+import { useSnackbar } from 'notistack';
 
 function ForgotPasswordForm(props) {
   const navigate = useNavigate();
   const opposingColor = commonFormOpacity > 0.5 ? commonFormColor.opposingText.main : backgroundColor.opposingText.main;
   const componentColor = commonFormOpacity > 0.5 ? commonFormColor : backgroundColor;
   const emailRef = useRef();
+  const { enqueueSnackbar } = useSnackbar();
 
 
   const backButton = () => {
@@ -23,7 +25,7 @@ function ForgotPasswordForm(props) {
   const resetPasswordButton = async () => {
     await apiCall(() => sendPasswordReset(emailRef.current.value), {
       SUCCESS: 'If an account with this email exists, you will receive an email to reset your password.',
-      NOTFOUND: 'If an account with this email exists, you will receive an email to reset your password.',
+      NOTFOUND: () => enqueueSnackbar('If an account with this email exists, you will receive an email to reset your password.', { variant: 'success' }),
     });
   };
 
