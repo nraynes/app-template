@@ -9,16 +9,13 @@ import { useSnackbar } from 'notistack';
 import apiCall from '@/utils/core/apiCall';
 
 function ChangePasswordPage(props) {
-  const [accountID, setAccountID] = useState()
   const navigate = useNavigate();
   const queryParam = getParameterByName('temp');
   const { enqueueSnackbar } = useSnackbar();
 
-  const validateQueryCode = async (queryParam, setFunction) => {
+  const validateQueryCode = async (queryParam) => {
     apiCall(() => validateCode(queryParam), {
-      SUCCESS: (response) => {
-        setFunction(response);
-      },
+      SUCCESS: () => {},
       NOTVALID: () => {
         enqueueSnackbar('Temporary Code Invalid.', { variant: 'error' });
         navigate('/auth/login');
@@ -28,7 +25,7 @@ function ChangePasswordPage(props) {
 
   useEffect(() => {
     if (queryParam) {
-      validateQueryCode(queryParam, setAccountID);
+      validateQueryCode(queryParam);
     } else {
       enqueueSnackbar('No Temporary Code.', { variant: 'error' })
       navigate('/auth/login')
@@ -37,7 +34,7 @@ function ChangePasswordPage(props) {
 
   return (
     <CommonLayout>
-      <ChangePasswordForm code={queryParam} accountID={accountID} />
+      <ChangePasswordForm code={queryParam} />
     </CommonLayout>
   );
 }

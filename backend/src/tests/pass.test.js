@@ -35,14 +35,14 @@ describe('PASS', () => {
 
   describe('GET /tempCode', () => {
 
-    test('Should provide an account id when providing the right code.', async () => {
+    test('Should return with success when providing the right code.', async () => {
       const user = await userService.getUserByEmail(emailOne)
       code = await passService.getTempCodeByID(user.account_id);
       const response = await request.get('/api/pass/tempCode').query({
         code: code.pass_key,
       })
       expect(response.statusCode).toBe(200)
-      expect(response.body).toBe(user.account_id)
+      expect(response.body).toBe('SUCCESS')
     })
 
     test('Should respond with not valid when an invalid code is given.', async () => {
@@ -91,19 +91,18 @@ describe('PASS', () => {
 
   describe('PATCH /changePassword', () => {
 
-    test('Should respond with not found upon recieving wrong user id.', async () => {
+    test('Should respond with expired when given the wrong pass key.', async () => {
       const response = await request.patch('/api/pass/changePassword').send({
-        accountId: 1,
+        passKey: 'test',
         password: 'asdfASDF1'
       });
-      expect(response.statusCode).toBe(404)
-      expect(response.body).toBe('NOTFOUND')
+      expect(response.statusCode).toBe(401)
+      expect(response.body).toBe('EXPIRED')
     })
 
     test('Should respond with success upon resetting user password.', async () => {
-      const user = await userService.getUserByEmail(emailOne)
       const response = await request.patch('/api/pass/changePassword').send({
-        accountId: user.account_id,
+        passKey: code.pass_key,
         password: 'asdfASDF1'
       });
       expect(response.statusCode).toBe(200)

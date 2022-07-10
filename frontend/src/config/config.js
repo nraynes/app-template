@@ -8,6 +8,7 @@ const custom = getCookie('customConfig');
 export const activateColorDrawer = true;
 export const topBarHeight = '3em';
 export const bottomBarHeight = '3em';
+export const testSiteKey = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
 export const apiURL = process.env.REACT_APP_API_URL;
 export const deviceType = getDeviceType();
 export const onMobile = deviceType === 'mobile' || deviceType === 'tablet';

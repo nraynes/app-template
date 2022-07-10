@@ -5,7 +5,7 @@
 /* eslint-disable dot-notation */
 const { PrismaClient } = require('@prisma/client');
 const jwt = require('jsonwebtoken');
-const compareObjects = require('@/utils/core/compareObjects');
+const { compareObjects } = require('@/utils/core/compare');
 const log = require('@/utils/misc/log');
 const config = require('@/config/config');
 const tokenTypes = require('@/config/tokens');

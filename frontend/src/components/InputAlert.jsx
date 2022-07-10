@@ -15,6 +15,7 @@ const InputAlert = ({ onClose, title, message, ...args }) => {
   return (
     <Dialog
       id="alert_dialog"
+      data-testid="alert_dialog"
       onKeyDown={(event) => { handleKeyPress(event); }}
       tabIndex="0"
       PaperProps={{
@@ -27,20 +28,21 @@ const InputAlert = ({ onClose, title, message, ...args }) => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">
+      <DialogTitle id="alert-dialog-title" data-testid="alert-dialog-title">
         <Typography sx={{ color: `rgba(${commonFormColor.opposingText.main})` }} variant="h5" component="p">{title}</Typography>
       </DialogTitle>
-      <DialogContent id="alert-dialog-description">
+      <DialogContent id="alert-dialog-description" data-testid="alert-dialog-description">
         <Typography sx={{ color: `rgba(${commonFormColor.opposingText.main})` }} style={{ whiteSpace: 'pre-line' }}>{message}</Typography>
         <TextField multiline rows={3} componentColor={commonFormColor} inputRef={x} sx={{ width: ['100%', '25em'] }} />
       </DialogContent>
       <DialogActions
         id="alert-dialog-actions"
+        data-testid="alert-dialog-actions"
       >
-        <Button id="alert-dialog-cancel" variant='contained' onClick={() => { onClose(null); }}>
+        <Button id="alert-dialog-cancel" data-testid="alert-dialog-cancel" variant='contained' onClick={() => { onClose(null); }}>
           Cancel
         </Button>
-        <Button id="alert-dialog-submit" variant='contained' onClick={() => { onClose(x.current.value); }}>
+        <Button id="alert-dialog-submit" data-testid="alert-dialog-submit" variant='contained' onClick={() => { onClose(x.current.value); }}>
           Submit
         </Button>
       </DialogActions>

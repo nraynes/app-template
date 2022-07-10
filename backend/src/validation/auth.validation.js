@@ -1,13 +1,22 @@
 const Joi = require('joi');
 const { password, clean } = require('./custom.validation');
+const config = require('@/config/config')
 
-const register = {
-  body: Joi.object().keys({
-    email: Joi.string().required().email().custom(clean),
-    password: Joi.string().required().custom(password),
-    captcha: Joi.string().required(),
-  }),
-};
+const register = config.frontEndTests
+  ? {
+    body: Joi.object().keys({
+      email: Joi.string().required().email().custom(clean),
+      password: Joi.string().required().custom(password),
+      captcha: Joi.string().allow('', null),
+    }),
+  }
+  : {
+    body: Joi.object().keys({
+      email: Joi.string().required().email().custom(clean),
+      password: Joi.string().required().custom(password),
+      captcha: Joi.string().required(),
+    }),
+  }
 
 const login = {
   body: Joi.object().keys({

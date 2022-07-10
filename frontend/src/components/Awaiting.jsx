@@ -6,6 +6,7 @@ function Awaiting({ open }) {
   return open && (
     <Box
       id="waiting_backdrop"
+      data-testid="waiting_backdrop"
       sx={{
         display: 'flex',
         justifyContent: 'flex-end',
@@ -18,7 +19,7 @@ function Awaiting({ open }) {
         p: '1em'
       }}
     >
-      <CircularProgress id="waiting_progress" />
+      <CircularProgress id="waiting_progress" data-testid="waiting_progress" />
     </Box>
   );
 }

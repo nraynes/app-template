@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import ForgotPasswordPage from './ForgotPassword';
 import ChangePasswordPage from './ChangePassword';
 import { useButtons } from '@/stores/topBarButtons';
-import compareObjects from '@/utils/core/compareObjects';
+import { compareObjects } from '@/utils/core/compare';
 
 function PasswordRoutes(props) {
   const { buttons, setButtons } = useButtons();

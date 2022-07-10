@@ -12,7 +12,7 @@ const codes = require('@/config/responseCodes');
 const config = require('@/config/config');
 const pick = require('@/utils/formatters/pick');
 const tokenTypes = require('@/config/tokens');
-const compareObjects = require('@/utils/core/compareObjects');
+const { compareObjects } = require('@/utils/core/compare');
 const log = require('@/utils/misc/log');
 const fetch = require('cross-fetch');
 

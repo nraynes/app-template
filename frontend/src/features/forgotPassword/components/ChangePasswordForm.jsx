@@ -11,7 +11,7 @@ import { useSnackbar } from 'notistack';
 import { commonFormColor, commonFormOpacity, backgroundColor } from '@/config/config';
 import apiCall from '@/utils/core/apiCall';
 
-function ChangePasswordForm({ accountID, code }) {
+function ChangePasswordForm({ code }) {
   const navigate = useNavigate();
   const opposingColor = commonFormOpacity > 0.5 ? commonFormColor.opposingText.main : backgroundColor.opposingText.main;
   const componentColor = commonFormOpacity > 0.5 ? commonFormColor : backgroundColor;
@@ -25,12 +25,13 @@ function ChangePasswordForm({ accountID, code }) {
 
   const changePasswordButton = async () => {
     if (passwordRef.current.value === confirmPasswordRef.current.value) {
-      apiCall(() => changePassword(accountID, passwordRef.current.value), {
+      apiCall(() => changePassword(code, passwordRef.current.value), {
         SUCCESS: () => {
           deleteKey(code);
           enqueueSnackbar('Password successfully changed.', { variant: 'success' });
           navigate('/auth/login');
-        }
+        },
+        EXPIRED: 'The temp key expired.'
       })
     } else {
       enqueueSnackbar('Passwords must match.', { variant: 'error' });
@@ -40,39 +41,44 @@ function ChangePasswordForm({ accountID, code }) {
   return (
     <Card
       id="change-password"
+      data-testid="change-password"
       component="form"
     >
-      <CardHead id="change-password-header">Change Password</CardHead>
+      <CardHead id="change-password-header" data-testid="change-password-header">Change Password</CardHead>
       <Box
         id="change-password-inputs-container"
+        data-testid="change-password-inputs-container"
         sx={{
           margin: '1em',
         }}
       >
         <Box
           id="change-password-password-container"
+          data-testid="change-password-password-container"
           sx={{
             display: 'flex',
             alignItems: 'center',
             py: '0.5em',
           }}
         >
-          <Typography id="change-password-password-label" sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Password:</Typography>
-          <TextField id="change-password-password-input" componentColor={componentColor} inputRef={passwordRef} type="password" sx={{ width: '100%' }} />
+          <Typography id="change-password-password-label" data-testid="change-password-password-label" sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Password:</Typography>
+          <TextField id="change-password-password-input" data-testid="change-password-password-input" componentColor={componentColor} inputRef={passwordRef} type="password" sx={{ width: '100%' }} />
         </Box>
         <Box
           id="change-password-confirm-password-container"
+          data-testid="change-password-confirm-password-container"
           sx={{
             display: 'flex',
             alignItems: 'center',
             py: '0.5em',
           }}
         >
-          <Typography id="change-password-confirm-password-label" sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Confirm Password:</Typography>
-          <TextField id="change-password-confirm-password-input" componentColor={componentColor} inputRef={confirmPasswordRef} type="password" sx={{ width: ['100%', '20em'] }} />
+          <Typography id="change-password-confirm-password-label" data-testid="change-password-confirm-password-label" sx={{ mr: '0.5em', color: `rgba(${opposingColor})` }}>Confirm Password:</Typography>
+          <TextField id="change-password-confirm-password-input" data-testid="change-password-confirm-password-input" componentColor={componentColor} inputRef={confirmPasswordRef} type="password" sx={{ width: ['100%', '20em'] }} />
         </Box>
         <Box
           id="change-password-form-actions"
+          data-testid="change-password-form-actions"
           sx={{
             display: 'flex',
             alignItems: 'center',
@@ -83,12 +89,14 @@ function ChangePasswordForm({ accountID, code }) {
         >
           <Button
             id="change-password-form-cancel-button"
+            data-testid="change-password-form-cancel-button"
             variant='contained'
             sx={{ wordWrap: 'break-word', mr: '0.5em' }}
             onClick={cancelButton}
           >Cancel</Button>
           <Button
             id="change-password-form-change-password-button"
+            data-testid="change-password-form-change-password-button"
             variant='contained'
             sx={{ wordWrap: 'break-word', ml: '0.5em' }}
             onClick={changePasswordButton}

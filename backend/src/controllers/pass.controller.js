@@ -37,15 +37,20 @@ const deleteKey = catchAsync(async (req, res) => {
 });
 
 const resetPassword = catchAsync(async (req, res) => {
-  const { accountId, password } = req.body;
-  await passService.resetUserPassword(accountId, password, res);
+  const { passKey, password } = req.body;
+  const accountID = await passService.validateTempCode(passKey)
+  if (accountID) {
+    await passService.resetUserPassword(accountID, password, res);
+  } else {
+    respond(res, codes.expired)
+  }
 });
 
 const getTempCode = catchAsync(async (req, res) => {
   const { code } = req.query;
-  const accountID = await passService.validateTempCode(code);
-  if (accountID) {
-    respond(res, accountID);
+  const success = await passService.validateTempCode(code);
+  if (success) {
+    respond(res, codes.success);
   } else {
     respond(res, codes.notValid);
   }

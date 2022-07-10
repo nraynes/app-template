@@ -1,6 +1,7 @@
 const dotenv = require('dotenv');
 const path = require('path');
 const Joi = require('joi');
+const frontEndIsBeingTested = require('./frontEndTesting');
 
 dotenv.config({ path: path.join(__dirname, '../../.env') });
 
@@ -37,6 +38,7 @@ if (process.env.NODE_ENV === 'development') {
 module.exports = {
   backgroundPicture: 'BeautifulLake.jpeg',
   env: envVars.NODE_ENV,
+  frontEndTests: envVars.NODE_ENV !== 'production' ? frontEndIsBeingTested : false,
   jwt: {
     accessSecret: envVars.JWT_ACCESS_SECRET,
     refreshSecret: envVars.JWT_REFRESH_SECRET,

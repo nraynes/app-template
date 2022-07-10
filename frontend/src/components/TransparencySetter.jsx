@@ -49,9 +49,10 @@ function TransparencySetter({ defaultValue, onChange, label, orientation = 'vert
       }}
       {...args}
     >
-      <Typography id={`${id}_label`} sx={{ cursor: 'default', wrap: 'break-word', textAlign: 'center', ...labelSx }}>{label}</Typography>
+      <Typography id={`${id}_label`} data-testid={`${id}_label`} sx={{ cursor: 'default', wrap: 'break-word', textAlign: 'center', ...labelSx }}>{label}</Typography>
       <Slider
         id={`${id}_slider`}
+        data-testid={`${id}_slider`}
         defaultValue={defaultValue}
         onChange={onChange}
         orientation={orientation}

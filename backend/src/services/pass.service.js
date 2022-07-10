@@ -133,10 +133,7 @@ const myExports = {
   resetUserPassword,
   deleteKey,
   deleteExpiredTempKeys,
-}
-
-if (process.env.NODE_ENV === 'test') {
-  myExports.getTempCodeByID = getTempCodeByID;
+  getTempCodeByID,
 }
 
 module.exports = myExports;

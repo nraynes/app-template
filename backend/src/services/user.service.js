@@ -10,7 +10,7 @@ const tempService = require('./temp.service');
 const respond = require('@/utils/core/respond');
 const codes = require('@/config/responseCodes');
 const config = require('@/config/config');
-const compareObjects = require('@/utils/core/compareObjects');
+const { compareObjects } = require('@/utils/core/compare');
 const { encrypt, decrypt } = require('@/utils/core/AES');
 
 const prisma = new PrismaClient();

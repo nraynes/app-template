@@ -3,6 +3,7 @@ const knownGoodWords = [
   'canal',
   'analog',
   'analphabet',
+  'glass',
 ];
 
 module.exports = knownGoodWords;
