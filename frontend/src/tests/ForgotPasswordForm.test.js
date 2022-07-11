@@ -18,4 +18,36 @@ describe('Forgot Password Component Tests', () => {
     })
   })
 
+  test('Should have an email label.', async () => {
+    render(<TestComponent />)
+    await waitFor(() => {
+      const element = screen.getByTestId('forgot-password-email-label');
+      expect(element).toBeInTheDocument();
+    })
+  })
+  
+  test('Should have an email text field.', async () => {
+    render(<TestComponent />)
+    await waitFor(() => {
+      const element = screen.getByTestId('forgot-password-email-input');
+      expect(element).toBeInTheDocument();
+    })
+  })
+
+  test('Should have a back button.', async () => {
+    render(<TestComponent />)
+    await waitFor(() => {
+      const element = screen.getByTestId('forgot-password-form-back-button');
+      expect(element).toBeInTheDocument();
+    })
+  })
+
+  test('Should have a submit button.', async () => {
+    render(<TestComponent />)
+    await waitFor(() => {
+      const element = screen.getByTestId('forgot-password-form-reset-password-button');
+      expect(element).toBeInTheDocument();
+    })
+  })
+
 })

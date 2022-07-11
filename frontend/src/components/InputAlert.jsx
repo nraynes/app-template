@@ -33,7 +33,7 @@ const InputAlert = ({ onClose, title, message, ...args }) => {
       </DialogTitle>
       <DialogContent id="alert-dialog-description" data-testid="alert-dialog-description">
         <Typography sx={{ color: `rgba(${commonFormColor.opposingText.main})` }} style={{ whiteSpace: 'pre-line' }}>{message}</Typography>
-        <TextField multiline rows={3} componentColor={commonFormColor} inputRef={x} sx={{ width: ['100%', '25em'] }} />
+        <TextField id="alert-dialog-input" data-testid="alert-dialog-input" multiline rows={3} componentColor={commonFormColor} inputRef={x} sx={{ width: ['100%', '25em'] }} />
       </DialogContent>
       <DialogActions
         id="alert-dialog-actions"

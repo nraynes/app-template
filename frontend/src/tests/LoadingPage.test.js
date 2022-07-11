@@ -18,4 +18,12 @@ describe('Loading Page Component Tests', () => {
     })
   })
 
+  test('Should have a circular progress component.', async () => {
+    render(<TestComponent />)
+    await waitFor(() => {
+      const element = screen.getByTestId('loading-progress');
+      expect(element).toBeInTheDocument();
+    })
+  })
+
 })

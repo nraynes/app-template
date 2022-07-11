@@ -21,4 +21,20 @@ describe('Transparency Setter Component Tests', () => {
     })
   })
 
+  test('Should have a label.', async () => {
+    render(<TestComponent />)
+    await waitFor(() => {
+      const element = screen.getByTestId('test-component_label');
+      expect(element).toBeInTheDocument();
+    })
+  })
+
+  test('Should have a slider.', async () => {
+    render(<TestComponent />)
+    await waitFor(() => {
+      const element = screen.getByTestId('test-component_slider');
+      expect(element).toBeInTheDocument();
+    })
+  })
+
 })

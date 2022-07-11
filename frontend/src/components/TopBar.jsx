@@ -14,7 +14,7 @@ import { useColorPicker } from '@/stores/colorPickerStore';
 import { backgroundColor, consoleColor, buttonBarOpacity, titleBarOpacity, activateColorDrawer } from '@/config/config';
 import ProfileMenu from './ProfileMenu';
 
-function TopBar(props) {
+function TopBar({ openDropDown }) {
   const componentColor = consoleColor
   const opposingColor = buttonBarOpacity > 0.5 ? componentColor.opposingText.main : backgroundColor.opposingText.main;
   const { buttons } = useButtons();
@@ -158,11 +158,11 @@ function TopBar(props) {
           {(buttons.logIn && !auth.user) && <IconButton id="login-button" data-testid="login-button" sx={topBarIconSX} description="Log-in" onClick={logInButton}><LoginIcon sx={{ color: `rgba(${opposingColor})` }} /></IconButton>}
         </Box>
       </Box>
-      {menuOpen && (
+      {(openDropDown || menuOpen) && (
         <ProfileMenu
           handleClose={handleClose}
           anchorEl={anchorEl}
-          menuOpen={menuOpen}
+          menuOpen={openDropDown || menuOpen}
           profileButton={profileButton}
           settingsButton={settingsButton}
           helpButton={helpButton}

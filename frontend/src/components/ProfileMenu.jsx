@@ -17,6 +17,7 @@ function ProfileMenu({
   logOutButton,
 }) {
   const { buttons } = useButtons();
+
   const auth = useAuth();
 
   const menulist = [];

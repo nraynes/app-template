@@ -1,11 +1,11 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import AppProvider from '@/providers/AppProvider';
-import ProfileMenu from '@/components/ProfileMenu';
+import TopBar from '@/components/TopBar';
 
 const TestComponent = () => (
   <AppProvider>
-    <ProfileMenu
-      menuOpen={true}
+    <TopBar
+      openDropDown={true}
     />
   </AppProvider>
 );
