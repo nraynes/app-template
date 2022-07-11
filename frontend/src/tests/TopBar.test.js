@@ -10,12 +10,28 @@ const TestComponent = () => (
 
 describe('Top Bar Component Tests', () => {
 
-  test('Renders top bar within 1 second.', () => {
+  test('Should renders component within 20 milliseconds.', () => {
     render(<TestComponent />)
     setTimeout(() => {
-      const linkElement = screen.getByText(/App Template/i);
-      expect(linkElement).toBeInTheDocument();
-    }, 1000)
+      const element = screen.getByTestId('top-bar');
+      expect(element).toBeInTheDocument();
+    }, 20)
+  })
+
+  test('Should have title in top bar.', () => {
+    render(<TestComponent />)
+    setTimeout(() => {
+      const element = screen.getByText(/App Template/i);
+      expect(element).toBeInTheDocument();
+    }, 20)
+  })
+
+  test('Should have button bar after rendering.', () => {
+    render(<TestComponent />)
+    setTimeout(() => {
+      const element = screen.getByTestId('top-bar-button-bar')
+      expect(element).toBeInTheDocument();
+    }, 20)
   })
 
 })
