@@ -120,7 +120,7 @@ function ColorPicker({
 
   return (
     <Box
-      id={`color_box_${id}_container`}
+      id={id}
       sx={{
         transition: '0.5s',
       }}

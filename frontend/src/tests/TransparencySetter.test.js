@@ -1,38 +1,40 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import AppProvider from '@/providers/AppProvider';
-import TopBar from '@/components/TopBar';
+import TransparencySetter from '@/components/TransparencySetter';
 
 const TestComponent = () => (
   <AppProvider>
-    <TopBar />
+    <TransparencySetter
+      id="test-component"
+      data-testid="test-component"
+    />
   </AppProvider>
 );
 
-describe('Top Bar Component Tests', () => {
+describe('Transparency Setter Component Tests', () => {
 
   test('Should render component.', async () => {
     render(<TestComponent />)
     await waitFor(() => {
-      const element = screen.getByTestId('top-bar');
+      const element = screen.getByTestId('test-component');
       expect(element).toBeInTheDocument();
     })
   })
 
-  test('Should have title in top bar.', async () => {
+  test('Should have a label.', async () => {
     render(<TestComponent />)
     await waitFor(() => {
-      const element = screen.getByText(/App Template/i);
+      const element = screen.getByTestId('test-component_label');
       expect(element).toBeInTheDocument();
     })
   })
 
-  test('Should have button bar after rendering.', async () => {
+  test('Should have a slider.', async () => {
     render(<TestComponent />)
     await waitFor(() => {
-      const element = screen.getByTestId('top-bar-button-bar')
+      const element = screen.getByTestId('test-component_slider');
       expect(element).toBeInTheDocument();
     })
   })
 
 })
-

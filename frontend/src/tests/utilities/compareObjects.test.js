@@ -1,4 +1,4 @@
-const { compareObjects } = require('../../utils/core/compare');
+import { compareObjects } from '../../utils/core/compare';
 
 let milliseconds = 0;
 let timesRun = 0;

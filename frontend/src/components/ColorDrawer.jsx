@@ -9,7 +9,7 @@ import { onMobile, backgroundOpacity, commonFormOpacity, buttonOpacity, buttonBa
 import { setCookie, clearCookie, getCookie } from '@/utils/browser/cookies';
 import Button from './Button';
 
-function ColorDrawer(props) {
+function ColorDrawer({ manualOpen = false }) {
   const { open, setClose } = useColorPicker();
   const customCookie = getCookie('customConfig');
   const [custom, setCustom] = useState(customCookie ? customCookie : {});
@@ -71,7 +71,7 @@ function ColorDrawer(props) {
       id="color_drawer_container"
       data-testid="color_drawer_container"
       anchor="right"
-      open={open}
+      open={manualOpen || open}
       onClose={setClose}
     >
       <Box
