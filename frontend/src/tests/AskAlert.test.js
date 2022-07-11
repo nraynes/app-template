@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import AppProvider from '@/providers/AppProvider';
 import AskAlert from '@/components/AskAlert';
 
@@ -14,26 +14,44 @@ const TestComponent = () => (
 
 describe('Ask Alert Component Tests', () => {
 
-  test('Should renders component within 20 milliseconds.', () => {
+  test('Should render component.', async () => {
     render(<TestComponent />)
-    setTimeout(() => {
+    await waitFor(() => {
       const element = screen.getByTestId('alert-dialog');
       expect(element).toBeInTheDocument();
-    }, 20)
+    })
   })
 
-  test('Should have a title, message, and yes and no buttons.', () => {
+  test('Should have a title.', async () => {
     render(<TestComponent />)
-    setTimeout(() => {
+    await waitFor(() => {
       const elementTitle = screen.getByText('The Title');
-      const elementMessage = screen.getByText('Some message.');
-      const elementYes = screen.getByText('Yes');
-      const elementNo = screen.getByText('No');
       expect(elementTitle).toBeInTheDocument();
+    })
+  })
+
+  test('Should have a message.', async () => {
+    render(<TestComponent />)
+    await waitFor(() => {
+      const elementMessage = screen.getByText('Some message.');
       expect(elementMessage).toBeInTheDocument();
+    })
+  })
+
+  test('Should have a yes button.', async () => {
+    render(<TestComponent />)
+    await waitFor(() => {
+      const elementYes = screen.getByText('Yes');
       expect(elementYes).toBeInTheDocument();
+    })
+  })
+
+  test('Should have a no button.', async () => {
+    render(<TestComponent />)
+    await waitFor(() => {
+      const elementNo = screen.getByText('No');
       expect(elementNo).toBeInTheDocument();
-    }, 20)
+    })
   })
 
 })

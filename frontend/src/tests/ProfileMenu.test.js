@@ -1,21 +1,23 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import AppProvider from '@/providers/AppProvider';
 import ProfileMenu from '@/components/ProfileMenu';
 
 const TestComponent = () => (
   <AppProvider>
-    <ProfileMenu />
+    <ProfileMenu
+      menuOpen={true}
+    />
   </AppProvider>
 );
 
 describe('Profile Menu Component Tests', () => {
 
-  test('Should renders component within 20 milliseconds.', () => {
+  test('Should render component.', async () => {
     render(<TestComponent />)
-    setTimeout(() => {
+    await waitFor(() => {
       const element = screen.getByTestId('profile-menu');
       expect(element).toBeInTheDocument();
-    }, 20)
+    })
   })
 
 })

@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import AppProvider from '@/providers/AppProvider';
 import TopBar from '@/components/TopBar';
 
@@ -10,28 +10,28 @@ const TestComponent = () => (
 
 describe('Top Bar Component Tests', () => {
 
-  test('Should renders component within 20 milliseconds.', () => {
+  test('Should render component.', async () => {
     render(<TestComponent />)
-    setTimeout(() => {
+    await waitFor(() => {
       const element = screen.getByTestId('top-bar');
       expect(element).toBeInTheDocument();
-    }, 20)
+    })
   })
 
-  test('Should have title in top bar.', () => {
+  test('Should have title in top bar.', async () => {
     render(<TestComponent />)
-    setTimeout(() => {
+    await waitFor(() => {
       const element = screen.getByText(/App Template/i);
       expect(element).toBeInTheDocument();
-    }, 20)
+    })
   })
 
-  test('Should have button bar after rendering.', () => {
+  test('Should have button bar after rendering.', async () => {
     render(<TestComponent />)
-    setTimeout(() => {
+    await waitFor(() => {
       const element = screen.getByTestId('top-bar-button-bar')
       expect(element).toBeInTheDocument();
-    }, 20)
+    })
   })
 
 })

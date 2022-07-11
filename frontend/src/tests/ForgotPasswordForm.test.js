@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import AppProvider from '@/providers/AppProvider';
 import ForgotPasswordForm from '@/features/forgotPassword/components/ForgotPasswordForm';
 
@@ -10,12 +10,12 @@ const TestComponent = () => (
 
 describe('Forgot Password Component Tests', () => {
 
-  test('Should renders component within 20 milliseconds.', () => {
+  test('Should render component.', async () => {
     render(<TestComponent />)
-    setTimeout(() => {
+    await waitFor(() => {
       const element = screen.getByTestId('forgot-password');
       expect(element).toBeInTheDocument();
-    }, 20)
+    })
   })
 
 })

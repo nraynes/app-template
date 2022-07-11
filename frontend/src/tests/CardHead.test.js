@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import AppProvider from '@/providers/AppProvider';
 import CardHead from '@/components/CardHead';
 
@@ -7,18 +7,26 @@ const TestComponent = () => (
     <CardHead
       id="test-component"
       data-testid="test-component"
-    />
+    >Test Content</CardHead>
   </AppProvider>
 );
 
 describe('Card Head Component Tests', () => {
 
-  test('Should renders component within 20 milliseconds.', () => {
+  test('Should render component.', async () => {
     render(<TestComponent />)
-    setTimeout(() => {
+    await waitFor(() => {
       const element = screen.getByTestId('test-component');
       expect(element).toBeInTheDocument();
-    }, 20)
+    })
+  })
+
+  test('Should have a title header.', async () => {
+    render(<TestComponent />)
+    await waitFor(() => {
+      const title = screen.getByText('Test Content');
+      expect(title).toBeInTheDocument();
+    })
   })
 
 })

@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import AppProvider from '@/providers/AppProvider';
 import LogInForm from '@/features/auth/components/LogInForm';
 
@@ -10,12 +10,12 @@ const TestComponent = () => (
 
 describe('Log In Form Component Tests', () => {
 
-  test('Should renders component within 20 milliseconds.', () => {
+  test('Should render component.', async () => {
     render(<TestComponent />)
-    setTimeout(() => {
+    await waitFor(() => {
       const element = screen.getByTestId('login-form');
       expect(element).toBeInTheDocument();
-    }, 20)
+    })
   })
 
 })
