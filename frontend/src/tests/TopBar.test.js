@@ -8,11 +8,15 @@ const TestComponent = () => (
   </AppProvider>
 );
 
-test('Renders top bar within 1 second.', () => {
-  render(<TestComponent />)
-  setTimeout(() => {
-    const linkElement = screen.getByText(/App Template/i);
-    expect(linkElement).toBeInTheDocument();
-  }, 1000)
+describe('Top Bar Component Tests', () => {
+
+  test('Renders top bar within 1 second.', () => {
+    render(<TestComponent />)
+    setTimeout(() => {
+      const linkElement = screen.getByText(/App Template/i);
+      expect(linkElement).toBeInTheDocument();
+    }, 1000)
+  })
+
 })
 
