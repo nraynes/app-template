@@ -7,12 +7,14 @@ const blobToFile = (blob, name) => (
 );
 
 const encode = (file, setFunction) => {
+  window.nowAwaiting()
   imageConversion.compressAccurately(file, maximumFileSizeInKb).then((res) => {
     const compressedFile = blobToFile(res, 'profile');
     const reader = new FileReader();
     reader.readAsBinaryString(compressedFile);
     reader.onload = () => {
       setFunction(btoa(reader.result));
+      window.notAwaiting()
     };
   })
 };

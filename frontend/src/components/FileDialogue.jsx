@@ -5,7 +5,7 @@ import { commonFormColor } from '@/config/config';
 import encode from '@/utils/core/encode';
 
 const FileDialogue = ({ onClose, title, message, ...args }) => {
-  const [file, setFile] = useState([]);
+  const [file, setFile] = useState('');
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
@@ -35,7 +35,7 @@ const FileDialogue = ({ onClose, title, message, ...args }) => {
       </DialogTitle>
       <DialogContent id="alert-dialog-description" data-testid="alert-dialog-description">
         <Typography style={{ whiteSpace: 'pre-line', marginBottom: '1em' }}>{message}</Typography>
-        <input id="fileinput" data-testid="fileinput" accept=".jpg,.png" type="file" onChange={(e) => {
+        <input id="fileinput" data-testid="fileinput" accept="image/png, image/gif, image/jpeg" type="file" onChange={(e) => {
           encode(e.target.files[0], setFile);
         }} />
       </DialogContent>

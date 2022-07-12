@@ -108,6 +108,7 @@ function ProfileEditor(props) {
       if (file) {
         await apiCall(() => addPhoto(file), {
           SUCCESS: 'Successfully updated profile photo.',
+          FAILURE: 'File size exceeded. Please use a smaller file.',
         })
         refetch();
       }
