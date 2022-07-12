@@ -2,11 +2,11 @@ import { getToken } from '@/utils/browser/tokens'
 import { apiURL } from '@/config/config';
 import log from '@/utils/misc/log';
 
-const acquire = async ({ route, method, body, query, includeAuth, includeRefresh }, count = 0) => {
+const acquire = async ({ route, method, body, headers, query, includeAuth, includeRefresh }, count = 0) => {
   let url = `${apiURL}${route}`;
   let giftBox = {
     method: method,
-    headers: {},
+    headers: headers || {},
   }
   if (body) {
     giftBox.headers['Content-Type'] = 'application/JSON';

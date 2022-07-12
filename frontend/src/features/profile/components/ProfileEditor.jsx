@@ -5,22 +5,29 @@ import TextField from '@/components/TextField';
 import Card from '@/components/Card';
 import CardHead from '@/components/CardHead';
 import Button from '@/components/Button';
+import IconButton from '@/components/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useQuery  } from 'react-query';
 import { useAuth } from '@/lib/auth';
 import { useSnackbar } from 'notistack';
 import { useAskAlert } from '@/stores/askAlertStore';
+import { useFileDialogue } from '@/stores/fileDialogueStore';
 import getProfileInfo from '@/features/profile/api/getProfileInfo';
 import logOutOfAllDevices from '@/features/profile/api/allLogOut';
 import editProfileInfo from '@/features/profile/api/editProfileInfo';
 import deleteUser from '@/features/profile/api/deleteUser';
-import { commonFormColor, commonFormOpacity, backgroundColor } from '@/config/config';
+import { commonFormColor, commonFormOpacity, backgroundColor, useProfilePhoto } from '@/config/config';
 import apiCall from '@/utils/core/apiCall';
+import addPhoto from '@/features/profile/api/addPhoto';
+import removePhoto from '@/features/profile/api/removePhoto';
+import ProfilePhoto from '@/components/ProfilePhoto';
 
 function ProfileEditor(props) {
   const { enqueueSnackbar } = useSnackbar();
   const opposingColor = commonFormOpacity > 0.5 ? commonFormColor.opposingText.main : backgroundColor.opposingText.main;
   const componentColor = commonFormOpacity > 0.5 ? commonFormColor : backgroundColor;
   const { ask } = useAskAlert();
+  const { askForFile } = useFileDialogue();
   const auth = useAuth();
   const { data, refetch } = useQuery('profileInfo', () => (
     apiCall(() => getProfileInfo(), {
@@ -96,6 +103,28 @@ function ProfileEditor(props) {
     })
   }
 
+  const editProfilePhoto = () => {
+    askForFile('Profile Photo', 'Please select a profile photo to use.', async (file) => {
+      if (file) {
+        await apiCall(() => addPhoto(file), {
+          SUCCESS: 'Successfully updated profile photo.',
+        })
+        refetch();
+      }
+    });
+  }
+
+  const deleteProfilePhoto = () => {
+    ask('Confirm', 'Are you sure you want to delete you profile photo?', async (answer) => {
+      if (answer) {
+        await apiCall(removePhoto, {
+          SUCCESS: 'Successfully removed profile photo.',
+        })
+        refetch();
+      }
+    })
+  }
+
   return (
     <Card
       id="profile-editor"
@@ -112,6 +141,26 @@ function ProfileEditor(props) {
           margin: '1em',
         }}
       >
+        {useProfilePhoto && (
+            <Box
+              id="profile-editor-photo-container"
+              data-testid="profile-editor-photo-container"
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                py: '0.5em',
+              }}
+            >
+              <ProfilePhoto
+                id="profile-editor-profile-photo"
+                callback={editProfilePhoto}
+                photo={data && data.photo}
+              />
+              <IconButton id="profile-editor-photo-delete" data-testid="profile-editor-photo-delete" onClick={deleteProfilePhoto} description="Remove Profile Photo" sx={{ ml: '1em' }}><DeleteIcon /></IconButton>
+            </Box>
+          )
+        }
         <Box
           id="profile-editor-email-container"
           data-testid="profile-editor-email-container"

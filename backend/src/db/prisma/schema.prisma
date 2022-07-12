@@ -16,6 +16,7 @@ model accounts {
   password_hash String @db.VarChar
   dynamic_salt String @db.VarChar @unique
   verified Boolean
+  photo String?
   deleted_on DateTime?
   token tokens[]
   email_key email_temp_keys[]

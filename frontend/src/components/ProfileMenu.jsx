@@ -6,6 +6,11 @@ import HelpIcon from '@mui/icons-material/Help';
 import PersonIcon from '@mui/icons-material/Person';
 import { useAuth } from '@/lib/auth';
 import useButtons from '@/stores/topBarButtons';
+import { useQuery  } from 'react-query';
+import getProfileInfo from '@/features/profile/api/getProfileInfo';
+import apiCall from '@/utils/core/apiCall';
+import ProfilePhoto from '@/components/ProfilePhoto';
+import { useProfilePhoto } from '@/config/config';
 
 function ProfileMenu({
   handleClose,
@@ -17,12 +22,22 @@ function ProfileMenu({
   logOutButton,
 }) {
   const { buttons } = useButtons();
+  const { data, refetch } = useQuery('profileInfo', () => (
+    apiCall(() => getProfileInfo(), {
+      SUCCESS: response => response,
+      NOTFOUND: "We couldn't find the account.",
+      UNAUTHORIZED: 'You were not authorized to view account info.',
+    }, false)
+  ));
 
   const auth = useAuth();
 
   const menulist = [];
 
-  if (auth.user && auth.user.email) {
+  if (data && (
+      data.email
+      || data.photo
+    )) {
     menulist.push((
       <Box
         id="mini_profile_arch_container"
@@ -32,7 +47,14 @@ function ProfileMenu({
         <Box
           id="mini_profile_container"
           data-testid="mini_profile_container"
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
         >
+          {useProfilePhoto && <ProfilePhoto id="profile-photo" photo={data && data.photo} />}
           <Typography id="profile-email" data-testid="profile-email" sx={{ mx: '1em', my: '0.5em', fontStyle: 'italic' }}>{auth.user.email}</Typography>
         </Box>
         <Divider id="profile-divider" data-testid="profile-divider" sx={{ mb: '0.5em' }} />

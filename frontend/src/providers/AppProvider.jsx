@@ -10,8 +10,10 @@ import ErrorPage from '@/components/ErrorPage';
 import { AuthProvider } from '@/lib/auth';
 import AskAlert from '@/components/AskAlert';
 import InputAlert from '@/components/InputAlert';
+import FileDialogue from '@/components/FileDialogue';
 import { useInputAlert } from '@/stores/inputAlertStore';
 import { useAskAlert } from '@/stores/askAlertStore';
+import { useFileDialogue } from '@/stores/fileDialogueStore';
 import Awaiting from '@/components/Awaiting';
 import { queryClient } from '@/lib/react-query';
 import GlobalProvider from './GlobalProvider';
@@ -29,6 +31,7 @@ export const AppProvider = ({ children }) => {
   const { awaiting } = useAwaiting();
   const { askStatus, askTitle, askMessage, askElement, allowEnter, askCallBack, closeAsk } = useAskAlert();
   const { inputStatus, inputTitle, inputMessage, inputCallBack, closeInput } = useInputAlert();
+  const { fileStatus, fileTitle, fileMessage, fileCallBack, closeFile } = useFileDialogue();
 
 
   return (
@@ -59,6 +62,17 @@ export const AppProvider = ({ children }) => {
                       }}
                       title={inputTitle}
                       message={inputMessage}
+                    />
+                    <FileDialogue
+                      open={fileStatus}
+                      onClose={(response) => {
+                        closeFile();
+                        if (fileCallBack) {
+                          fileCallBack(response);
+                        }
+                      }}
+                      title={fileTitle}
+                      message={fileMessage}
                     />
                     <AskAlert
                       open={askStatus}

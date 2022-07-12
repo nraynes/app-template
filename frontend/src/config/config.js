@@ -6,6 +6,7 @@ import colors from "./colorTheme";
 const custom = getCookie('customConfig');
 
 export const activateColorDrawer = true;
+export const useProfilePhoto = true;
 export const topBarHeight = '3em';
 export const bottomBarHeight = '3em';
 export const testSiteKey = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';

@@ -35,7 +35,7 @@ if (process.env.NODE_ENV === 'development') {
   mainURL = 'https://raynesapptemplate.herokuapp.com';
 }
 
-module.exports = {
+const config = {
   backgroundPicture: 'BeautifulLake.jpeg',
   env: envVars.NODE_ENV,
   frontEndTests: envVars.NODE_ENV !== 'production' ? frontEndIsBeingTested : false,
@@ -59,6 +59,7 @@ module.exports = {
   },
   defaultURL: mainURL,
   tempCodeExpiration: 2,
+  useProfilePhoto: true,
   userPayloadKeys: ['account_id', 'email'],
   userAccountInfoKeys: ['email'],
   secretKey: envVars.SECRET_KEY,
@@ -78,3 +79,9 @@ module.exports = {
     }
   }
 };
+
+if (config.useProfilePhoto) {
+  config.userAccountInfoKeys.push('photo');
+}
+
+module.exports = config;

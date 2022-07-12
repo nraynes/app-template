@@ -159,6 +159,36 @@ const unverifyUser = async (account_id) => {
   return false;
 }
 
+const addImage = async (account_id, image) => {
+  const success = await prisma.accounts.update({
+    data: {
+      photo: image,
+    },
+    where: {
+      account_id,
+    }
+  })
+  if (success) {
+    return true;
+  }
+  return false;
+};
+
+const removeImage = async (account_id) => {
+  const success = await prisma.accounts.update({
+    data: {
+      photo: null,
+    },
+    where: {
+      account_id,
+    }
+  })
+  if (success) {
+    return true;
+  }
+  return false;
+};
+
 module.exports = {
   createUser,
   getUserByID,
@@ -167,4 +197,6 @@ module.exports = {
   verifyEmail,
   editUserInfo,
   unverifyUser,
+  addImage,
+  removeImage,
 };
