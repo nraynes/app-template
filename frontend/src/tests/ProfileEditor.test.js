@@ -1,6 +1,8 @@
+/* eslint-disable jest/no-conditional-expect */
 import { render, screen, waitFor } from '@testing-library/react';
 import AppProvider from '@/providers/AppProvider';
 import ProfileEditor from '@/features/profile/components/ProfileEditor';
+import { useProfilePhoto } from '@/config/config';
 
 const TestComponent = () => (
   <AppProvider>
@@ -16,6 +18,26 @@ describe('Profile Editor Component Tests', () => {
       const element = screen.getByTestId('profile-editor');
       expect(element).toBeInTheDocument();
     })
+  })
+
+  test('Should have a profile photo picture if its specified.', async () => {
+    if (useProfilePhoto) {
+      render(<TestComponent />)
+      await waitFor(() => {
+        const element = screen.getByTestId('profile-editor-profile-photo');
+        expect(element).toBeInTheDocument();
+      })
+    }
+  })
+
+  test('Should have a profile photo picture delete button if its specified.', async () => {
+    if (useProfilePhoto) {
+      render(<TestComponent />)
+      await waitFor(() => {
+        const element = screen.getByTestId('profile-editor-photo-delete');
+        expect(element).toBeInTheDocument();
+      })
+    }
   })
 
   test('Should have an email label.', async () => {
