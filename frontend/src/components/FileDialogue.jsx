@@ -16,6 +16,8 @@ const FileDialogue = ({ onClose, title, message, ...args }) => {
 
   return (
     <Dialog
+      id="alert-dialog"
+      data-testid="alert-dialog"
       onKeyDown={(event) => { handleKeyPress(event); }}
       tabIndex="0"
       PaperProps={{
@@ -28,26 +30,35 @@ const FileDialogue = ({ onClose, title, message, ...args }) => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">
+      <DialogTitle id="alert-dialog-title" data-testid="alert-dialog-title">
         <Typography variant="h5" component="p">{title}</Typography>
       </DialogTitle>
-      <DialogContent id="alert-dialog-description">
+      <DialogContent id="alert-dialog-description" data-testid="alert-dialog-description">
         <Typography style={{ whiteSpace: 'pre-line', marginBottom: '1em' }}>{message}</Typography>
-        <input id="fileinput" accept=".jpg,.png" type="file" onChange={(e) => {
+        <input id="fileinput" data-testid="fileinput" accept=".jpg,.png" type="file" onChange={(e) => {
           encode(e.target.files[0], setFile);
         }} />
       </DialogContent>
-      <DialogActions>
-        <Button onClick={() => { onClose(null); }}>
+      <DialogActions
+        id="alert-dialog-actions"
+        data-testid="alert-dialog-actions"
+      >
+        <Button
+          id="alert-dialog-cancel"
+          data-testid="alert-dialog-cancel"
+          onClick={() => { onClose(null); }}
+        >
           Cancel
         </Button>
         <Button
+          id="alert-dialog-submit"
+          data-testid="alert-dialog-submit"
           onClick={() => {
             onClose(file);
             setFile(null);
           }}
         >
-          Import
+          Submit
         </Button>
       </DialogActions>
     </Dialog>
