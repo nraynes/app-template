@@ -2,7 +2,10 @@
 /// <reference types="cypress" />
 
 describe('Landing page tests', () => {
-
+  Cypress.Cookies.defaults({
+    preserve: ['accessToken', 'refreshToken'],
+  })
+  
   it('Should have a top bar.', () => {
     cy.visit('http://localhost:3000/')
 

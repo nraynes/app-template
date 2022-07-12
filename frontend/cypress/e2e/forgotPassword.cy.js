@@ -2,7 +2,10 @@
 /// <reference types="cypress" />
 
 describe('Forgot Password feature tests', () => {
-
+  Cypress.Cookies.defaults({
+    preserve: ['accessToken', 'refreshToken'],
+  })
+  
   it('Should display the forgot password form when navigated to.', () => {
     cy.exec('cd ../backend && npm run test:teardown')
     cy.exec('cd ../backend && npm run test:setup')

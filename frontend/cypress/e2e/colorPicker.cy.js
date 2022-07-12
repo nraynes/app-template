@@ -2,6 +2,9 @@
 /// <reference types="cypress" />
 
 describe('Color Picker feature tests', () => {
+  Cypress.Cookies.defaults({
+    preserve: ['accessToken', 'refreshToken', 'theme', 'customConfig'],
+  })
 
   it('Should display the color picker on all pages.', () => {
     cy.exec('cd ../backend && npm run test:teardown')
