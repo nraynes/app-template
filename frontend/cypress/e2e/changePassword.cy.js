@@ -2,7 +2,10 @@
 /// <reference types="cypress" />
 
 describe('Change Password feature tests', () => {
-
+  Cypress.Cookies.defaults({
+    preserve: ['accessToken', 'refreshToken'],
+  })
+  
   it('Should navigate back to the login page when an invalid code is used.', () => {
     cy.exec('cd ../backend && npm run test:teardown')
     cy.exec('cd ../backend && npm run test:setup')

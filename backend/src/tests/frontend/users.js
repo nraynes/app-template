@@ -1,5 +1,6 @@
 const sjcl = require('sjcl');
 const { useEncryption, secretKey, encryption } = require('../../config/config');
+const testPicture = require('./picture');
 
 const encrypt = (message) => {
   if (useEncryption) {
@@ -15,6 +16,7 @@ const accounts = [
     password_hash: 'v35lsNY/S6FAZZ/gaSXnjhuwy9F49OgujSbLFWRrlklwpKb35kLe/ifkIFKo6Rfi5I33Prxb/3+4g+9Bru93uIzWoxnkH0nqjqR8U6Q1Bx5wVtjYMU5uqbsiTAoH/mAo',
     dynamic_salt: '8e573260e86d902525510ede9de79070',
     verified: true,
+    photo: testPicture,
   },
   {
     email: useEncryption ? encrypt('jamesbrown@email.com') : 'jamesbrown@email.com',

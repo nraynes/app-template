@@ -16,7 +16,17 @@ const editUserInfo = {
   }
 };
 
+const image = {
+  headers: Joi.object().keys({
+    authorization: Joi.string().required(),
+  }),
+  body: {
+    image: Joi.string().required(),
+  }
+}
+
 module.exports = {
   verifyEmail,
   editUserInfo,
+  image,
 };

@@ -5,6 +5,7 @@ CREATE TABLE "accounts" (
     "password_hash" VARCHAR NOT NULL,
     "dynamic_salt" VARCHAR NOT NULL,
     "verified" BOOLEAN NOT NULL,
+    "photo" TEXT,
     "deleted_on" TIMESTAMP(3),
 
     CONSTRAINT "accounts_pkey" PRIMARY KEY ("account_id")

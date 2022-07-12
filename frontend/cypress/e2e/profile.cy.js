@@ -1,12 +1,13 @@
 /* eslint-disable no-undef */
 /// <reference types="cypress" />
 
-
 describe('Profile feature tests', () => {
   Cypress.Cookies.defaults({
     preserve: ['accessToken', 'refreshToken'],
   })
   
+  const usingProfilePhotoFeature = true;
+
   it('Should display the user profile editor when logged in and visiting the right page.', () => {
     cy.exec('cd ../backend && npm run test:teardown')
     cy.exec('cd ../backend && npm run test:setup')
@@ -30,6 +31,14 @@ describe('Profile feature tests', () => {
     cy.get('[data-testid="profile-button"]')
       .click()
 
+    if (usingProfilePhotoFeature) {
+      cy.get('[data-testid="profile-photo"')
+        .should('exist');
+    }
+
+    cy.get('[data-testid="profile-email"')
+      .should('exist');
+
     cy.get('[data-testid="profile-menu-profile"]')
       .click()
 
@@ -39,11 +48,78 @@ describe('Profile feature tests', () => {
     cy.wait(500)
   })
 
-  it('Should display the users email on the form.', () => {
+  it('Should display the users email and profile photo (if specified) on the form.', () => {
     cy.get('[data-testid="profile-editor-email-input"]')
       .children('div')
       .children('input')
       .should('have.attr', 'value', 'amydavis@email.com')
+
+    if (usingProfilePhotoFeature) {
+      cy.get('[data-testid="profile-editor-profile-photo"]')
+        .should('exist')
+      cy.get('[data-testid="profile-editor-photo-delete"]')
+        .should('exist')
+    }
+  })
+
+  it('Should allow the user to pick a file to upload as an image for their profile picture.', () => {
+    if (usingProfilePhotoFeature) {
+      cy.get('[data-testid="profile-editor-profile-photo"]')
+        .click()
+      
+      cy.get('[data-testid="alert-dialog"]')
+        .should('exist')
+      
+      cy.get('[data-testid="alert-dialog-submit"]')
+        .click()
+  
+      cy.get('[id="notistack-snackbar"]')
+        .should('exist')
+        .should('have.text', '"image" must be a string\n')
+      
+      cy.get('[data-testid="profile-editor-profile-photo"]')
+        .click()
+      
+      cy.get('[data-testid="alert-dialog"]')
+        .should('exist')
+      
+      cy.get('[data-testid="alert-dialog-cancel"]')
+        .click()
+  
+      cy.get('[data-testid="alert-dialog"]')
+        .should('not.exist')
+    }
+  })
+
+  it('Should allow the user to remove their profile picture by the click of a button.', () => {
+    if (usingProfilePhotoFeature) {
+      cy.get('[data-testid="profile-editor-photo-delete"]')
+        .click()
+  
+      cy.get('[data-testid="alert-dialog"]')
+        .should('exist')
+  
+      cy.get('[data-testid="alert-dialog-no"]')
+        .click()
+  
+      cy.get('[data-testid="alert-dialog"]')
+        .should('not.exist')
+  
+      cy.get('[data-testid="profile-editor-photo-delete"]')
+        .click()
+  
+      cy.get('[data-testid="alert-dialog"]')
+        .should('exist')
+  
+      cy.get('[data-testid="alert-dialog-yes"]')
+        .click()
+  
+      cy.wait(1000)
+  
+      cy.get('[id="notistack-snackbar"]')
+        .should('exist')
+        .should('have.text', 'Successfully removed profile photo.')
+    }
   })
 
   it('Should allow the user to enter an editing mode when clicking on the edit button.', () => {

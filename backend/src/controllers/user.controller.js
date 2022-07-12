@@ -76,9 +76,39 @@ const deleteUser = catchAsync(async (req, res) => {
   }
 });
 
+const addImage = catchAsync(async (req, res) => {
+  const user = await userService.getUserByID(req.user.account_id);
+  if (user) {
+    const success = await userService.addImage(user.account_id, req.body.image);
+    if (success) {
+      respond(res, codes.success);
+    } else {
+      respond(res, codes.failure);
+    }
+  } else {
+    respond(res, codes.notFound)
+  }
+})
+
+const removeImage = catchAsync(async (req, res) => {
+  const user = await userService.getUserByID(req.user.account_id);
+  if (user) {
+    const success = await userService.removeImage(user.account_id);
+    if (success) {
+      respond(res, codes.success);
+    } else {
+      respond(res, codes.failure);
+    }
+  } else {
+    respond(res, codes.notFound)
+  }
+})
+
 module.exports = {
   verifyEmail,
   getInfo,
   editInfo,
   deleteUser,
+  addImage,
+  removeImage
 };

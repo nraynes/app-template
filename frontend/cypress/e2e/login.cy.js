@@ -2,7 +2,10 @@
 /// <reference types="cypress" />
 
 describe('Login feature tests', () => {
-
+  Cypress.Cookies.defaults({
+    preserve: ['accessToken', 'refreshToken'],
+  })
+  
   it('Login form should exist.', () => {
     cy.exec('cd ../backend && npm run test:teardown')
     cy.exec('cd ../backend && npm run test:setup')

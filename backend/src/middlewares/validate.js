@@ -8,6 +8,7 @@ const validate = (schema) => (req, res, next) => {
   log('Request Query:', req.query);
   log('Request Body:', req.body);
   log('Request Method:', req.method);
+  // log('Request Headers:', req.headers);
   log('Request Url:', req.url);
   const validSchema = pick(schema, ['params', 'query', 'body']);
   const object = pick(req, Object.keys(validSchema));
