@@ -72,10 +72,6 @@ describe('Profile feature tests', () => {
       
       cy.get('[data-testid="alert-dialog-submit"]')
         .click()
-  
-      cy.get('[id="notistack-snackbar"]')
-        .should('exist')
-        .should('have.text', '"image" must be a string\n')
       
       cy.get('[data-testid="profile-editor-profile-photo"]')
         .click()
