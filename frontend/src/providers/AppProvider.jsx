@@ -33,7 +33,6 @@ export const AppProvider = ({ children }) => {
   const { inputStatus, inputTitle, inputMessage, inputCallBack, closeInput } = useInputAlert();
   const { fileStatus, fileTitle, fileMessage, fileCallBack, closeFile } = useFileDialogue();
 
-
   return (
   <React.Suspense
     fallback={(
