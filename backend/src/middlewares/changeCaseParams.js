@@ -42,7 +42,7 @@ const changeCase = (items) => {
 };
 
 const changeCaseParams = () => (req, _res, next) => {
-  log('Lowering case of all string params, with exclusion of passwords and display names.');
+  log('Changing case except exclusions.');
   const { body, query, params } = req;
   req.body = changeCase(body);
   req.query = changeCase(query);

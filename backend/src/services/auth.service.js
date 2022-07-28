@@ -81,6 +81,7 @@ async function loginUserWithEmailAndPassword(email, password, res) {
         const filteredUser = pick(user, config.userPayloadKeys);
         const generatedTokens = await tokenService.generateTokens(filteredUser);
         if (generatedTokens) {
+          log('Logged a user in successfully with this object:', filteredUser);
           respond(res, { user: filteredUser, tokens: generatedTokens });
         } else {
           respond(res, codes.failure);

@@ -20,6 +20,7 @@ app.use(
       directives: {
         ...helmet.contentSecurityPolicy.getDefaultDirectives(),
         // eslint-disable-next-line quotes
+        "X-XSS-Protection": ['1; mode=block'],
         "script-src": ["'self'", "https://www.google.com", "https://www.gstatic.com"],
         "frame-src": ["'self'", "https://www.google.com", "https://www.gstatic.com"],
         "img-src": ["'self'", 'data:', "https://www.google.com", "https://www.gstatic.com"],

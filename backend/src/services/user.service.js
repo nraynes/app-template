@@ -12,6 +12,7 @@ const codes = require('@/config/responseCodes');
 const config = require('@/config/config');
 const { compareObjects } = require('@/utils/core/compare');
 const { encrypt, decrypt } = require('@/utils/core/AES');
+const log = require('@/utils/misc/log');
 
 const prisma = new PrismaClient();
 
@@ -90,6 +91,8 @@ async function createUser(email, password, dynamicSalt, res) {
           if (success === 'NOCREDITS') {
             respond(res, codes.noCredits);
           } else if (success) {
+            log('Created a new user with the this object:', userObject)
+            log('This is the user that was created:', newUser)
             respond(res, codes.success);
           } else {
             respond(res, codes.failure)

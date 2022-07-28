@@ -5,8 +5,8 @@ const log = require('@/utils/misc/log');
  * Send a server response with a predetermined error code json or a return object.
  * Respond does not terminate execution.
  * @param {Object} res
- * @param {object} resObj
- * @returns {string}
+ * @param {Object} resObj
+ * @returns {String}
  */
 function respond(res, resObj, statusOveride = 200) {
   res.status(statusOveride);
