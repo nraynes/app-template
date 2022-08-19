@@ -3,8 +3,10 @@ const path = require('path');
 const Joi = require('joi');
 const frontEndIsBeingTested = require('./frontEndTesting');
 
+// Tell dotenv where to find the env file.
 dotenv.config({ path: path.join(__dirname, '../../.env') });
 
+// Create validation schema and apply descriptions to environment variables.
 const envVarsSchema = Joi.object()
   .keys({
     NODE_ENV: Joi.string().valid('production', 'development', 'test').required(),
@@ -22,12 +24,14 @@ const envVarsSchema = Joi.object()
   })
   .unknown();
 
+// Validate the above schema.
 const { value: envVars, error } = envVarsSchema.prefs({ errors: { label: 'key' } }).validate(process.env);
 
 if (error) {
   throw new Error(`Config validation error: ${error.message}`);
 }
 
+// Set the front end url based on development or production environment.
 let mainURL = '';
 if (process.env.NODE_ENV === 'development') {
   mainURL = 'http://localhost:3000';

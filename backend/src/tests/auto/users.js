@@ -2,6 +2,7 @@ const createPasswordHash = require('../../utils/core/createPasswordHash');
 const { encrypt } = require('../../utils/core/AES');
 const testPicture = require('./picture');
 
+// account emails are separate so they can be used in tests.
 const accounts = [
   encrypt('amydavis@email.com'),
   encrypt('jamesbrown@email.com'),

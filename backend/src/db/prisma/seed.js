@@ -2,6 +2,7 @@ const { PrismaClient } = require('@prisma/client');
 const generateAccounts = require('./users');
 const log = require('../../utils/misc/log');
 
+// This function will automaticall log information as a table is being seeded.
 const seedTable = async (list, tableName, id) => {
   log(`Seeding table ${tableName}...`)
   const idList = [];

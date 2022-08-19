@@ -1,5 +1,6 @@
 const { isDate, isObject } = require('./jsonUtils');
 
+// Takes a value and converts it to a standard format for comparison.
 const convertValue = (val, options) => (typeof val === 'function'
   ? 1
   : isDate(val)
@@ -10,6 +11,8 @@ const convertValue = (val, options) => (typeof val === 'function'
         : val.trim()
           : val)
 
+// Takes two objects and checks to see if everything in the first object is also in the second object.
+// Can pass options to make it case insensitive or check for absolute equality (meaning the objects have to be exactly the same).
 const compareObjects = (object1, object2, options = {}) => {
   if (!object1
     || !object2
@@ -35,7 +38,8 @@ const compareObjects = (object1, object2, options = {}) => {
   return true;
 };
 
-const compareArrays = (arr1, arr2, options = {}) => {
+// Takes in two arrays and checks to see if they are the same.
+const compareArrays = (arr1, arr2) => {
   if (arr1.length !== arr2.length) return false;
   const a = [...arr1].sort();
   const b = [...arr2].sort();

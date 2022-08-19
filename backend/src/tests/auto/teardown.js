@@ -3,6 +3,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const { encrypt } = require('../../utils/core/AES');
 
+// Function will remove only users added during testing.
 async function main() {
   const accounts = await generateAccounts();
   const emails = accounts.map((item) => item.email)

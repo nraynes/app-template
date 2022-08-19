@@ -1,3 +1,7 @@
+// These are response codes to be used by the respond utility function.
+// You can pass a response code to the respond function to automatically set a JSON code
+// and status code in your response object.
+
 const codes = {
   badAsyncCall: { message: 'ASYNCERROR', status: 500 },
   notValid: { message: 'NOTVALID', status: 400 },

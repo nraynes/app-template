@@ -3,6 +3,8 @@ const Joi = require('joi');
 const pick = require('@/utils/formatters/pick');
 const respond = require('@/utils/core/respond');
 
+// This will take the req and a validation schema and check to see if the req matches the schema
+// as it is described in the validation file.
 const validate = (schema) => (req, res, next) => {
   const validSchema = pick(schema, ['params', 'query', 'body']);
   const object = pick(req, Object.keys(validSchema));

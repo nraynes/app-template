@@ -21,6 +21,7 @@ function getFirstDayOfNextMonth() {
   return new Date(date.getFullYear(), date.getMonth() + 1, 1);
 }
 
+// This will automatically purge all expired temp keys from the database on frequent basis.
 const purgeTempKeys = () => (_req, _res, next) => {
   if (ready === true) {
     log('Attempting to purge expired temp keys');

@@ -10,6 +10,8 @@ const exclusives = [
 
 const upperCaseParams = [];
 
+// Takes the req body, query, and params and changes all of the specified
+// keys to either all lowercase or all uppercase.
 const changeCase = (items) => {
   if (items && isObject(items, true)) {
     const itemKeys = Object.keys(items);

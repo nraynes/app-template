@@ -14,7 +14,7 @@ const seedTable = async (list, tableName, id) => {
   return idList;
 }
 
-
+// Function will remove only the users that are added during testing then re-add them.
 async function main() {
   const accounts = await generateAccounts();
   const emails = accounts.map((item) => item.email)
