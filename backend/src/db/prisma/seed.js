@@ -1,5 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
-const accounts = require('./users');
+const generateAccounts = require('./users');
 const log = require('../../utils/misc/log');
 
 const seedTable = async (list, tableName, id) => {
@@ -27,7 +27,9 @@ async function main() {
   log('Deleting accounts...');
   await prisma.accounts.deleteMany({});
   log('Start seeding ...');
-  const accountIds = await seedTable(accounts, 'accounts', 'account_id')
+  log('Generating Accounts...');
+  const accounts = await generateAccounts();
+  await seedTable(accounts, 'accounts', 'account_id')
   log('Seeding finished.');
 }
 

@@ -1,16 +1,7 @@
-const accounts = require('./users');
+const { generateAccounts } = require('./users');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-const sjcl = require('sjcl');
-const { useEncryption, secretKey, encryption } = require('../../config/config');
-
-const encrypt = (message) => {
-  if (useEncryption) {
-    const encrypted = sjcl.encrypt(secretKey, message, encryption.config);
-    return JSON.parse(encrypted).ct;
-  }
-  return message;
-}
+const { encrypt } = require('../../utils/core/AES');
 
 const seedTable = async (list, tableName, id) => {
   const idList = [];
@@ -23,10 +14,11 @@ const seedTable = async (list, tableName, id) => {
   return idList;
 }
 
-const emails = accounts.map((item) => item.email)
-emails.push(useEncryption ? encrypt('test@email.com') : 'test@email.com',)
 
 async function main() {
+  const accounts = await generateAccounts();
+  const emails = accounts.map((item) => item.email)
+  emails.push(encrypt('test@email.com'))
   for (let i = 0; i < emails.length; i++) {
     const userArr = await prisma.accounts.findMany({
       select: {

@@ -1,14 +1,13 @@
 const supertest = require("supertest");
 const app = require("../../app");
 const request = supertest(app);
-const accounts = require('./auto/users');
+const { accounts } = require('./auto/users');
 const { decrypt } = require("../utils/core/AES");
-const { useEncryption } = require('../config/config');
 
 process.env.NODE_ENV = 'test'
 
-const emailOne = useEncryption ? decrypt(accounts[0].email) : accounts[0].email;
-const emailThree = useEncryption ? decrypt(accounts[2].email) : accounts[2].email;
+const emailOne = decrypt(accounts[0])
+const emailThree = decrypt(accounts[2])
 
 // Cannot test register feature without front end integration. Successful registering will be tested with front end e2e test.
 describe('AUTH', () => {

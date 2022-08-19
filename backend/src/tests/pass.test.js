@@ -3,11 +3,10 @@ const app = require("../../app");
 const request = supertest(app);
 const userService = require('../services/user.service');
 const passService = require('../services/pass.service');
-const accounts = require('./auto/users');
-const { useEncryption } = require('../config/config');
+const { accounts } = require('./auto/users');
 const { decrypt } = require("../utils/core/AES");
 
-const emailOne = useEncryption ? decrypt(accounts[0].email) : accounts[0].email;
+const emailOne = decrypt(accounts[0]);
 let code;
 process.env.NODE_ENV = 'test'
 

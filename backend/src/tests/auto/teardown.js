@@ -1,22 +1,14 @@
-const accounts = require('./users');
+const { generateAccounts } = require('./users');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-const sjcl = require('sjcl');
-const { useEncryption, secretKey, encryption } = require('../../config/config');
-
-const encrypt = (message) => {
-  if (useEncryption) {
-    const encrypted = sjcl.encrypt(secretKey, message, encryption.config);
-    return JSON.parse(encrypted).ct;
-  }
-  return message;
-}
-
-const emails = accounts.map((item) => item.email)
-emails.push(useEncryption ? encrypt('test@email.com') : 'test@email.com',)
-
+const { encrypt } = require('../../utils/core/AES');
 
 async function main() {
+  const accounts = await generateAccounts();
+  const emails = accounts.map((item) => item.email)
+  emails.push(encrypt('test@email.com'))
+  emails.push(encrypt('frontend@email.com'))
+  emails.push(encrypt('newuseremail@email.com'))
   for (let i = 0; i < emails.length; i++) {
     const userArr = await prisma.accounts.findMany({
       select: {

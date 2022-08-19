@@ -1,5 +1,5 @@
 const sjcl = require('sjcl');
-const { secretKey, useEncryption, encryption } = require('@/config/config')
+const { secretKey, useEncryption, encryption } = require('../../config/config')
 
 const encrypt = (message) => {
   if (useEncryption) {

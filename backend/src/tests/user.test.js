@@ -1,12 +1,12 @@
 const supertest = require("supertest");
 const app = require("../../app");
 const request = supertest(app);
-const accounts = require('./auto/users');
+const { accounts } = require('./auto/users');
 const { decrypt } = require("../utils/core/AES");
-const { useEncryption, useProfilePhoto } = require('../config/config');
+const { useProfilePhoto } = require('../config/config');
 
-const emailTwo = useEncryption ? decrypt(accounts[1].email) : accounts[1].email;
-const emailFour = useEncryption ? decrypt(accounts[3].email) : accounts[3].email;
+const emailTwo = decrypt(accounts[1])
+const emailFour = decrypt(accounts[3])
 
 process.env.NODE_ENV = 'test'
 
