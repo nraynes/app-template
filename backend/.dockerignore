@@ -1,0 +1,8 @@
+.git/
+log/*
+!log/.keep
+node_modules/
+
+.env*
+!.env.example
+docker-compose.override.yml
