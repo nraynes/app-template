@@ -125,6 +125,40 @@ to do this, don't worry, it will only affect the development
 environment, if NODE_ENV is set to production then captcha cannot be
 disabled by "frontEndIsBeingTested").
 
+## Folder Structure
+
+**The folders in the backend src are structured in the following way:**
+
+***assets:*** Image files and assets are stored in this folder.  
+***config:*** Global server configuration files.  
+***controllers:*** Controller files that call upon various services to perform api functions.  
+***db:*** All database stuff is in here.  
+***middlewares:*** Express middlewares and custom middlewares stored here.  
+***routes:*** Express Router files that define the routes for the api calls and where those calls go.  
+***services:*** Service files that contain functions that do the actual work such as interacting with the database.  
+***tests:*** All unit testing files along with setup and teardown files are in here.  
+***utils:*** These are custom made utility functions that perform various tasks.  
+***validation:*** Joi validation files to be used in routes to validate input.  
+
+
+**The folders in the frontend src are structured in the following way:**
+
+***api:*** Global API calls are stored in individual files here.  
+***assets:*** Image files and such would be stored here.  
+***components:*** Global react components are stored here.  
+***config:*** Frontend global app configuration files and color scheme.  
+***features:*** All individual features are separated here for organization, to include components, API calls, and routes for each feature.  
+***hooks:*** Custom react hooks.  
+***lib:*** library extension or modification files.  
+***providers:*** Global app and library providers and custom providers.  
+***routes:*** All routes in react router.  
+***stores:*** Global state stores go here.  
+***styles:*** Custom CSS files.  
+***tests:*** All unit tests.  
+***utils:*** These are custom made utility functions that perform various tasks.  
+
+*e2e tests are stored above the src folder and are contained in the cypress/e2e folder.*
+
 ## Issue Tracker:
 
 No known issues in this version.
