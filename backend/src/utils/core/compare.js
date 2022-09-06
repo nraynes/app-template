@@ -55,7 +55,6 @@ const compareObjects = (object1, object2, options = {}) => {
  * @param {Array} arr2
  * @returns {Boolean}
  */
-
 const compareArrays = (arr1, arr2) => {
   if (arr1.length !== arr2.length) return false;
   const a = [...arr1].sort();

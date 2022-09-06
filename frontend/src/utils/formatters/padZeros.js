@@ -1,4 +1,10 @@
-/* eslint-disable no-param-reassign */
+/**
+ * Pads a string or number with a specific number of zeros.
+ * return string is meant to be the length of num, with zeros added up to this number.
+ * @param {String || Number} str
+ * @param {Number} num
+ * @returns {String}
+ */
 const padZeros = (str, num) => {
   str = `${str}`.substring(0, num);
   for (let i = 0; i < num; i += 1) {
@@ -9,4 +15,4 @@ const padZeros = (str, num) => {
   return str;
 };
 
-module.exports = padZeros;
+export default padZeros;

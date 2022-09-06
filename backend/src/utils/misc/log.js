@@ -6,7 +6,6 @@ const formatDate = require('../formatters/format');
  * @param {Any} args
  * @returns {undefined}
  */
-
 function log(message, ...args) {
   if (
     process.env.NODE_ENV !== 'test'

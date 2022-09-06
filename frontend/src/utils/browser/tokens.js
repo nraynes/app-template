@@ -1,5 +1,10 @@
 import { getCookie, setCookie, clearCookie } from './cookies';
 
+/**
+ * Retrieves a JSON Web Token from the browser based on the specified type.
+ * @param {String} type
+ * @returns {String || null}
+ */
 export function getToken(type) {
   const options = ['access', 'refresh'];
   if (!options.includes(type)) {
@@ -13,6 +18,12 @@ export function getToken(type) {
   }
 }
 
+/**
+ * Sets a JSON Web Token in the browser as a cookie.
+ * @param {String} type
+ * @param {String} token
+ * @returns {String || null}
+ */
 export function setToken(type, token) {
   const options = ['access', 'refresh'];
   if (!options.includes(type)) {
@@ -47,6 +58,10 @@ export function setToken(type, token) {
   }
 }
 
+/**
+ * Deletes all of the JSON Web Tokens stored in the browser cookies.
+ * @returns {String || null}
+ */
 export function clearTokens() {
   const checkAccess = setToken('access', null);
   const checkRefresh = setToken('refresh', null);

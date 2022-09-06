@@ -1,29 +1,35 @@
 import generateJoiError from "@/utils/formatters/generateJoiError";
 
-const processResponse = async (response, o) => {
+/**
+ * Processes a response from an api call and generates a snackbar output based on the message recieved.
+ * @param {Object} response
+ * @param {Object} o
+ * @returns {Any}
+ */
+const processResponse = async (response, override) => {
   const enqueueSnackbar = window.enqueueSnackbar;
 
   const options = {
-    ASYNCERROR: o.ASYNCERROR || 'The server could not process the request',
-    NOTVALID: o.NOTVALID || 'Invalid request',
-    NOTVERIFIED: o.NOTVERIFIED || 'You are not verified',
-    RESTORED: o.RESTORED || 'Restored successfully',
-    FAILURE: o.FAILURE || 'There was an issue while trying to process your request',
-    CAPTCHAFAILED: o.CAPTCHAFAILED || 'Invalid captcha',
-    NOTFOUND: o.NOTFOUND || 'That could not be found',
-    FORBIDDEN: o.FORBIDDEN || 'That is forbidden',
-    BANNED: o.BANNED || 'You are banned',
-    ALREADYEXISTS: o.ALREADYEXISTS || 'That already exists',
-    ERRPASS: o.ERRPASS || 'Wrong password',
-    BADEMAIL: o.BADEMAIL || 'There was a problem with that email',
-    CONFLICT: o.CONFLICT || 'There is a conflict with the data you provided',
-    UNAUTHORIZED: o.UNAUTHORIZED || 'You are not authorized to perform that action',
-    LOCKED: o.LOCKED || 'That action is not allowed',
-    EXPIRED: o.EXPIRED || 'Expired',
-    NOCAT: o.NOCAT || 'No category specified',
-    TOOLARGE: o.TOOLARGE || 'The request/response was too large for the server to handle',
-    SUCCESS: o.SUCCESS || 'Success!',
-    NOCREDITS: o.NOCREDITS || 'The server ran out of email credits! Could not send email.',
+    ASYNCERROR: override.ASYNCERROR || 'The server could not process the request',
+    NOTVALID: override.NOTVALID || 'Invalid request',
+    NOTVERIFIED: override.NOTVERIFIED || 'You are not verified',
+    RESTORED: override.RESTORED || 'Restored successfully',
+    FAILURE: override.FAILURE || 'There was an issue while trying to process your request',
+    CAPTCHAFAILED: override.CAPTCHAFAILED || 'Invalid captcha',
+    NOTFOUND: override.NOTFOUND || 'That could not be found',
+    FORBIDDEN: override.FORBIDDEN || 'That is forbidden',
+    BANNED: override.BANNED || 'You are banned',
+    ALREADYEXISTS: override.ALREADYEXISTS || 'That already exists',
+    ERRPASS: override.ERRPASS || 'Wrong password',
+    BADEMAIL: override.BADEMAIL || 'There was a problem with that email',
+    CONFLICT: override.CONFLICT || 'There is a conflict with the data you provided',
+    UNAUTHORIZED: override.UNAUTHORIZED || 'You are not authorized to perform that action',
+    LOCKED: override.LOCKED || 'That action is not allowed',
+    EXPIRED: override.EXPIRED || 'Expired',
+    NOCAT: override.NOCAT || 'No category specified',
+    TOOLARGE: override.TOOLARGE || 'The request/response was too large for the server to handle',
+    SUCCESS: override.SUCCESS || 'Success!',
+    NOCREDITS: override.NOCREDITS || 'The server ran out of email credits! Could not send email.',
   };
 
   const optionKeys = Object.keys(options);

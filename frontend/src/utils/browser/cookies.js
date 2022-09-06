@@ -3,6 +3,14 @@
 /* eslint-disable no-plusplus */
 import { toJson, parseJson } from '@/utils/core/jsonUtils';
 
+/**
+ * Sets a cookie in the browser with a specifed expiration date.
+ * This will stringify the value to json before being set.
+ * @param {String} cname
+ * @param {Any} cvalue
+ * @param {Number} exdays
+ * @returns {Object}
+ */
 export function setCookie(cname, cvalue, exdays) {
   cvalue = toJson(cvalue);
   const d = new Date();
@@ -11,6 +19,11 @@ export function setCookie(cname, cvalue, exdays) {
   document.cookie = `${cname}=${cvalue};${expires};path=/`;
 }
 
+/**
+ * This will get a cookie value from the browser and parse the value back into its original form.
+ * @param {String} cname
+ * @returns {Any}
+ */
 export function getCookie(cname) {
   const name = `${cname}=`;
   const ca = document.cookie.split(';');
@@ -30,6 +43,11 @@ export function getCookie(cname) {
   return '';
 }
 
+/**
+ * Deletes a cookie with the specified name.
+ * @param {String} cname
+ * @returns {Object}
+ */
 export function clearCookie(cname) {
   document.cookie = `${cname}= ; expires = Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
 }

@@ -2,6 +2,20 @@ import { getToken } from '@/utils/browser/tokens'
 import { apiURL } from '@/config/config';
 import log from '@/utils/misc/log';
 
+/**
+ * Sends a request to the api url specified in the configuration with the given parameters.
+ * Can automatically invlude authentication headers with JSON Web Tokens.
+ * @param {Object}
+ * * @param {Object} route
+ * * @param {String} method
+ * * @param {Object} body
+ * * @param {Object} headers
+ * * @param {Object} query
+ * * @param {Boolean} includeAuth
+ * * @param {Boolean} includeRefresh
+ * @param {Number} count
+ * @returns {Object}
+ */
 const acquire = async ({ route, method, body, headers, query, includeAuth, includeRefresh }, count = 0) => {
   let url = `${apiURL}${route}`;
   let giftBox = {

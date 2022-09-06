@@ -1,7 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable prefer-destructuring */
-/* eslint-disable no-nested-ternary */
-
 /**
  * Checks to see if an input is a date object or is formatted as a date object.
  * @param {Any} val
