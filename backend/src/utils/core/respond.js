@@ -2,10 +2,11 @@
 /* eslint-disable no-console */
 const log = require('@/utils/misc/log');
 /**
- * Send a server response with a predetermined error code json or a return object.
+ * Send a server response with a predetermined error code or an object.
  * Respond does not terminate execution.
  * @param {Object} res
  * @param {Object} resObj
+ * @param {Number} statusOveride
  * @returns {String}
  */
 function respond(res, resObj, statusOveride = 200) {

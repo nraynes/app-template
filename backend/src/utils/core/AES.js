@@ -1,6 +1,11 @@
 const sjcl = require('sjcl');
 const { secretKey, useEncryption, encryption } = require('../../config/config')
 
+/**
+ * Encrypts a message using the configuration specified in the config file.
+ * @param {String} message
+ * @returns {String}
+ */
 const encrypt = (message) => {
   if (useEncryption) {
     const encrypted = sjcl.encrypt(secretKey, message, encryption.config);
@@ -9,6 +14,11 @@ const encrypt = (message) => {
   return message;
 }
 
+/**
+ * Decrypts a message using the configuration specified in the config file.
+ * @param {String} message
+ * @returns {String}
+ */
 const decrypt = (message) => {
   if (useEncryption) {
     const encrypted = encryption.config;

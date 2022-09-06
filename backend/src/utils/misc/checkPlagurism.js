@@ -1,5 +1,12 @@
 const removePuncuationFromText = require('./removePunctuation');
 
+/**
+ * Checks if a users text matches up to 60 percent of a published text, or returns the percentage.
+ * @param {String} usersText
+ * @param {String} publishedText
+ * @param {Boolean} returnPercentage
+ * @returns {Boolean || Number}
+ */
 const checkPlagurism = (usersText, publishedText, returnPercentage = false) => {
   const wordArrOne = removePuncuationFromText(usersText).split(' ').filter((item) => item && item);
   const wordArrTwo = removePuncuationFromText(publishedText).split(' ').filter((item) => item && item);

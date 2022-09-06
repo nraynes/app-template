@@ -6,6 +6,13 @@ const config = require('../../config/config');
 // If the backend tests are passing, This function is definitely working.
 // This will take a password and give back an object containing the password
 // hash and dynamic salt for that password.
+
+/**
+ * Creates a hash of a given password with included static and dynamic salt.
+ * @param {String} password
+ * @returns {Object}
+ */
+
 const createPasswordHash = async (password) => {
   return new Promise((resolve, reject) => {
     const dynamic_salt = crypto.randomBytes(16).toString('hex')

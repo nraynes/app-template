@@ -1,3 +1,9 @@
+/**
+ * Checks to see if a character is either a lowercase letter, uppercase letter, number, or a space.
+ * Does so without using regex for speed.
+ * @param {String} char
+ * @returns {Booleans}
+ */
 const checkASCII = (char) => {
   const code = char.charCodeAt(0)
   return (
@@ -8,9 +14,13 @@ const checkASCII = (char) => {
   );
 }
 
-// This function is around half the speed of the one below and has a linear time complexity.
-// however it is 100% accurate in removing all puncuation.
-const removePuncuationFromText = (text, replaceWithSpace = false) => {
+/**
+ * Removes all punctuation from a given string.
+ * @param {String} text
+ * @param {Boolean} replaceWithSpace
+ * @returns {String}
+ */
+const removePunctuationFromText = (text, replaceWithSpace = false) => {
   let retVal = '';
   for (let i = 0;i < text.length;i++) {
     const curChar = text[i];
@@ -23,17 +33,4 @@ const removePuncuationFromText = (text, replaceWithSpace = false) => {
   return retVal;
 }
 
-
-// This function is twice as fast and has a more constant time complexity
-// however is less accurate and will only remove puncuation that is defined in the array.
-// \/
-// const removePuncuationFromText = (text, replaceWithSpace = false) => {
-//   const punc = ['!', '.',',','?','"',"'",'+','=','-','_',';',':','>','<','/','\\','|','@','#','$','%','^','&','*','(',')',']','[','{','}','~','`'];
-// 	let retVal = text;
-//   for (let i = 0;i < punc.length;i++) {
-//     retVal = retVal.replaceAll(punc[i], replaceWithSpace ? ' ' : '');
-//   }
-//   return retVal;
-// }
-
-module.exports = removePuncuationFromText;
+module.exports = removePunctuationFromText;

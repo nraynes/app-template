@@ -1,8 +1,13 @@
 const badWordList = require('./BadWordLists/index');
 const knownGoodWords = require('./knownGoodWords');
-const removePuncuationFromText = require('./removePunctuation');
+const removePunctuationFromText = require('./removePunctuation');
 
-const replacePuncuationWithLetter = (text) => {
+/**
+ * Replaces all punctuation with their respective letter in a given string.
+ * @param {String} text
+ * @returns {String}
+ */
+const replacePunctuationWithLetter = (text) => {
   const matrix = {
     a: ['@'],
     b: ['6'],
@@ -36,20 +41,25 @@ const replacePuncuationWithLetter = (text) => {
   return retVal;
 }
 
-const checkForDirectMatchesWithoutPuncuation = (textClone) => {
-  if (badWordList.some((badWord) => textClone.split(' ').some((wordInText) => wordInText === badWord))) {
-    return true;
-  }
-  return false;
-}
-const checkForDirectMatchesWithPuncuationReplacedBySpaces = (textClone) => {
+/**
+ * Checks to see if a given string has any direct bad words in it.
+ * @param {String} textClone
+ * @returns {Boolean}
+ */
+const checkForDirectMatches = (textClone) => {
   if (badWordList.some((badWord) => textClone.split(' ').some((wordInText) => wordInText === badWord))) {
     return true;
   }
   return false;
 }
 
-const checkForIndirectMatchesWithoutPuncuation = (textClone) => {
+/**
+ * Checks to see if a given string has any indirect bad words in it,
+ * while not flagging good words that contain the spelling of a bad word.
+ * @param {String} textClone
+ * @returns {Boolean}
+ */
+const checkForIndirectMatches = (textClone) => {
   if (badWordList.some((badWord) => textClone.split(' ').some((wordInText) => {
     const wordMatched = wordInText.match(badWord);
     if (wordMatched) {
@@ -66,42 +76,23 @@ const checkForIndirectMatchesWithoutPuncuation = (textClone) => {
   return false;
 }
 
-const checkForDirectMatchesWithReplacedPuncuation = (textClone) => {
-  if (badWordList.some((badWord) => textClone.split(' ').some((wordInText) => wordInText === badWord))) {
-    return true;
-  }
-  return false;
-}
+/**
+ * Checks a string for inappropriate language.
+ * @param {String} text
+ * @returns {Object}
+ */
 
-const checkForIndirectMatchesWithReplacedPuncuation = (textClone) => {
-  if (badWordList.some((badWord) => textClone.split(' ').some((wordInText) => {
-    const wordMatched = wordInText.match(badWord);
-    if (wordMatched) {
-      const falseAlarm = knownGoodWords.some((goodWord) => wordInText.match(goodWord));
-      if (falseAlarm) {
-        return false;
-      }
-      return true;
-    }
-    return false;
-  }))) {
-    return true;
-  }
-  return false;
-}
-
-// Function to check a string for inappropriate language.
 const cleanText = (text) => {
   text = text.toLowerCase().replaceAll('\\', '');
-  const textWithoutPuncuation = removePuncuationFromText(text);
-  const textWithPuncuationReplacedBySpaces = removePuncuationFromText(text, true);
-  const textWithReplacedPuncuation = replacePuncuationWithLetter(text);
+  const textWithoutPunctuation = removePunctuationFromText(text);
+  const textWithPunctuationReplacedBySpaces = removePunctuationFromText(text, true);
+  const textWithReplacedPunctuation = replacePunctuationWithLetter(text);
   if (
-    checkForDirectMatchesWithoutPuncuation(textWithoutPuncuation)
-    || checkForDirectMatchesWithPuncuationReplacedBySpaces(textWithPuncuationReplacedBySpaces)
-    || checkForDirectMatchesWithReplacedPuncuation(textWithReplacedPuncuation)
-    || checkForIndirectMatchesWithoutPuncuation(textWithoutPuncuation)
-    || checkForIndirectMatchesWithReplacedPuncuation(textWithReplacedPuncuation)
+    checkForDirectMatches(textWithoutPunctuation)
+    || checkForDirectMatches(textWithPunctuationReplacedBySpaces)
+    || checkForDirectMatches(textWithReplacedPunctuation)
+    || checkForIndirectMatches(textWithoutPunctuation)
+    || checkForIndirectMatches(textWithReplacedPunctuation)
   ) {
     return false;
   }
