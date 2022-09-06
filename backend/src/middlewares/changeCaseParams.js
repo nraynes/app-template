@@ -2,12 +2,15 @@
 const log = require('@/utils/misc/log');
 const { isObject } = require('@/utils/core/jsonUtils');
 
+// Don't modify these parameters.
 const exclusions = [];
 
+// Exclusively only modify these parameters
 const exclusives = [
   'email',
 ];
 
+// Exclusively only modify these parameters to uppercase.
 const upperCaseParams = [];
 
 // Takes the req body, query, and params and changes all of the specified

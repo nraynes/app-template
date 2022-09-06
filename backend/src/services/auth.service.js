@@ -20,7 +20,7 @@ const prisma = new PrismaClient();
 
 /**
  * Create a unique dynamic salt value to be assigned to a user.
- * @returns {string} || null
+ * @returns {String || null}
  */
 async function createUniqueDynamicSalt() {
   const maxCount = 50; // Max amount of times it will try to create unique dynamic salt before failing.
@@ -41,6 +41,11 @@ async function createUniqueDynamicSalt() {
   return dynamicSalt;
 }
 
+/**
+ * Reaches out to Google server to verify a captcha.
+ * @param {String} captcha
+ * @returns {Boolean}
+ */
 async function verifyCaptcha(captcha) {
   const googleResponse = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${config.recaptcha.secret}&response=${captcha}`)
     .then((response) => response.json())
@@ -60,10 +65,13 @@ async function verifyCaptcha(captcha) {
   return false;
 }
 
-// NOTE: response object from express 'res' is being passed to functions that utilize crypto.scrypt function
-// because crypto.scrypt can not be awaited so the response needs to be sent from inside the callback that
-// is passed to the scrypt function.
-
+/**
+ * Logs a user in with an email and password and returns the user object.
+ * @param {String} email
+ * @param {String} password
+ * @param {Object} res
+ * @returns {Object}
+ */
 async function loginUserWithEmailAndPassword(email, password, res) {
   const user = await userService.getUserByEmail(email);
   if (!user) {
@@ -93,6 +101,11 @@ async function loginUserWithEmailAndPassword(email, password, res) {
   }
 }
 
+/**
+ * Checks to see if a refresh token exists for a given account.
+ * @param {Number} account_id
+ * @returns {Boolean}
+ */
 async function checkRefreshToken(account_id) {
   const token = await prisma.tokens.findFirst({
     where: {
@@ -105,6 +118,11 @@ async function checkRefreshToken(account_id) {
   return false;
 }
 
+/**
+ * Checks to see if an access token is valid and grabs the user object to return.
+ * @param {String} accessToken
+ * @returns {Object || null}
+ */
 async function authMe(accessToken) {
   const decodedPayload = tokenService.verifyToken(accessToken, tokenTypes.ACCESS);
   if (decodedPayload) {
@@ -120,6 +138,11 @@ async function authMe(accessToken) {
   return null;
 }
 
+/**
+ * Generates a new access token using the users refresh token.
+ * @param {String} refToken
+ * @returns {String || null}
+ */
 async function refreshToken(refToken) {
   const decodedPayload = tokenService.verifyToken(refToken, tokenTypes.REFRESH);
   if (decodedPayload) {

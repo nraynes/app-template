@@ -1,5 +1,3 @@
-/* eslint-disable no-var */
-/* eslint-disable no-console */
 const passService = require('@/services/pass.service');
 const config = require('@/config/config');
 const log = require('@/utils/misc/log');

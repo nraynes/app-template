@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 const Joi = require('joi');
 const pick = require('@/utils/formatters/pick');
 const respond = require('@/utils/core/respond');

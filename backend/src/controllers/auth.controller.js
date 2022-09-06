@@ -2,10 +2,6 @@
 /* eslint-disable camelcase */
 /* eslint-disable max-len */
 
-// * = response object from express 'res' is being passed to functions that utilize crypto.scrypt function
-// because crypto.scrypt can not be awaited so the response needs to be sent from inside the callback that
-// is passed to the scrypt function.
-
 const authService = require('@/services/auth.service');
 const userService = require('@/services/user.service');
 const tokenService = require('@/services/token.service');
@@ -15,7 +11,7 @@ const codes = require('@/config/responseCodes');
 const config = require('@/config/config');
 const log = require('@/utils/misc/log');
 
-const register = catchAsync(async (req, res) => { // * 'Utilizes SCrypt'
+const register = catchAsync(async (req, res) => {
   const {
     email,
     password,
@@ -32,7 +28,7 @@ const register = catchAsync(async (req, res) => { // * 'Utilizes SCrypt'
   }
 });
 
-const login = catchAsync(async (req, res) => { // * 'Utilizes SCrypt'
+const login = catchAsync(async (req, res) => {
   const { email, password } = req.body;
   authService.loginUserWithEmailAndPassword(email, password, res);
 });
