@@ -10,6 +10,12 @@ const { compareObjects } = require('@/utils/core/compare');
 
 const prisma = new PrismaClient();
 
+/**
+ * Generates a new temporary code for user to validate their email.
+ * Returns that code if it was successfully made.
+ * @param {Number} account_id
+ * @returns {String || null}
+ */
 const generateEmailCode = async (account_id) => {
   const newCode = {
     account_id,
@@ -26,6 +32,11 @@ const generateEmailCode = async (account_id) => {
   }
 };
 
+/**
+ * Gets the first email token that is not expired belonging to a given account ID.
+ * @param {Number} account_id
+ * @returns {String || null}
+ */
 const getEmailTokenByID = async (account_id) => {
   const token = await prisma.email_temp_keys.findFirst({
     where: {
@@ -41,6 +52,10 @@ const getEmailTokenByID = async (account_id) => {
   return null;
 }
 
+/**
+ * Deletes an email temp key.
+ * @param {String} key
+ */
 const deleteEmailTempKey = (key) => (
   prisma.email_temp_keys.deleteMany({
     where: {
@@ -49,6 +64,12 @@ const deleteEmailTempKey = (key) => (
   })
 );
 
+/**
+ * Verifies that an email temp key is valid and not expired.
+ * Returns the account ID of the user it belongs too if valid.
+ * @param {String} key
+ * @returns {String}
+ */
 const verifiyEmailTempKey = async (key) => {
   const tempKey = await prisma.email_temp_keys.findFirst({
     where: {

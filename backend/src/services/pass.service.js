@@ -9,6 +9,9 @@ const addHours = require('@/utils/misc/addHours');
 
 const prisma = new PrismaClient();
 
+/**
+ * Deletes all temporary keys in the database that have expired.
+ */
 const deleteExpiredTempKeys = async () => {
   const today = new Date();
   await prisma.pass_temp_keys.deleteMany({
@@ -27,6 +30,11 @@ const deleteExpiredTempKeys = async () => {
   });
 };
 
+/**
+ * Deletes and password temporary key. Returns whether or not it was successful in doing so.
+ * @param {String} tempKey
+ * @returns {Boolean}
+ */
 const deleteKey = async (tempKey) => {
   await prisma.pass_temp_keys.deleteMany({
     where: {
@@ -44,6 +52,12 @@ const deleteKey = async (tempKey) => {
   return false;
 };
 
+/**
+ * Resets the password for a user object. Does not return anything as this function responds to the request.
+ * @param {Number} id
+ * @param {String} password
+ * @param {Object} res
+ */
 const resetUserPassword = async (id, password, res) => {
   const user = await userService.getUserByID(id);
   if (user) {
@@ -73,6 +87,11 @@ const resetUserPassword = async (id, password, res) => {
   }
 };
 
+/**
+ * Generates a temporary code for a user to reset their password. Returns that new code if it was succesfully made.
+ * @param {Number} id
+ * @returns {String}
+ */
 const generateTempCode = async (id) => {
   const createObj = {
     account_id: id,
@@ -88,6 +107,12 @@ const generateTempCode = async (id) => {
   return false;
 };
 
+/**
+ * Validates that a temp code is valid and not expired.
+ * Returns the Account ID of the person the temp code belongs too.
+ * @param {String} tempCode
+ * @returns {Number || null}
+ */
 const validateTempCode = async (tempCode) => {
   const findCode = await prisma.pass_temp_keys.findFirst({
     where: {
@@ -112,6 +137,11 @@ const validateTempCode = async (tempCode) => {
   return null;
 };
 
+/**
+ * Gets the first temporary code that is not expired belonging to a given account ID.
+ * @param {Number} account_id
+ * @returns {String || null}
+ */
 const getTempCodeByID = async (account_id) => {
   const code = await prisma.pass_temp_keys.findFirst({
     select: {

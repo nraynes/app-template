@@ -16,6 +16,11 @@ const log = require('@/utils/misc/log');
 
 const prisma = new PrismaClient();
 
+/**
+ * Gets a user matching a given email address.
+ * @param {String} email
+ * @returns {Object || null}
+ */
 const getUserByEmail = async (email) => {
   const queryEmail = config.useEncryption ? encrypt(email) : email;
   const user = await prisma.accounts.findFirst({
@@ -34,6 +39,11 @@ const getUserByEmail = async (email) => {
   return user;
 }
 
+/**
+ * Gets a user matching a given account ID.
+ * @param {Number} account_id
+ * @returns {Object || null}
+ */
 const getUserByID = async (account_id) => {
   const user = await prisma.accounts.findFirst({
     where: {
@@ -48,6 +58,11 @@ const getUserByID = async (account_id) => {
   return user;
 }
 
+/**
+ * Deletes a user with a given account ID. Returns whether or not it was successful.
+ * @param {Number} account_id
+ * @returns {Boolean}
+ */
 const deleteUserByID = async (account_id) => {
   const user = await prisma.accounts.update({
     data: {
@@ -63,6 +78,14 @@ const deleteUserByID = async (account_id) => {
   return false;
 };
 
+/**
+ * Creates a new user.
+ * Does not return anything as it responds to the request.
+ * @param {String} email
+ * @param {String} password
+ * @param {String} dynamicSalt
+ * @param {Object} res
+ */
 async function createUser(email, password, dynamicSalt, res) {
   const checkIfUserExists = await getUserByEmail(email);
   if (checkIfUserExists) {
@@ -108,6 +131,11 @@ async function createUser(email, password, dynamicSalt, res) {
   }
 }
 
+/**
+ * Verifies a users email. Returns whether or not it was successful.
+ * @param {Number} account_id
+ * @returns {Boolean}
+ */
 const verifyEmail = async (account_id) => {
   const updatedUser = await prisma.accounts.update({
     data: {
@@ -123,6 +151,12 @@ const verifyEmail = async (account_id) => {
   return false;
 };
 
+/**
+ * Edits user information. Returns whether it was successful or not.
+ * @param {Number} account_id
+ * @param {String} email
+ * @returns {Boolean}
+ */
 const editUserInfo = async (account_id, email) => {
   const parcel = {
     email: config.useEncryption ? encrypt(email) : email,
@@ -139,6 +173,11 @@ const editUserInfo = async (account_id, email) => {
   return false;
 }
 
+/**
+ * Unverifies a user. Returns whether or not it was successful.
+ * @param {Number} account_id
+ * @returns {Boolean}
+ */
 const unverifyUser = async (account_id) => {
   const user = await prisma.accounts.update({
     data: {
@@ -162,6 +201,12 @@ const unverifyUser = async (account_id) => {
   return false;
 }
 
+/**
+ * Adds a profile image to a users account. Returns whether or not it was successful.
+ * @param {Number} account_id
+ * @param {String} image
+ * @returns {Boolean}
+ */
 const addImage = async (account_id, image) => {
   const success = await prisma.accounts.update({
     data: {
@@ -177,6 +222,11 @@ const addImage = async (account_id, image) => {
   return false;
 };
 
+/**
+ * Removes a profile image from a users account. Returns whether or not it was successful.
+ * @param {Number} account_id
+ * @returns {Boolean}
+ */
 const removeImage = async (account_id) => {
   const success = await prisma.accounts.update({
     data: {

@@ -7,11 +7,23 @@ const log = require('@/utils/misc/log');
 
 sgMail.setApiKey(config.sendGrid.apiKey);
 
+/**
+ * Generates an email object for verifying an email.
+ * @param {String} tempCode
+ * @returns {Object}
+ */
 const generateEmail = (tempCode) => ({
   subject: 'Forgot Password',
   messageBody: `Hello! Click this link to change your password: ${defaultURL}/password/change?temp=${tempCode}`,
 });
 
+/**
+ * Sends an email using the Sendgrid transactional email service. Returns whether or not email sent successfully.
+ * @param {String} msgRecipient
+ * @param {String} msgSubject
+ * @param {String} msgBody
+ * @returns {Boolean}
+ */
 const sendEmail = async (msgRecipient, msgSubject, msgBody) => {
   log('The recieved variables.\n');
   log(msgRecipient);
@@ -44,6 +56,12 @@ const sendEmail = async (msgRecipient, msgSubject, msgBody) => {
     }) : true;
 };
 
+/**
+ * Resends a verification email to a user.
+ * @param {String} email
+ * @param {String} tempCode
+ * @returns {Object}
+ */
 const sendVerifyEmail = (email, tempCode) => {
   const emailBody = {
     subject: 'Verify Account Email',
