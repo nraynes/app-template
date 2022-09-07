@@ -3,7 +3,7 @@
 This is a template code base for a single page web application using
 React framework. I am a fully functional full stack web application
 equipped with JWT authentication, a color picker, profile editor &
-profile photos, landing page, encryption, full app testing with unit
+profile photos, common page, encryption, full app testing with unit
 tests and e2e tests, full color customization built right in to
 propagate a custom color theme, and more!
 
@@ -17,8 +17,9 @@ You will also need to have a postgres database up and running, which you
 can do through docker.
 
 To make the database, use this command in the terminal while having
-docker installed on your computer: "docker run \--name app-template -e
-POSTGRES_PASSWORD=a1eb0421c1af18c0 -p 49176:5432 -d postgres".
+docker installed on your computer:
+
+    docker run --name app-template -e POSTGRES_PASSWORD=a1eb0421c1af18c0 -p 49176:5432 -d postgres
 
 You can also substitute for your own password and/or port number if you
 would like, just sub out the random string of characters at
@@ -91,7 +92,7 @@ folder and the backend folder.
     will get this when you sign up for google recaptcha along with your
     secret key.'
 
-This app was designed to be deployed to heroku cloud platform service.
+This app was designed to be deployed to [heroku cloud platform service](https://id.heroku.com/).
 If you decide to use heroku for deployment then all of your environment
 variables will go in one spot on heroku, just make sure to include all
 of the ones listed here.
@@ -157,7 +158,7 @@ disabled by "frontEndIsBeingTested").
 ***[tests:](./frontend/src/tests/)*** All unit tests.  
 ***[utils:](./frontend/src/utils/)*** These are custom made utility functions that perform various tasks.  
 
-*e2e tests are stored above the src folder and are contained in the cypress/e2e folder.*
+*e2e tests are stored above the src folder and are contained in the [cypress/e2e](./frontend/cypress/e2e/) folder.*
 
 ## Issue Tracker:
 
@@ -171,7 +172,7 @@ App creation. Includes features such as,
 - Authentication via JWT including [login](./frontend/src/features/auth/routes/LogIn.jsx) and [signup](./frontend/src/features/auth/routes/SignUp.jsx) pages.
 - [Forgot password](./frontend/src/features/forgotPassword/) system.
 - [Profile editor](./frontend/src/features/profile/components/ProfileEditor.jsx) complete with profile photos.
-- [Common page](./frontend/src/features/landing/routes/Common.jsx) for logged in users and guests.
+- [Common page](./frontend/src/features/common/routes/Common.jsx) for logged in users and guests.
 - [Color theme modifier](./frontend/src/components/ColorDrawer.jsx) for users.
 - Backend data [encryption](./backend/src/utils/core/AES.js) for personal information such as email.
 - Fully customizable default [color theme and palette](./frontend/src/config/colors.js).

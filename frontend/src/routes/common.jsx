@@ -1,5 +1,5 @@
 import TopBar from "@/components/TopBar";
-import RootRoutes from "@/features/landing/routes";
+import RootRoutes from "@/features/common/routes";
 
 const App = (value) => (
   <>

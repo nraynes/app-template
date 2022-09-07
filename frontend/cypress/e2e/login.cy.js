@@ -98,7 +98,7 @@ describe('Login feature tests', () => {
       .should('have.text', 'There was no user matching those credentials')
   })
 
-  it('Should log the user in and display the landing page when correct account information is input.', () => {
+  it('Should log the user in and display the common page when correct account information is input.', () => {
     cy.get('[data-testid="home-button"]')
       .click()
 

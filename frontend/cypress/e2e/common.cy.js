@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /// <reference types="cypress" />
 
-describe('Landing page tests', () => {
+describe('Common page tests', () => {
   Cypress.Cookies.defaults({
     preserve: ['accessToken', 'refreshToken'],
   })

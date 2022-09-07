@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import PostWallPage from './Landing';
+import CommonPage from './Common';
 import { useButtons } from '@/stores/topBarButtons';
 import { compareObjects } from '@/utils/core/compare';
 
@@ -24,7 +24,7 @@ function RootRoutes(props) {
 
   return (
     <Routes>
-      <Route path="/" element={<PostWallPage />} />
+      <Route path="/" element={<CommonPage />} />
     </Routes>
   );
 }

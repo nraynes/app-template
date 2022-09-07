@@ -2,7 +2,7 @@
 import React from 'react';
 import CommonLayout from '@/components/CommonLayout';
 
-function PostWallPage(props) {
+function CommonPage(props) {
   return (
     <CommonLayout>
 
@@ -10,4 +10,4 @@ function PostWallPage(props) {
   );
 }
 
-export default PostWallPage;
+export default CommonPage;
