@@ -12,7 +12,7 @@ let timesRun = 0;
 let averageTime = 0;
 let anomalies = 0;
 let anomolousTotal = 0;
-const msThreshold = 0.02;
+const msThreshold = 0.035;
 
 const resetAverage = () => {
   milliseconds = 0;
