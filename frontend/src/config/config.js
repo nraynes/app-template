@@ -15,6 +15,7 @@ export const deviceType = getDeviceType();
 export const onMobile = deviceType === 'mobile' || deviceType === 'tablet';
 export const backgroundColor = colors.primary.one
 export const backgroundOpacity = custom.backgroundOpacity || 1
+// Use the variable below if you want to have the backend server serve a background image to the client.
 // export const backgroundImage = `${apiURL.substring(0, apiURL.length-4)}/background`;
 export const backgroundImage = custom.backgroundImage || null;
 export const backgroundGradientEffect = custom.backgroundGradientEffect || false
@@ -29,7 +30,9 @@ export const drawerOpacity = custom.drawerOpacity || 0.8
 export const componentColor = colors.primary.two
 export const componentOpacity = custom.componentOpacity || 0.15
 export const sitekey = process.env.REACT_APP_SITE_KEY
+// Disable the next line if you enable the previous backgroundImageCode variable line.
 export const backgroundImageCode = `url(${backgroundImage}) no-repeat center top fixed; background-size: cover; background-color: rgba(${backgroundColor.main}, ${backgroundOpacity});`;
+// This is the tolerance for swiping on touch screens. The higher the numbers, the easier it is for the app to register a swipe.
 export const touchConfig = {
   swipe: {
     YTolerance: 35,

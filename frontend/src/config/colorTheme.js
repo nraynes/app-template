@@ -1,6 +1,7 @@
 import { modifier, darkModifier, lightModifier, myTheme } from './colors';
 
 const getColors = () => {
+  // checkType will get whether or not a color is light or dark.
   const checkType = (r, g, b) => {
     const hsp = Math.sqrt(0.299 * (r * r) + 0.587 * (g * g) + 0.114 * (b * b))
     if (hsp > 127.5) {

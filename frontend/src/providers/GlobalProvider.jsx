@@ -18,8 +18,8 @@ function GlobalProvider({ children }) {
   const { pathname } = useLocation();
   const auth = useAuth();
 
+  // Reroute to https if not already on it.
   const location = window.location.href;
-
   if (
     location.substring(0,5) !== 'https'
     && process.env.NODE_ENV !== 'development'
@@ -40,6 +40,7 @@ function GlobalProvider({ children }) {
     }
   }, [pathname]);
 
+  // Assign some functions to the window to make them globally accessible outside react components.
   window.enqueueSnackbar = enqueueSnackbar;
   window.ask = ask;
   window.askForInput = askForInput;
