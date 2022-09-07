@@ -113,7 +113,7 @@ sure it's not because of a random glitch. You can also remove these
 tests entirely if you would like as they are only used to test how fast
 the utility functions are.
 
-To run e2e tests, find the file called "frontEndTesting.js" in
+To run e2e tests, find the file called "[frontEndTesting.js](./backend/src/config/frontEndTesting.js)" in
 "backend/src/config" and open it, then change the variable
 "frontEndIsBeingTested" and change its value to true. This will disable
 captcha checking so that you can run the e2e tests. Next, cd into the
@@ -129,33 +129,33 @@ disabled by "frontEndIsBeingTested").
 
 **The folders in the backend src are structured in the following way:**
 
-***assets:*** Image files and assets are stored in this folder.  
-***config:*** Global server configuration files.  
-***controllers:*** Controller files that call upon various services to perform api functions.  
-***db:*** All database stuff is in here.  
-***middlewares:*** Express middlewares and custom middlewares stored here.  
-***routes:*** Express Router files that define the routes for the api calls and where those calls go.  
-***services:*** Service files that contain functions that do the actual work such as interacting with the database.  
-***tests:*** All unit testing files along with setup and teardown files are in here.  
-***utils:*** These are custom made utility functions that perform various tasks.  
-***validation:*** Joi validation files to be used in routes to validate input.  
+***[assets:](./backend/src/assets/)*** Image files and assets are stored in this folder.  
+***[config:](./backend/src/config/)*** Global server configuration files.  
+***[controllers:](./backend/src/controllers/)*** Controller files that call upon various services to perform api functions.  
+***[db:](./backend/src/db/)*** All database stuff is in here.  
+***[middlewares:](./backend/src/middlewares/)*** Express middlewares and custom middlewares stored here.  
+***[routes:](./backend/src/routes/)*** Express Router files that define the routes for the api calls and where those calls go.  
+***[services:](./backend/src/services/)*** Service files that contain functions that do the actual work such as interacting with the database.  
+***[tests:](./backend/src/tests/)*** All unit testing files along with setup and teardown files are in here.  
+***[utils:](./backend/src/utils/)*** These are custom made utility functions that perform various tasks.  
+***[validation:](./backend/src/validation/)*** Joi validation files to be used in routes to validate input.  
 
 
 **The folders in the frontend src are structured in the following way:**
 
-***api:*** Global API calls are stored in individual files here.  
-***assets:*** Image files and such would be stored here.  
-***components:*** Global react components are stored here.  
-***config:*** Frontend global app configuration files and color scheme.  
-***features:*** All individual features are separated here for organization, to include components, API calls, and routes for each feature.  
-***hooks:*** Custom react hooks.  
-***lib:*** library extension or modification files.  
-***providers:*** Global app and library providers and custom providers.  
-***routes:*** All routes in react router.  
-***stores:*** Global state stores go here.  
-***styles:*** Custom CSS files.  
-***tests:*** All unit tests.  
-***utils:*** These are custom made utility functions that perform various tasks.  
+***[api:](./frontend/src/api/)*** Global API calls are stored in individual files here.  
+***[assets:](./frontend/src/assets/)*** Image files and such would be stored here.  
+***[components:](./frontend/src/components/)*** Global react components are stored here.  
+***[config:](./frontend/src/config/)*** Frontend global app configuration files and color scheme.  
+***[features:](./frontend/src/features/)*** All individual features are separated here for organization, to include components, API calls, and routes for each feature.  
+***[hooks:](./frontend/src/hooks/)*** Custom react hooks.  
+***[lib:](./frontend/src/lib/)*** library extension or modification files.  
+***[providers:](./frontend/src/providers/)*** Global app and library providers and custom providers.  
+***[routes:](./frontend/src/routes/)*** All routes in react router.  
+***[stores:](./frontend/src/stores/)*** Global state stores go here.  
+***[styles:](./frontend/src/styles/)*** Custom CSS files.  
+***[tests:](./frontend/src/tests/)*** All unit tests.  
+***[utils:](./frontend/src/utils/)*** These are custom made utility functions that perform various tasks.  
 
 *e2e tests are stored above the src folder and are contained in the cypress/e2e folder.*
 
@@ -165,12 +165,63 @@ No known issues in this version.
 
 ## Version History:
 
-This is the first version of this app template. This will fill in as you
-take the template and make an app out of it.
+***v1.0.0:***
+App creation. Includes features such as,  
+
+- Authentication via JWT including [login](./frontend/src/features/auth/routes/LogIn.jsx) and [signup](./frontend/src/features/auth/routes/SignUp.jsx) pages.
+- [Forgot password](./frontend/src/features/forgotPassword/) system.
+- [Profile editor](./frontend/src/features/profile/components/ProfileEditor.jsx) complete with profile photos.
+- [Common page](./frontend/src/features/landing/routes/Common.jsx) for logged in users and guests.
+- [Color theme modifier](./frontend/src/components/ColorDrawer.jsx) for users.
+- Backend data [encryption](./backend/src/utils/core/AES.js) for personal information such as email.
+- Fully customizable default [color theme and palette](./frontend/src/config/colors.js).
+- Custom utility functions.
+- [Express rate limiting](./backend/src/middlewares/rateLimiter.js) for all API routes and for app itself.
+- [Automatic database purging](./backend/src/middlewares/purgeTempKeys.js) of unnecessary or expired temporary keys.
+- Custom middlewares for [authorizing](./backend/src/middlewares/authorize.js) and [validating](./backend/src/middlewares/validate.js) input and requests.
+- Customizable configuration for [frontend](./frontend/src/config/config.js) and [backend](./backend/src/config/config.js) that propogates changes throughout the app.
+- Secure construction following industry best practices.
+- This version has been scanned for vulnerabilities using automated tools and manual review.
+
+## Tech Stack:
+
+**Backend:**
+
+*- Language:*
+[Javascript](https://www.javascript.com/)  
+*- Framework:*
+[Express.js](https://expressjs.com/)  
+*- Database:*
+[PostgreSQL](https://www.postgresql.org/docs/)  
+*- ORM:*
+[Prisma](https://www.prisma.io/)  
+*- API:*
+[REST](https://restfulapi.net/)  
+*- Authentication:*
+[JWT (JSON Web Token)](https://jwt.io/introduction)  
+*- Testing:*
+[Jest](https://jestjs.io/) & [Supertest](https://www.npmjs.com/package/supertest)
+
+***Frontend:***
+
+*- Language:*
+[Javascript](https://www.javascript.com/)  
+*- Framework:*
+[React.js](https://reactjs.org/docs/getting-started.html)  
+*- CSS:*
+[Emotion](https://emotion.sh/)  
+*- UI Components:*
+[Material UI](https://mui.com/material-ui/getting-started/overview/)  
+*- API Client:*
+[React Query](https://react-query.tanstack.com/)  
+*- State:*
+[Zustand](https://zustand.surge.sh/)  
+*- Testing:*
+[Jest](https://jestjs.io/) & [Cypress](https://www.cypress.io/)
 
 ## Notes:
 
-All code should is named for what it does, and the naming convention
+All code is named for what it does, and the naming convention
 used for all main code is camelCase. All database attributes use
 snake_case as their naming convention to differentiate. All utility
 functions should have comment descriptions, and inputs and outputs are
