@@ -1,8 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-return-await */
-/* eslint-disable no-console */
-/* eslint-disable dot-notation */
 const { PrismaClient } = require('@prisma/client');
 const crypto = require('crypto');
 const addHours = require('@/utils/misc/addHours');
@@ -27,9 +22,8 @@ const generateEmailCode = async (account_id) => {
   })
   if (createdCode && compareObjects(newCode, createdCode)) {
     return createdCode.email_key;
-  } else {
-    return null;
   }
+  return null;
 };
 
 /**

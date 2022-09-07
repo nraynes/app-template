@@ -66,7 +66,7 @@ async function verifyCaptcha(captcha) {
 }
 
 /**
- * Logs a user in with an email and password and returns the user object.
+ * Logs a user in with an email and password and responds with the user object.
  * @param {String} email
  * @param {String} password
  * @param {Object} res

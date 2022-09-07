@@ -6,6 +6,7 @@ const respond = require('@/utils/core/respond');
 const codes = require('@/config/responseCodes');
 const log = require('@/utils/misc/log');
 const addHours = require('@/utils/misc/addHours');
+const { compareObjects } = require('@/utils/core/compare');
 
 const prisma = new PrismaClient();
 
@@ -31,19 +32,19 @@ const deleteExpiredTempKeys = async () => {
 };
 
 /**
- * Deletes and password temporary key. Returns whether or not it was successful in doing so.
- * @param {String} tempKey
+ * Deletes a password temporary key. Returns whether or not it was successful in doing so.
+ * @param {String} key
  * @returns {Boolean}
  */
-const deleteKey = async (tempKey) => {
+const deleteKey = async (key) => {
   await prisma.pass_temp_keys.deleteMany({
     where: {
-      pass_key: tempKey,
+      pass_key: key,
     },
   });
   const check = await prisma.pass_temp_keys.findFirst({
     where: {
-      pass_key: tempKey,
+      pass_key: key,
     },
   });
   if (!check) {
@@ -54,12 +55,12 @@ const deleteKey = async (tempKey) => {
 
 /**
  * Resets the password for a user object. Does not return anything as this function responds to the request.
- * @param {Number} id
+ * @param {Number} account_id
  * @param {String} password
  * @param {Object} res
  */
-const resetUserPassword = async (id, password, res) => {
-  const user = await userService.getUserByID(id);
+const resetUserPassword = async (account_id, password, res) => {
+  const user = await userService.getUserByID(account_id);
   if (user) {
     const salt = `${user.dynamic_salt}${config.static.salt}`;
     crypto.scrypt(password, salt, 96, {}, async (err, key) => {
@@ -73,7 +74,7 @@ const resetUserPassword = async (id, password, res) => {
           password_hash: newPasswordHash,
         },
         where: {
-          account_id: id,
+          account_id,
         },
       });
       if (changedUser.password_hash === newPasswordHash) {
@@ -89,22 +90,22 @@ const resetUserPassword = async (id, password, res) => {
 
 /**
  * Generates a temporary code for a user to reset their password. Returns that new code if it was succesfully made.
- * @param {Number} id
+ * @param {Number} account_id
  * @returns {String}
  */
-const generateTempCode = async (id) => {
+const generateTempCode = async (account_id) => {
   const createObj = {
-    account_id: id,
+    account_id,
     pass_key: crypto.randomBytes(16).toString('hex'),
     expires: addHours(2),
   };
-  const retVal = await prisma.pass_temp_keys.create({
+  const createdCode = await prisma.pass_temp_keys.create({
     data: createObj,
   });
-  if (retVal) {
-    return retVal.pass_key;
+  if (createdCode && compareObjects(createObj, createdCode)) {
+    return createdCode.pass_key;
   }
-  return false;
+  return null;
 };
 
 /**
