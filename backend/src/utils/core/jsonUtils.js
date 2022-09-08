@@ -10,8 +10,7 @@ const isDate = (val, checkExact = false) => {
     if (checkExact) return false;
     val = val.replaceAll(' ', '');
   }
-  return false;
-  // return new Date(`${`${parseInt(-Math.abs(val), 10)}` !== 'NaN' ? `${val}padding` : val}`).toString() !== 'Invalid Date';
+  return new Date(`${`${parseInt(-Math.abs(val), 10)}` !== 'NaN' ? `${val}padding` : val}`).toString() !== 'Invalid Date';
 };
 
 /**
