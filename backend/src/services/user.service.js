@@ -1,8 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-plusplus */
-/* eslint-disable max-len */
-/* eslint-disable no-await-in-loop */
-// const { tokenTypes } = require('@/config/tokens');
 const { PrismaClient } = require('@prisma/client');
 const crypto = require('crypto');
 const emailService = require('./email.service');

@@ -9,7 +9,7 @@ async function createAccount(email, password, captcha) {
       password,
       captcha
     },
-  })
+  });
   return response.content;
 }
 

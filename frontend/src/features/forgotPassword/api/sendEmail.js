@@ -7,7 +7,7 @@ async function sendPasswordReset(email) {
     body: {
       email,
     },
-  })
+  });
   return response.content;
 }
 

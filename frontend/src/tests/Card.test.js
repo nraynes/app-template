@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/react-in-jsx-scope */
 import { render, screen, waitFor } from '@testing-library/react';
 import AppProvider from '@/providers/AppProvider';
 import Card from '@/components/Card';
@@ -14,11 +16,11 @@ const TestComponent = () => (
 describe('Card Component Tests', () => {
 
   test('Should render component.', async () => {
-    render(<TestComponent />)
+    render(<TestComponent />);
     await waitFor(() => {
       const element = screen.getByTestId('test-component');
       expect(element).toBeInTheDocument();
-    })
-  })
+    });
+  });
 
-})
+});

@@ -1,4 +1,4 @@
-import { getToken } from '@/utils/browser/tokens'
+import { getToken } from '@/utils/browser/tokens';
 import { apiURL } from '@/config/config';
 import log from '@/utils/misc/log';
 
@@ -21,7 +21,7 @@ const acquire = async ({ route, method, body, headers, query, includeAuth, inclu
   let giftBox = {
     method: method,
     headers: headers || {},
-  }
+  };
   if (body) {
     giftBox.headers['Content-Type'] = 'application/JSON';
     giftBox.body = JSON.stringify(body);
@@ -43,7 +43,7 @@ const acquire = async ({ route, method, body, headers, query, includeAuth, inclu
         if (i !== 0) {
           url += '&';
         }
-        url += `${keys[i]}=${values[i]}`
+        url += `${keys[i]}=${values[i]}`;
       }
     }
   }
@@ -67,6 +67,6 @@ const acquire = async ({ route, method, body, headers, query, includeAuth, inclu
     }
   }
   return response;
-}
+};
 
 export default acquire;

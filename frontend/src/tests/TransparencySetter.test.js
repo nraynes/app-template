@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/react-in-jsx-scope */
 import { render, screen, waitFor } from '@testing-library/react';
 import AppProvider from '@/providers/AppProvider';
 import TransparencySetter from '@/components/TransparencySetter';
@@ -14,27 +16,27 @@ const TestComponent = () => (
 describe('Transparency Setter Component Tests', () => {
 
   test('Should render component.', async () => {
-    render(<TestComponent />)
+    render(<TestComponent />);
     await waitFor(() => {
       const element = screen.getByTestId('test-component');
       expect(element).toBeInTheDocument();
-    })
-  })
+    });
+  });
 
   test('Should have a label.', async () => {
-    render(<TestComponent />)
+    render(<TestComponent />);
     await waitFor(() => {
       const element = screen.getByTestId('test-component_label');
       expect(element).toBeInTheDocument();
-    })
-  })
+    });
+  });
 
   test('Should have a slider.', async () => {
-    render(<TestComponent />)
+    render(<TestComponent />);
     await waitFor(() => {
       const element = screen.getByTestId('test-component_slider');
       expect(element).toBeInTheDocument();
-    })
-  })
+    });
+  });
 
-})
+});

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { useSnackbar } from 'notistack';
 import { useAskAlert } from '@/stores/askAlertStore';

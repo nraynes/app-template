@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import CommonLayout from '@/components/CommonLayout';
 import LogInForm from '@/features/auth/components/LogInForm';

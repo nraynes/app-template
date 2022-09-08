@@ -19,16 +19,16 @@ const blobToFile = (blob, name) => (
  * @returns {String}
  */
 const encode = (file, callback) => {
-  if (window.nowAwaiting) window.nowAwaiting()
+  if (window.nowAwaiting) window.nowAwaiting();
   imageConversion.compressAccurately(file, maximumFileSizeInKb).then((res) => {
     const compressedFile = blobToFile(res, 'profile');
     const reader = new FileReader();
     reader.readAsBinaryString(compressedFile);
     reader.onload = () => {
       callback(btoa(reader.result));
-      if (window.notAwaiting) window.notAwaiting()
+      if (window.notAwaiting) window.notAwaiting();
     };
-  })
+  });
 };
 
 export default encode;

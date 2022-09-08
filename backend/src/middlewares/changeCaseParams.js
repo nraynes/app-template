@@ -1,4 +1,3 @@
-/* eslint-disable no-plusplus */
 const log = require('@/utils/misc/log');
 const { isObject } = require('@/utils/core/jsonUtils');
 

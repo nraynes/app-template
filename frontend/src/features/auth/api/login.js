@@ -8,7 +8,7 @@ export const loginWithEmailAndPassword = async (email, password) => {
       email,
       password,
     },
-  })
+  });
   return response.content;
 };
 

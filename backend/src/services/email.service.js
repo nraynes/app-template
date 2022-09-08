@@ -1,5 +1,3 @@
-/* eslint-disable no-return-await */
-/* eslint-disable no-console */
 const sgMail = require('@sendgrid/mail');
 const config = require('@/config/config');
 const { defaultURL } = require('@/config/config');

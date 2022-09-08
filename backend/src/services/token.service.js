@@ -1,8 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-return-await */
-/* eslint-disable no-console */
-/* eslint-disable dot-notation */
 const { PrismaClient } = require('@prisma/client');
 const jwt = require('jsonwebtoken');
 const { compareObjects } = require('@/utils/core/compare');

@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/react-in-jsx-scope */
 import { render, screen, waitFor } from '@testing-library/react';
 import AppProvider from '@/providers/AppProvider';
 import CardHead from '@/components/CardHead';
@@ -14,19 +16,19 @@ const TestComponent = () => (
 describe('Card Head Component Tests', () => {
 
   test('Should render component.', async () => {
-    render(<TestComponent />)
+    render(<TestComponent />);
     await waitFor(() => {
       const element = screen.getByTestId('test-component');
       expect(element).toBeInTheDocument();
-    })
-  })
+    });
+  });
 
   test('Should have a title header.', async () => {
-    render(<TestComponent />)
+    render(<TestComponent />);
     await waitFor(() => {
       const title = screen.getByText('Test Content');
       expect(title).toBeInTheDocument();
-    })
-  })
+    });
+  });
 
-})
+});

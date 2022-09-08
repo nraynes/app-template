@@ -7,7 +7,7 @@ export const verifyEmail = async (emailKey) => {
     body: {
       emailKey,
     }
-  })
+  });
   return response.content;
 };
 

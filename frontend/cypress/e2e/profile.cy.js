@@ -4,32 +4,32 @@
 describe('Profile feature tests', () => {
   Cypress.Cookies.defaults({
     preserve: ['accessToken', 'refreshToken'],
-  })
+  });
   
   const usingProfilePhotoFeature = true;
 
   it('Should display the user profile editor when logged in and visiting the right page.', () => {
-    cy.exec('cd ../backend && npm run test:teardown')
-    cy.exec('cd ../backend && npm run test:setup')
-    cy.visit('http://localhost:3000/')
+    cy.exec('cd ../backend && npm run test:teardown');
+    cy.exec('cd ../backend && npm run test:setup');
+    cy.visit('http://localhost:3000/');
 
     cy.get('[data-testid="login-button"]')
-      .click()
+      .click();
 
     cy.get('[data-testid="login-form"]')
-      .should('exist')
+      .should('exist');
 
     cy.get('[data-testid="login-email-input"]')
-      .type('amydavis@email.com', { delay: 50 })
+      .type('amydavis@email.com', { delay: 50 });
 
     cy.get('[data-testid="login-password-input"]')
-      .type('asdfASDF1', { delay: 50 })
+      .type('asdfASDF1', { delay: 50 });
 
     cy.get('[data-testid="login-form-login-button"]')
-      .click()
+      .click();
 
     cy.get('[data-testid="profile-button"]')
-      .click()
+      .click();
 
     if (usingProfilePhotoFeature) {
       cy.get('[data-testid="profile-photo"')
@@ -40,317 +40,317 @@ describe('Profile feature tests', () => {
       .should('exist');
 
     cy.get('[data-testid="profile-menu-profile"]')
-      .click()
+      .click();
 
     cy.get('[data-testid="profile-editor"]')
-      .should('exist')
+      .should('exist');
     
-    cy.wait(500)
-  })
+    cy.wait(500);
+  });
 
   it('Should display the users email and profile photo (if specified) on the form.', () => {
     cy.get('[data-testid="profile-editor-email-input"]')
       .children('div')
       .children('input')
-      .should('have.attr', 'value', 'amydavis@email.com')
+      .should('have.attr', 'value', 'amydavis@email.com');
 
     if (usingProfilePhotoFeature) {
       cy.get('[data-testid="profile-editor-profile-photo"]')
-        .should('exist')
+        .should('exist');
       cy.get('[data-testid="profile-editor-photo-delete"]')
-        .should('exist')
+        .should('exist');
     }
-  })
+  });
 
   it('Should allow the user to pick a file to upload as an image for their profile picture.', () => {
     if (usingProfilePhotoFeature) {
       cy.get('[data-testid="profile-editor-profile-photo"]')
-        .click()
+        .click();
       
       cy.get('[data-testid="alert-dialog"]')
-        .should('exist')
+        .should('exist');
       
       cy.get('[data-testid="alert-dialog-submit"]')
-        .click()
+        .click();
       
       cy.get('[data-testid="profile-editor-profile-photo"]')
-        .click()
+        .click();
       
       cy.get('[data-testid="alert-dialog"]')
-        .should('exist')
+        .should('exist');
       
       cy.get('[data-testid="alert-dialog-cancel"]')
-        .click()
+        .click();
   
       cy.get('[data-testid="alert-dialog"]')
-        .should('not.exist')
+        .should('not.exist');
     }
-  })
+  });
 
   it('Should allow the user to remove their profile picture by the click of a button.', () => {
     if (usingProfilePhotoFeature) {
       cy.get('[data-testid="profile-editor-photo-delete"]')
-        .click()
+        .click();
   
       cy.get('[data-testid="alert-dialog"]')
-        .should('exist')
+        .should('exist');
   
       cy.get('[data-testid="alert-dialog-no"]')
-        .click()
+        .click();
   
       cy.get('[data-testid="alert-dialog"]')
-        .should('not.exist')
+        .should('not.exist');
   
       cy.get('[data-testid="profile-editor-photo-delete"]')
-        .click()
+        .click();
   
       cy.get('[data-testid="alert-dialog"]')
-        .should('exist')
+        .should('exist');
   
       cy.get('[data-testid="alert-dialog-yes"]')
-        .click()
+        .click();
   
-      cy.wait(1000)
+      cy.wait(1000);
   
       cy.get('[id="notistack-snackbar"]')
         .should('exist')
-        .should('have.text', 'Successfully removed profile photo.')
+        .should('have.text', 'Successfully removed profile photo.');
     }
-  })
+  });
 
   it('Should allow the user to enter an editing mode when clicking on the edit button.', () => {
     cy.get('[data-testid="profile-editor-form-cancel-button"]')
-      .should('not.exist')
+      .should('not.exist');
 
     cy.get('[data-testid="profile-editor-form-edit-submit-button"]')
       .should('have.text', 'Edit')
-      .click()
+      .click();
 
     cy.get('[data-testid="profile-editor-form-cancel-button"]')
-      .should('exist')
+      .should('exist');
 
     cy.get('[data-testid="profile-editor-form-edit-submit-button"]')
-      .should('have.text', 'Submit') 
+      .should('have.text', 'Submit'); 
       
     cy.get('[data-testid="profile-editor-email-input"]')
-      .should('not.exist')
+      .should('not.exist');
 
     cy.get('[data-testid="profile-editor-email-input-editing"]')
       .should('exist')
       .clear()
-      .type('newuseremail@email.com', { delay: 50 })
-  })
+      .type('newuseremail@email.com', { delay: 50 });
+  });
 
   it('Should allow the user to cancel edit mode by clicking the cancel button.', () => {
     cy.get('[data-testid="profile-editor-form-cancel-button"]')
-      .click()
+      .click();
 
     cy.get('[data-testid="profile-editor-form-edit-submit-button"]')
-      .should('have.text', 'Edit')
+      .should('have.text', 'Edit');
 
     cy.get('[data-testid="profile-editor-form-cancel-button"]')
-      .should('not.exist')
+      .should('not.exist');
 
     cy.get('[data-testid="profile-editor-email-input"]')
-      .should('exist')
+      .should('exist');
 
     cy.get('[data-testid="profile-editor-email-input-editing"]')
-      .should('not.exist')
+      .should('not.exist');
     
     cy.get('[data-testid="profile-editor-email-input"]')
       .children('div')
       .children('input')
-      .should('have.attr', 'value', 'amydavis@email.com')
-  })
+      .should('have.attr', 'value', 'amydavis@email.com');
+  });
 
   it('Should allow the user to change their email via edit mode and log the user out upon submitting the new email.', () => {
     cy.get('[data-testid="profile-editor-form-edit-submit-button"]')
       .should('have.text', 'Edit')
-      .click()
+      .click();
 
     cy.get('[data-testid="profile-editor-email-input-editing"]')
       .clear()
-      .type('newuseremail@email.com', { delay: 50 })
+      .type('newuseremail@email.com', { delay: 50 });
 
     cy.get('[data-testid="profile-editor-form-edit-submit-button"]')
       .should('have.text', 'Submit')
-      .click()
+      .click();
 
     cy.get('[data-testid="alert-dialog"]')
-      .should('exist')
+      .should('exist');
 
     cy.get('[data-testid="alert-dialog-yes"]')
-      .click()
+      .click();
     
-    cy.wait(500)
+    cy.wait(500);
 
     cy.get('[id="notistack-snackbar"]')
       .should('exist')
-      .should('have.text', 'Info changed successfully!Please check your email to reverify it. You will now be logged out.')
+      .should('have.text', 'Info changed successfully!Please check your email to reverify it. You will now be logged out.');
 
-    cy.wait(5000)
+    cy.wait(5000);
 
     cy.get('[data-testid="profile-editor"]')
-      .should('not.exist')
+      .should('not.exist');
 
     cy.url().should((url) => {
-      expect(url).to.equal('http://localhost:3000/')
-    })
+      expect(url).to.equal('http://localhost:3000/');
+    });
 
     cy.get('[data-testid="login-button"]')
-      .click()
+      .click();
 
     cy.get('[data-testid="login-form"]')
-      .should('exist')
-  })
+      .should('exist');
+  });
 
   it('Should show an unverified popup when logging in after changing email because the account is no longer verified.', () => {
     cy.get('[data-testid="login-email-input"]')
-      .type('newuseremail@email.com', { delay: 50 })
+      .type('newuseremail@email.com', { delay: 50 });
 
     cy.get('[data-testid="login-password-input"]')
-      .type('asdfASDF1', { delay: 50 })
+      .type('asdfASDF1', { delay: 50 });
 
     cy.get('[data-testid="login-form-login-button"]')
-      .click()
+      .click();
     
     cy.get('[data-testid="alert-dialog"]')
-      .should('exist')
+      .should('exist');
 
     cy.get('[data-testid="alert-dialog-yes"]')
-      .click()
+      .click();
     
     cy.get('[id="notistack-snackbar"]')
       .should('exist')
-      .should('have.text', 'Verification email has been sent!')
-  })
+      .should('have.text', 'Verification email has been sent!');
+  });
 
   it('Should be able to log in after reverifying email and profile form should now display new email.', () => {
     cy.request('http://localhost:3001/api/test/emailTempCode?email=newuseremail@email.com')
       .should((response) => {
-        expect(response.body).to.match(/.{32}/)
-        cy.visit(`http://localhost:3000/auth/login?code=${response.body}`)
+        expect(response.body).to.match(/.{32}/);
+        cy.visit(`http://localhost:3000/auth/login?code=${response.body}`);
     
         cy.get('[id="notistack-snackbar"]')
           .should('exist')
-          .should('have.text', 'Your email has been successfully verified!')
-      })
-    cy.wait(1000)
+          .should('have.text', 'Your email has been successfully verified!');
+      });
+    cy.wait(1000);
     cy.get('[data-testid="login-email-input"]')
-      .type('newuseremail@email.com', { delay: 50 })
+      .type('newuseremail@email.com', { delay: 50 });
 
     cy.get('[data-testid="login-password-input"]')
-      .type('asdfASDF1', { delay: 50 })
+      .type('asdfASDF1', { delay: 50 });
 
     cy.get('[data-testid="login-form-login-button"]')
-      .click()
+      .click();
 
     cy.get('[data-testid="profile-button"]')
-      .click()
+      .click();
 
     cy.get('[data-testid="profile-menu-profile"]')
-      .click()
+      .click();
 
     cy.get('[data-testid="profile-editor"]')
-      .should('exist')
+      .should('exist');
     
-    cy.wait(500)
+    cy.wait(500);
 
     cy.get('[data-testid="profile-editor-email-input"]')
       .children('div')
       .children('input')
-      .should('have.attr', 'value', 'newuseremail@email.com')
-  })
+      .should('have.attr', 'value', 'newuseremail@email.com');
+  });
 
   it('Should be able to log out of all devices when clicking the appropriate button.', () => {
     cy.get('[data-testid="profile-editor-form-log-out-all-button"]')
-      .click()
+      .click();
 
     cy.get('[data-testid="alert-dialog"]')
-      .should('exist')
+      .should('exist');
 
     cy.get('[data-testid="alert-dialog-yes"]')
-      .click()
+      .click();
 
     cy.get('[id="notistack-snackbar"]')
       .should('exist')
-      .should('have.text', 'Successfully logged out of all devices. You will now be logged out.')
+      .should('have.text', 'Successfully logged out of all devices. You will now be logged out.');
 
-    cy.wait(5000)
+    cy.wait(5000);
 
     cy.get('[data-testid="profile-editor"]')
-      .should('not.exist')
+      .should('not.exist');
 
     cy.url().should((url) => {
-      expect(url).to.equal('http://localhost:3000/')
-    })
+      expect(url).to.equal('http://localhost:3000/');
+    });
 
     cy.get('[data-testid="login-button"]')
-      .click()
+      .click();
 
     cy.get('[data-testid="login-form"]')
-      .should('exist')
+      .should('exist');
 
     cy.get('[data-testid="login-email-input"]')
-      .type('newuseremail@email.com', { delay: 50 })
+      .type('newuseremail@email.com', { delay: 50 });
 
     cy.get('[data-testid="login-password-input"]')
-      .type('asdfASDF1', { delay: 50 })
+      .type('asdfASDF1', { delay: 50 });
 
     cy.get('[data-testid="login-form-login-button"]')
-      .click()
+      .click();
 
     cy.get('[data-testid="profile-button"]')
-      .click()
+      .click();
 
     cy.get('[data-testid="profile-menu-profile"]')
-      .click()
+      .click();
 
     cy.get('[data-testid="profile-editor"]')
-      .should('exist')
-  })
+      .should('exist');
+  });
 
   it('Should be able to delete the users account by clicking on the delete account button and confirming via a prompt.', () => {
     cy.get('[data-testid="profile-editor-form-delete-account-button"]')
-      .click()
+      .click();
 
     cy.get('[data-testid="alert-dialog"]')
-      .should('exist')
+      .should('exist');
 
     cy.get('[data-testid="alert-dialog-yes"]')
-      .click()
+      .click();
 
     cy.get('[id="notistack-snackbar"]')
       .should('exist')
-      .should('have.text', 'Successfully deleted user account. You will now be logged out.')
+      .should('have.text', 'Successfully deleted user account. You will now be logged out.');
 
-    cy.wait(5000)
+    cy.wait(5000);
 
     cy.get('[data-testid="profile-editor"]')
-      .should('not.exist')
+      .should('not.exist');
 
     cy.url().should((url) => {
-      expect(url).to.equal('http://localhost:3000/')
-    })
+      expect(url).to.equal('http://localhost:3000/');
+    });
 
     cy.get('[data-testid="login-button"]')
-      .click()
+      .click();
 
     cy.get('[data-testid="login-form"]')
-      .should('exist')
+      .should('exist');
 
     cy.get('[data-testid="login-email-input"]')
-      .type('newuseremail@email.com', { delay: 50 })
+      .type('newuseremail@email.com', { delay: 50 });
 
     cy.get('[data-testid="login-password-input"]')
-      .type('asdfASDF1', { delay: 50 })
+      .type('asdfASDF1', { delay: 50 });
 
     cy.get('[data-testid="login-form-login-button"]')
-      .click()
+      .click();
 
     cy.get('[id="notistack-snackbar"]')
       .should('exist')
-      .should('have.text', 'There was no user matching those credentials')
-  })
+      .should('have.text', 'There was no user matching those credentials');
+  });
 
-})
+});

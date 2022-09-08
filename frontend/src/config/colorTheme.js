@@ -3,12 +3,12 @@ import { modifier, darkModifier, lightModifier, myTheme } from './colors';
 const getColors = () => {
   // checkType will get whether or not a color is light or dark.
   const checkType = (r, g, b) => {
-    const hsp = Math.sqrt(0.299 * (r * r) + 0.587 * (g * g) + 0.114 * (b * b))
+    const hsp = Math.sqrt(0.299 * (r * r) + 0.587 * (g * g) + 0.114 * (b * b));
     if (hsp > 127.5) {
-      return 'light'
+      return 'light';
     }
-    return 'dark'
-  }
+    return 'dark';
+  };
   
   const primaryOneType = checkType(myTheme.primaryOne.red, myTheme.primaryOne.green, myTheme.primaryOne.blue);
   const primaryTwoType = checkType(myTheme.primaryTwo.red, myTheme.primaryTwo.green, myTheme.primaryTwo.blue);
@@ -19,37 +19,37 @@ const getColors = () => {
   const dm = modifier ? modifier : darkModifier;
   const lm = modifier ? modifier : lightModifier;
   
-  const textLightDark = `${myTheme.textLight.red-dm >= 0 ? myTheme.textLight.red-dm : 0}, ${myTheme.textLight.green-dm >= 0 ? myTheme.textLight.green-dm : 0}, ${myTheme.textLight.blue-dm >= 0 ? myTheme.textLight.blue-dm : 0}`
-  const textLight = `${myTheme.textLight.red}, ${myTheme.textLight.green}, ${myTheme.textLight.blue}`
-  const textLightLight = `${myTheme.textLight.red+lm <= 255 ? myTheme.textLight.red+lm : 255}, ${myTheme.textLight.green+lm <= 255 ? myTheme.textLight.green+lm : 255}, ${myTheme.textLight.blue+lm <= 255 ? myTheme.textLight.blue+lm : 255}`
+  const textLightDark = `${myTheme.textLight.red-dm >= 0 ? myTheme.textLight.red-dm : 0}, ${myTheme.textLight.green-dm >= 0 ? myTheme.textLight.green-dm : 0}, ${myTheme.textLight.blue-dm >= 0 ? myTheme.textLight.blue-dm : 0}`;
+  const textLight = `${myTheme.textLight.red}, ${myTheme.textLight.green}, ${myTheme.textLight.blue}`;
+  const textLightLight = `${myTheme.textLight.red+lm <= 255 ? myTheme.textLight.red+lm : 255}, ${myTheme.textLight.green+lm <= 255 ? myTheme.textLight.green+lm : 255}, ${myTheme.textLight.blue+lm <= 255 ? myTheme.textLight.blue+lm : 255}`;
   
-  const textDarkDark = `${myTheme.textDark.red-dm >= 0 ? myTheme.textDark.red-dm : 0}, ${myTheme.textDark.green-dm >= 0 ? myTheme.textDark.green-dm : 0}, ${myTheme.textDark.blue-dm >= 0 ? myTheme.textDark.blue-dm : 0}`
-  const textDark = `${myTheme.textDark.red}, ${myTheme.textDark.green}, ${myTheme.textDark.blue}`
-  const textDarkLight = `${myTheme.textDark.red+lm <= 255 ? myTheme.textDark.red+lm : 255}, ${myTheme.textDark.green+lm <= 255 ? myTheme.textDark.green+lm : 255}, ${myTheme.textDark.blue+lm <= 255 ? myTheme.textDark.blue+lm : 255}`
+  const textDarkDark = `${myTheme.textDark.red-dm >= 0 ? myTheme.textDark.red-dm : 0}, ${myTheme.textDark.green-dm >= 0 ? myTheme.textDark.green-dm : 0}, ${myTheme.textDark.blue-dm >= 0 ? myTheme.textDark.blue-dm : 0}`;
+  const textDark = `${myTheme.textDark.red}, ${myTheme.textDark.green}, ${myTheme.textDark.blue}`;
+  const textDarkLight = `${myTheme.textDark.red+lm <= 255 ? myTheme.textDark.red+lm : 255}, ${myTheme.textDark.green+lm <= 255 ? myTheme.textDark.green+lm : 255}, ${myTheme.textDark.blue+lm <= 255 ? myTheme.textDark.blue+lm : 255}`;
   
-  const hardSetTextDark = `${myTheme.hardWireTextColor.red-dm >= 0 ? myTheme.hardWireTextColor.red-dm : 0}, ${myTheme.hardWireTextColor.green-dm >= 0 ? myTheme.hardWireTextColor.green-dm : 0}, ${myTheme.hardWireTextColor.blue-dm >= 0 ? myTheme.hardWireTextColor.blue-dm : 0}`
-  const hardSetText = `${myTheme.hardWireTextColor.red}, ${myTheme.hardWireTextColor.green}, ${myTheme.hardWireTextColor.blue}`
-  const hardSetTextLight = `${myTheme.hardWireTextColor.red+lm <= 255 ? myTheme.hardWireTextColor.red+lm : 255}, ${myTheme.hardWireTextColor.green+lm <= 255 ? myTheme.hardWireTextColor.green+lm : 255}, ${myTheme.hardWireTextColor.blue+lm <= 255 ? myTheme.hardWireTextColor.blue+lm : 255}`
+  const hardSetTextDark = `${myTheme.hardWireTextColor.red-dm >= 0 ? myTheme.hardWireTextColor.red-dm : 0}, ${myTheme.hardWireTextColor.green-dm >= 0 ? myTheme.hardWireTextColor.green-dm : 0}, ${myTheme.hardWireTextColor.blue-dm >= 0 ? myTheme.hardWireTextColor.blue-dm : 0}`;
+  const hardSetText = `${myTheme.hardWireTextColor.red}, ${myTheme.hardWireTextColor.green}, ${myTheme.hardWireTextColor.blue}`;
+  const hardSetTextLight = `${myTheme.hardWireTextColor.red+lm <= 255 ? myTheme.hardWireTextColor.red+lm : 255}, ${myTheme.hardWireTextColor.green+lm <= 255 ? myTheme.hardWireTextColor.green+lm : 255}, ${myTheme.hardWireTextColor.blue+lm <= 255 ? myTheme.hardWireTextColor.blue+lm : 255}`;
   
-  const hardSetOpposingPrimaryOneDark = `${myTheme.hardWireOpposingPrimaryOneColor.red-dm >= 0 ? myTheme.hardWireOpposingPrimaryOneColor.red-dm : 0}, ${myTheme.hardWireOpposingPrimaryOneColor.green-dm >= 0 ? myTheme.hardWireOpposingPrimaryOneColor.green-dm : 0}, ${myTheme.hardWireOpposingPrimaryOneColor.blue-dm >= 0 ? myTheme.hardWireOpposingPrimaryOneColor.blue-dm : 0}`
-  const hardSetOpposingPrimaryOne = `${myTheme.hardWireOpposingPrimaryOneColor.red}, ${myTheme.hardWireOpposingPrimaryOneColor.green}, ${myTheme.hardWireOpposingPrimaryOneColor.blue}`
-  const hardSetOpposingPrimaryOneLight = `${myTheme.hardWireOpposingPrimaryOneColor.red+lm <= 255 ? myTheme.hardWireOpposingPrimaryOneColor.red+lm : 255}, ${myTheme.hardWireOpposingPrimaryOneColor.green+lm <= 255 ? myTheme.hardWireOpposingPrimaryOneColor.green+lm : 255}, ${myTheme.hardWireOpposingPrimaryOneColor.blue+lm <= 255 ? myTheme.hardWireOpposingPrimaryOneColor.blue+lm : 255}`
+  const hardSetOpposingPrimaryOneDark = `${myTheme.hardWireOpposingPrimaryOneColor.red-dm >= 0 ? myTheme.hardWireOpposingPrimaryOneColor.red-dm : 0}, ${myTheme.hardWireOpposingPrimaryOneColor.green-dm >= 0 ? myTheme.hardWireOpposingPrimaryOneColor.green-dm : 0}, ${myTheme.hardWireOpposingPrimaryOneColor.blue-dm >= 0 ? myTheme.hardWireOpposingPrimaryOneColor.blue-dm : 0}`;
+  const hardSetOpposingPrimaryOne = `${myTheme.hardWireOpposingPrimaryOneColor.red}, ${myTheme.hardWireOpposingPrimaryOneColor.green}, ${myTheme.hardWireOpposingPrimaryOneColor.blue}`;
+  const hardSetOpposingPrimaryOneLight = `${myTheme.hardWireOpposingPrimaryOneColor.red+lm <= 255 ? myTheme.hardWireOpposingPrimaryOneColor.red+lm : 255}, ${myTheme.hardWireOpposingPrimaryOneColor.green+lm <= 255 ? myTheme.hardWireOpposingPrimaryOneColor.green+lm : 255}, ${myTheme.hardWireOpposingPrimaryOneColor.blue+lm <= 255 ? myTheme.hardWireOpposingPrimaryOneColor.blue+lm : 255}`;
   
-  const hardSetOpposingPrimaryTwoDark = `${myTheme.hardWireOpposingPrimaryTwoColor.red-dm >= 0 ? myTheme.hardWireOpposingPrimaryTwoColor.red-dm : 0}, ${myTheme.hardWireOpposingPrimaryTwoColor.green-dm >= 0 ? myTheme.hardWireOpposingPrimaryTwoColor.green-dm : 0}, ${myTheme.hardWireOpposingPrimaryTwoColor.blue-dm >= 0 ? myTheme.hardWireOpposingPrimaryTwoColor.blue-dm : 0}`
-  const hardSetOpposingPrimaryTwo = `${myTheme.hardWireOpposingPrimaryTwoColor.red}, ${myTheme.hardWireOpposingPrimaryTwoColor.green}, ${myTheme.hardWireOpposingPrimaryTwoColor.blue}`
-  const hardSetOpposingPrimaryTwoLight = `${myTheme.hardWireOpposingPrimaryTwoColor.red+lm <= 255 ? myTheme.hardWireOpposingPrimaryTwoColor.red+lm : 255}, ${myTheme.hardWireOpposingPrimaryTwoColor.green+lm <= 255 ? myTheme.hardWireOpposingPrimaryTwoColor.green+lm : 255}, ${myTheme.hardWireOpposingPrimaryTwoColor.blue+lm <= 255 ? myTheme.hardWireOpposingPrimaryTwoColor.blue+lm : 255}`
+  const hardSetOpposingPrimaryTwoDark = `${myTheme.hardWireOpposingPrimaryTwoColor.red-dm >= 0 ? myTheme.hardWireOpposingPrimaryTwoColor.red-dm : 0}, ${myTheme.hardWireOpposingPrimaryTwoColor.green-dm >= 0 ? myTheme.hardWireOpposingPrimaryTwoColor.green-dm : 0}, ${myTheme.hardWireOpposingPrimaryTwoColor.blue-dm >= 0 ? myTheme.hardWireOpposingPrimaryTwoColor.blue-dm : 0}`;
+  const hardSetOpposingPrimaryTwo = `${myTheme.hardWireOpposingPrimaryTwoColor.red}, ${myTheme.hardWireOpposingPrimaryTwoColor.green}, ${myTheme.hardWireOpposingPrimaryTwoColor.blue}`;
+  const hardSetOpposingPrimaryTwoLight = `${myTheme.hardWireOpposingPrimaryTwoColor.red+lm <= 255 ? myTheme.hardWireOpposingPrimaryTwoColor.red+lm : 255}, ${myTheme.hardWireOpposingPrimaryTwoColor.green+lm <= 255 ? myTheme.hardWireOpposingPrimaryTwoColor.green+lm : 255}, ${myTheme.hardWireOpposingPrimaryTwoColor.blue+lm <= 255 ? myTheme.hardWireOpposingPrimaryTwoColor.blue+lm : 255}`;
   
-  const hardSetOpposingSecondaryOneDark = `${myTheme.hardWireOpposingSecondaryOneColor.red-dm >= 0 ? myTheme.hardWireOpposingSecondaryOneColor.red-dm : 0}, ${myTheme.hardWireOpposingSecondaryOneColor.green-dm >= 0 ? myTheme.hardWireOpposingSecondaryOneColor.green-dm : 0}, ${myTheme.hardWireOpposingSecondaryOneColor.blue-dm >= 0 ? myTheme.hardWireOpposingSecondaryOneColor.blue-dm : 0}`
-  const hardSetOpposingSecondaryOne = `${myTheme.hardWireOpposingSecondaryOneColor.red}, ${myTheme.hardWireOpposingSecondaryOneColor.green}, ${myTheme.hardWireOpposingSecondaryOneColor.blue}`
-  const hardSetOpposingSecondaryOneLight = `${myTheme.hardWireOpposingSecondaryOneColor.red+lm <= 255 ? myTheme.hardWireOpposingSecondaryOneColor.red+lm : 255}, ${myTheme.hardWireOpposingSecondaryOneColor.green+lm <= 255 ? myTheme.hardWireOpposingSecondaryOneColor.green+lm : 255}, ${myTheme.hardWireOpposingSecondaryOneColor.blue+lm <= 255 ? myTheme.hardWireOpposingSecondaryOneColor.blue+lm : 255}`
+  const hardSetOpposingSecondaryOneDark = `${myTheme.hardWireOpposingSecondaryOneColor.red-dm >= 0 ? myTheme.hardWireOpposingSecondaryOneColor.red-dm : 0}, ${myTheme.hardWireOpposingSecondaryOneColor.green-dm >= 0 ? myTheme.hardWireOpposingSecondaryOneColor.green-dm : 0}, ${myTheme.hardWireOpposingSecondaryOneColor.blue-dm >= 0 ? myTheme.hardWireOpposingSecondaryOneColor.blue-dm : 0}`;
+  const hardSetOpposingSecondaryOne = `${myTheme.hardWireOpposingSecondaryOneColor.red}, ${myTheme.hardWireOpposingSecondaryOneColor.green}, ${myTheme.hardWireOpposingSecondaryOneColor.blue}`;
+  const hardSetOpposingSecondaryOneLight = `${myTheme.hardWireOpposingSecondaryOneColor.red+lm <= 255 ? myTheme.hardWireOpposingSecondaryOneColor.red+lm : 255}, ${myTheme.hardWireOpposingSecondaryOneColor.green+lm <= 255 ? myTheme.hardWireOpposingSecondaryOneColor.green+lm : 255}, ${myTheme.hardWireOpposingSecondaryOneColor.blue+lm <= 255 ? myTheme.hardWireOpposingSecondaryOneColor.blue+lm : 255}`;
   
-  const hardSetOpposingSecondaryTwoDark = `${myTheme.hardWireOpposingSecondaryTwoColor.red-dm >= 0 ? myTheme.hardWireOpposingSecondaryTwoColor.red-dm : 0}, ${myTheme.hardWireOpposingSecondaryTwoColor.green-dm >= 0 ? myTheme.hardWireOpposingSecondaryTwoColor.green-dm : 0}, ${myTheme.hardWireOpposingSecondaryTwoColor.blue-dm >= 0 ? myTheme.hardWireOpposingSecondaryTwoColor.blue-dm : 0}`
-  const hardSetOpposingSecondaryTwo = `${myTheme.hardWireOpposingSecondaryTwoColor.red}, ${myTheme.hardWireOpposingSecondaryTwoColor.green}, ${myTheme.hardWireOpposingSecondaryTwoColor.blue}`
-  const hardSetOpposingSecondaryTwoLight = `${myTheme.hardWireOpposingSecondaryTwoColor.red+lm <= 255 ? myTheme.hardWireOpposingSecondaryTwoColor.red+lm : 255}, ${myTheme.hardWireOpposingSecondaryTwoColor.green+lm <= 255 ? myTheme.hardWireOpposingSecondaryTwoColor.green+lm : 255}, ${myTheme.hardWireOpposingSecondaryTwoColor.blue+lm <= 255 ? myTheme.hardWireOpposingSecondaryTwoColor.blue+lm : 255}`
+  const hardSetOpposingSecondaryTwoDark = `${myTheme.hardWireOpposingSecondaryTwoColor.red-dm >= 0 ? myTheme.hardWireOpposingSecondaryTwoColor.red-dm : 0}, ${myTheme.hardWireOpposingSecondaryTwoColor.green-dm >= 0 ? myTheme.hardWireOpposingSecondaryTwoColor.green-dm : 0}, ${myTheme.hardWireOpposingSecondaryTwoColor.blue-dm >= 0 ? myTheme.hardWireOpposingSecondaryTwoColor.blue-dm : 0}`;
+  const hardSetOpposingSecondaryTwo = `${myTheme.hardWireOpposingSecondaryTwoColor.red}, ${myTheme.hardWireOpposingSecondaryTwoColor.green}, ${myTheme.hardWireOpposingSecondaryTwoColor.blue}`;
+  const hardSetOpposingSecondaryTwoLight = `${myTheme.hardWireOpposingSecondaryTwoColor.red+lm <= 255 ? myTheme.hardWireOpposingSecondaryTwoColor.red+lm : 255}, ${myTheme.hardWireOpposingSecondaryTwoColor.green+lm <= 255 ? myTheme.hardWireOpposingSecondaryTwoColor.green+lm : 255}, ${myTheme.hardWireOpposingSecondaryTwoColor.blue+lm <= 255 ? myTheme.hardWireOpposingSecondaryTwoColor.blue+lm : 255}`;
   
-  const hardSetOpposingSecondaryThreeDark = `${myTheme.hardWireOpposingSecondaryThreeColor.red-dm >= 0 ? myTheme.hardWireOpposingSecondaryThreeColor.red-dm : 0}, ${myTheme.hardWireOpposingSecondaryThreeColor.green-dm >= 0 ? myTheme.hardWireOpposingSecondaryThreeColor.green-dm : 0}, ${myTheme.hardWireOpposingSecondaryThreeColor.blue-dm >= 0 ? myTheme.hardWireOpposingSecondaryThreeColor.blue-dm : 0}`
-  const hardSetOpposingSecondaryThree = `${myTheme.hardWireOpposingSecondaryThreeColor.red}, ${myTheme.hardWireOpposingSecondaryThreeColor.green}, ${myTheme.hardWireOpposingSecondaryThreeColor.blue}`
-  const hardSetOpposingSecondaryThreeLight = `${myTheme.hardWireOpposingSecondaryThreeColor.red+lm <= 255 ? myTheme.hardWireOpposingSecondaryThreeColor.red+lm : 255}, ${myTheme.hardWireOpposingSecondaryThreeColor.green+lm <= 255 ? myTheme.hardWireOpposingSecondaryThreeColor.green+lm : 255}, ${myTheme.hardWireOpposingSecondaryThreeColor.blue+lm <= 255 ? myTheme.hardWireOpposingSecondaryThreeColor.blue+lm : 255}`
+  const hardSetOpposingSecondaryThreeDark = `${myTheme.hardWireOpposingSecondaryThreeColor.red-dm >= 0 ? myTheme.hardWireOpposingSecondaryThreeColor.red-dm : 0}, ${myTheme.hardWireOpposingSecondaryThreeColor.green-dm >= 0 ? myTheme.hardWireOpposingSecondaryThreeColor.green-dm : 0}, ${myTheme.hardWireOpposingSecondaryThreeColor.blue-dm >= 0 ? myTheme.hardWireOpposingSecondaryThreeColor.blue-dm : 0}`;
+  const hardSetOpposingSecondaryThree = `${myTheme.hardWireOpposingSecondaryThreeColor.red}, ${myTheme.hardWireOpposingSecondaryThreeColor.green}, ${myTheme.hardWireOpposingSecondaryThreeColor.blue}`;
+  const hardSetOpposingSecondaryThreeLight = `${myTheme.hardWireOpposingSecondaryThreeColor.red+lm <= 255 ? myTheme.hardWireOpposingSecondaryThreeColor.red+lm : 255}, ${myTheme.hardWireOpposingSecondaryThreeColor.green+lm <= 255 ? myTheme.hardWireOpposingSecondaryThreeColor.green+lm : 255}, ${myTheme.hardWireOpposingSecondaryThreeColor.blue+lm <= 255 ? myTheme.hardWireOpposingSecondaryThreeColor.blue+lm : 255}`;
   
   return {
     primary: {
@@ -133,14 +133,14 @@ const getColors = () => {
         light: textDarkLight,
       },
     },
-  }
-}
+  };
+};
 
 let colors = getColors();
 
 export const setColors = () => {
   const newColors = getColors();
   colors = newColors;
-}
+};
 
 export default colors;

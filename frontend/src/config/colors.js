@@ -1,4 +1,4 @@
-import { getCookie } from "@/utils/browser/cookies";
+import { getCookie } from '@/utils/browser/cookies';
 
 // Custom default theme editor. Setting these values will change what initially shows up on page as a color theme.
 
@@ -88,7 +88,7 @@ const defaultTheme = {
     green: 0,
     blue: 0,
   },
-}
+};
 
 // The user's custom theme is applied here if the cookie is found.
 export const myTheme = currentTheme || defaultTheme;

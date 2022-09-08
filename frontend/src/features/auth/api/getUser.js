@@ -5,7 +5,7 @@ export const getUser = async () => {
     route: '/auth/me',
     method: 'GET',
     includeAuth: true,
-  })
+  });
   return response.content;
 };
 

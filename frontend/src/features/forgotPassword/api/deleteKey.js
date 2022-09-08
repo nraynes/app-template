@@ -7,7 +7,7 @@ async function deleteKey(code) {
     body: {
       code,
     },
-  })
+  });
   return response.content;
 }
 

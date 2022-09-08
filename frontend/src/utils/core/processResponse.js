@@ -1,4 +1,4 @@
-import generateJoiError from "@/utils/formatters/generateJoiError";
+import generateJoiError from '@/utils/formatters/generateJoiError';
 
 /**
  * Processes a response from an api call and generates a snackbar output based on the message recieved.

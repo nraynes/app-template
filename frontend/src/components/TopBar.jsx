@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import IconButton from '@/components/IconButton';

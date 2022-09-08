@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 const emailService = require('@/services/email.service');
 const tempService = require('@/services/temp.service');
 const userService = require('@/services/user.service');

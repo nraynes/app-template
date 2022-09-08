@@ -4,89 +4,89 @@
 describe('Forgot Password feature tests', () => {
   Cypress.Cookies.defaults({
     preserve: ['accessToken', 'refreshToken'],
-  })
+  });
   
   it('Should display the forgot password form when navigated to.', () => {
-    cy.exec('cd ../backend && npm run test:teardown')
-    cy.exec('cd ../backend && npm run test:setup')
-    cy.visit('http://localhost:3000/')
+    cy.exec('cd ../backend && npm run test:teardown');
+    cy.exec('cd ../backend && npm run test:setup');
+    cy.visit('http://localhost:3000/');
 
     cy.get('[data-testid="login-button"]')
-      .click()
+      .click();
 
     cy.get('[data-testid="login-form"]')
-      .should('exist')
+      .should('exist');
     
     cy.get('[data-testid="login-form-forgot-password-button"]')
-      .click()
+      .click();
 
     cy.get('[data-testid="forgot-password"]')
-      .should('exist')
-  })
+      .should('exist');
+  });
 
   it('Should display the login page when the back button is clicked.', () => {
     cy.get('[data-testid="forgot-password-form-back-button"]')
-      .click()
+      .click();
 
     cy.get('[data-testid="login-form"]')
-      .should('exist')
+      .should('exist');
     
     cy.get('[data-testid="login-form-forgot-password-button"]')
-      .click()
+      .click();
 
     cy.get('[data-testid="forgot-password"]')
-      .should('exist')
-  })
+      .should('exist');
+  });
 
   it('Should display a potential success snack bar when the wrong email is input.', () => {
     cy.get('[data-testid="forgot-password-email-input"]')
-      .type('Somerandomtestemail@email.com')
+      .type('Somerandomtestemail@email.com');
     
     cy.get('[data-testid="forgot-password-form-reset-password-button"]')
-      .click()
+      .click();
 
     cy.get('[id="notistack-snackbar"]')
       .should('exist')
-      .should('have.text', 'If an account with this email exists, you will receive an email to reset your password.')
+      .should('have.text', 'If an account with this email exists, you will receive an email to reset your password.');
 
     cy.request({ url: 'http://localhost:3001/api/test/passTempCode?email=Somerandomtestemail@email.com', failOnStatusCode: false })
       .should((response) => {
-        expect(response.status).to.equal(404)
-        expect(response.body).to.equal('NOTFOUND')
-      })
-  })
+        expect(response.status).to.equal(404);
+        expect(response.body).to.equal('NOTFOUND');
+      });
+  });
 
   it('Should display a success snack bar when the wrong email is input.', () => {
     cy.get('[data-testid="forgot-password-form-back-button"]')
-      .click()
+      .click();
     
     cy.get('[data-testid="login-form-forgot-password-button"]')
-      .click()
+      .click();
 
     cy.get('[data-testid="forgot-password"]')
-      .should('exist')
+      .should('exist');
 
     cy.get('[data-testid="forgot-password-email-input"]')
-      .type('amydavis@email.com')
+      .type('amydavis@email.com');
     
     cy.request({ url: 'http://localhost:3001/api/test/passTempCode?email=amydavis@email.com', failOnStatusCode: false })
       .should((response) => {
-        expect(response.status).to.equal(401)
-        expect(response.body).to.equal('EXPIRED')
-      })
+        expect(response.status).to.equal(401);
+        expect(response.body).to.equal('EXPIRED');
+      });
 
     cy.get('[data-testid="forgot-password-form-reset-password-button"]')
-      .click()
+      .click();
 
     cy.get('[id="notistack-snackbar"]')
       .should('exist')
-      .should('have.text', 'If an account with this email exists, you will receive an email to reset your password.')
+      .should('have.text', 'If an account with this email exists, you will receive an email to reset your password.');
 
     cy.request({ url: 'http://localhost:3001/api/test/passTempCode?email=amydavis@email.com', failOnStatusCode: false })
       .should((response) => {
-        expect(response.status).to.equal(200)
-        expect(response.body.pass_key).to.match(/.{32}/)
-      })
-  })
+        expect(response.status).to.equal(200);
+        expect(response.body.pass_key).to.match(/.{32}/);
+      });
+  });
 
-})
+});

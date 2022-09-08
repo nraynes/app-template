@@ -1,7 +1,3 @@
-/* eslint-disable consistent-return */
-/* eslint-disable camelcase */
-/* eslint-disable max-len */
-
 const authService = require('@/services/auth.service');
 const userService = require('@/services/user.service');
 const tokenService = require('@/services/token.service');

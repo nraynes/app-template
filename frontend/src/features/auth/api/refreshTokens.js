@@ -5,7 +5,7 @@ export const refreshToken = async () => {
     route: '/auth/token',
     method: 'POST',
     includeRefresh: true,
-  })
+  });
   return response.content;
 };
 

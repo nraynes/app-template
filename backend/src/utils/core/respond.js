@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable no-console */
 const log = require('@/utils/misc/log');
 /**
  * Send a server response with a predetermined error code or an object.

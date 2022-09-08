@@ -8,7 +8,7 @@ async function changePassword(passKey, password) {
       passKey,
       password,
     },
-  })
+  });
   return response.content;
 }
 

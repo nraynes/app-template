@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import CommonLayout from '@/components/CommonLayout';
 import ChangePasswordForm from '@/features/forgotPassword/components/ChangePasswordForm';
 import validateCode from '@/features/forgotPassword/api/validateCode';

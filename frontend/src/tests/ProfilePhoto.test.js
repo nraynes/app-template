@@ -1,4 +1,5 @@
-/* eslint-disable jest/no-conditional-expect */
+/* eslint-disable no-undef */
+/* eslint-disable react/react-in-jsx-scope */
 import { render, screen, waitFor } from '@testing-library/react';
 import AppProvider from '@/providers/AppProvider';
 import ProfilePhoto from '@/components/ProfilePhoto';
@@ -15,12 +16,12 @@ describe('Awaiting Component Tests', () => {
 
   test('Should render component backdrop.', async () => {
     if (useProfilePhoto) {
-      render(<TestComponent />)
+      render(<TestComponent />);
       await waitFor(() => {
         const element = screen.getByTestId('test-component');
         expect(element).toBeInTheDocument();
-      })
+      });
     }
-  })
+  });
 
-})
+});

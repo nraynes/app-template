@@ -5,7 +5,7 @@ export const logout = async () => {
     route: '/auth/logout',
     method: 'DELETE',
     includeRefresh: true,
-  })
+  });
   return response.content;
 };
 
