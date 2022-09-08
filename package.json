@@ -14,7 +14,8 @@
     "test": "npm run test --prefix backend && npm run test --prefix frontend",
     "db:deploy": "npx prisma migrate deploy --schema ./backend/src/db/prisma/schema.prisma",
     "db:seed": "node ./backend/src/db/prisma/seed.js",
-    "db:clear": "node ./backend/src/db/prisma/clear.js"
+    "db:clear": "node ./backend/src/db/prisma/clear.js",
+    "prepare": "husky install"
   },
   "cacheDirectories": [
     "node_modules",
@@ -27,5 +28,8 @@
     "npm-run-all": "^4.1.5",
     "react-helmet-async": "^1.3.0",
     "sjcl": "^1.0.8"
+  },
+  "devDependencies": {
+    "husky": "^8.0.1"
   }
 }
