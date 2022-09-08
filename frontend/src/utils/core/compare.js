@@ -14,7 +14,7 @@ const convertValue = (val, options) => (typeof val === 'function'
       ? options && options.caseInsensitive
         ? val.trim().toLowerCase()
         : val.trim()
-          : val);
+      : val);
 
 /**
  * Takes two objects and checks to see if everything in the first object is also in the second object.

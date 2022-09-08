@@ -73,7 +73,7 @@ describe('Signup feature tests', () => {
 
   it('Should display a snackbar saying that the passwords must match when two different passwords are input.', () => {
     cy.get('[data-testid="signup-form-login-button"]')
-    .click();
+      .click();
 
     cy.get('[data-testid="login-form-signup-button"]')
       .click();
@@ -97,7 +97,7 @@ describe('Signup feature tests', () => {
 
   it('Should create an account successfully and display a snackbar notifying the user when correct information is supplied.', () => {
     cy.get('[data-testid="signup-form-login-button"]')
-    .click();
+      .click();
     
     cy.get('[data-testid="login-form-signup-button"]')
       .click();
@@ -121,7 +121,7 @@ describe('Signup feature tests', () => {
 
   it('Should display a snack bar saying that the account already exists when the same information is put in.', () => {
     cy.get('[data-testid="login-form-signup-button"]')
-    .click();
+      .click();
 
     cy.get('[data-testid="signup-email-input"]')
       .type('frontend@email.com', { delay: 50 });
