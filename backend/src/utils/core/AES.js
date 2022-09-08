@@ -11,8 +11,7 @@ const encrypt = (message) => {
     const encrypted = sjcl.encrypt(secretKey, message, encryption.config);
     return JSON.parse(encrypted).ct;
   }
-  return 'test';
-  // return message;
+  return message;
 };
 
 /**
