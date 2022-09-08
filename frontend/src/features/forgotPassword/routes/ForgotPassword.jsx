@@ -2,7 +2,7 @@ import React from 'react';
 import CommonLayout from '@/components/CommonLayout';
 import ForgotPasswordForm from '@/features/forgotPassword/components/ForgotPasswordForm';
 
-function ForgotPasswordPage(props) {
+function ForgotPasswordPage() {
   return (
     <CommonLayout>
       <ForgotPasswordForm />

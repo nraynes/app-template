@@ -5,12 +5,12 @@ import Card from '@/components/Card';
 import CardHead from '@/components/CardHead';
 import Button from '@/components/Button';
 import { useNavigate } from 'react-router-dom';
-import ReCAPTCHA from "react-google-recaptcha";
+import ReCAPTCHA from 'react-google-recaptcha';
 import { useAuth } from '@/lib/auth';
 import { useSnackbar } from 'notistack';
 import { commonFormColor, commonFormOpacity, backgroundColor, sitekey } from '@/config/config';
 
-function SignUpForm(props) {
+function SignUpForm() {
   const navigate = useNavigate();
   const opposingColor = commonFormOpacity > 0.5 ? commonFormColor.opposingText.main : backgroundColor.opposingText.main;
   const componentColor = commonFormOpacity > 0.5 ? commonFormColor : backgroundColor;
@@ -21,7 +21,7 @@ function SignUpForm(props) {
   const confirmPasswordRef = useRef();
   const [captcha, setCaptcha] = useState('');
   const logInButton = () => {
-    navigate('/auth/login')
+    navigate('/auth/login');
   };
 
   const signUpButton = () => {
@@ -30,14 +30,14 @@ function SignUpForm(props) {
         email: emailRef.current.value,
         password: passwordRef.current.value,
         captcha,
-      })
+      });
     } else {
       enqueueSnackbar('Passwords must match.', { variant: 'error' });
     }
   };
 
   const recaptchaLoadedCallback = (response) => {
-    setCaptcha(response)
+    setCaptcha(response);
   };
 
   const recaptchaErrorCallback = () => {

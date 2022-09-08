@@ -22,10 +22,10 @@ function ProfileMenu({
   logOutButton,
 }) {
   const { buttons } = useButtons();
-  const { data, refetch } = useQuery('profileInfo', () => (
+  const { data } = useQuery('profileInfo', () => (
     apiCall(() => getProfileInfo(), {
       SUCCESS: response => response,
-      NOTFOUND: "We couldn't find the account.",
+      NOTFOUND: 'We couldn\'t find the account.',
       UNAUTHORIZED: 'You were not authorized to view account info.',
     }, false)
   ));
@@ -35,9 +35,9 @@ function ProfileMenu({
   const menulist = [];
 
   if (data && (
-      data.email
+    data.email
       || data.photo
-    )) {
+  )) {
     menulist.push((
       <Box
         id="mini_profile_arch_container"
@@ -59,31 +59,31 @@ function ProfileMenu({
         </Box>
         <Divider id="profile-divider" data-testid="profile-divider" sx={{ mb: '0.5em' }} />
       </Box>
-    ))
+    ));
   }
   if (buttons.profile && auth.user) {
     menulist.push((<MenuItem id="profile-menu-profile" data-testid="profile-menu-profile" key="profile-menu-profile" onClick={() => {
-      profileButton()
-      handleClose()
-    }}><PersonIcon sx={{ mr: '0.5em' }} />Profile</MenuItem>))
+      profileButton();
+      handleClose();
+    }}><PersonIcon sx={{ mr: '0.5em' }} />Profile</MenuItem>));
   }
   if (buttons.settings && auth.user) {
     menulist.push((<MenuItem id="profile-menu-settings" data-testid="profile-menu-settings" key="profile-menu-settings" onClick={() => {
-      settingsButton()
-      handleClose()
-    }}><SettingsIcon sx={{ mr: '0.5em' }} />Settings</MenuItem>))
+      settingsButton();
+      handleClose();
+    }}><SettingsIcon sx={{ mr: '0.5em' }} />Settings</MenuItem>));
   }
   if (buttons.help && auth.user) {
     menulist.push((<MenuItem id="profile-menu-help" data-testid="profile-menu-help" key="profile-menu-help" onClick={() => {
-      helpButton()
-      handleClose()
-    }}><HelpIcon sx={{ mr: '0.5em' }} />Help</MenuItem>))
+      helpButton();
+      handleClose();
+    }}><HelpIcon sx={{ mr: '0.5em' }} />Help</MenuItem>));
   }
   if (buttons.logOut && auth.user) {
     menulist.push((<MenuItem id="profile-menu-logout" data-testid="profile-menu-logout" key="profile-menu-logout" onClick={() => {
-      logOutButton()
-      handleClose()
-    }}><LogoutIcon sx={{ mr: '0.5em' }} />Log-Out</MenuItem>))
+      logOutButton();
+      handleClose();
+    }}><LogoutIcon sx={{ mr: '0.5em' }} />Log-Out</MenuItem>));
   }
 
   return (

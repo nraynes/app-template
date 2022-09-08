@@ -21,7 +21,7 @@ import addPhoto from '@/features/profile/api/addPhoto';
 import removePhoto from '@/features/profile/api/removePhoto';
 import ProfilePhoto from '@/components/ProfilePhoto';
 
-function ProfileEditor(props) {
+function ProfileEditor() {
   const { enqueueSnackbar } = useSnackbar();
   const opposingColor = commonFormOpacity > 0.5 ? commonFormColor.opposingText.main : backgroundColor.opposingText.main;
   const componentColor = commonFormOpacity > 0.5 ? commonFormColor : backgroundColor;
@@ -31,7 +31,7 @@ function ProfileEditor(props) {
   const { data, refetch } = useQuery('profileInfo', () => (
     apiCall(() => getProfileInfo(), {
       SUCCESS: response => response,
-      NOTFOUND: "We couldn't find the account.",
+      NOTFOUND: 'We couldn\'t find the account.',
       UNAUTHORIZED: 'You were not authorized to view account info.',
     }, false)
   ));
@@ -43,14 +43,14 @@ function ProfileEditor(props) {
       if (answer) {
         await apiCall(() => deleteUser(), {
           SUCCESS: () => {
-            enqueueSnackbar("Successfully deleted user account. You will now be logged out.", { variant: 'success', onClose: auth.logout })
+            enqueueSnackbar('Successfully deleted user account. You will now be logged out.', { variant: 'success', onClose: auth.logout });
           },
           UNAUTHORIZED: 'You are not authorized to delete this account.',
-          NOTFOUND: "We couldn't find the account.",
-        })
+          NOTFOUND: 'We couldn\'t find the account.',
+        });
       }
-    })
-  }
+    });
+  };
 
   const editAccountButton = async () => {
     if (!editing) {
@@ -60,47 +60,47 @@ function ProfileEditor(props) {
       const editInfo = async () => {
         await apiCall(() => editProfileInfo(emailRef.current.value), {
           SUCCESS: () => {
-            enqueueSnackbar("Info changed successfully!", { variant: 'success' })
+            enqueueSnackbar('Info changed successfully!', { variant: 'success' });
             if (changingEmail) {
-              enqueueSnackbar("Please check your email to reverify it. You will now be logged out.", { variant: 'info', onClose: auth.logout })
+              enqueueSnackbar('Please check your email to reverify it. You will now be logged out.', { variant: 'info', onClose: auth.logout });
             }
           },
           ALREADYEXISTS: 'There is already a user with that information.',
-          NOTFOUND: "We couldn't find the account.",
+          NOTFOUND: 'We couldn\'t find the account.',
           UNAUTHORIZED: 'You are not authorized to edit account information.',
-        })
+        });
         if (!changingEmail) {
           refetch();
         }
         setEditing(false);
-      }
+      };
       if (changingEmail) {
         ask('Re-verify', 'If you change your email, you will need to reverify it. You will recieve an email to the new email to verify your account.', (answer) => {
           if (answer) {
             editInfo();
           }
-        })
+        });
       } else {
         await editInfo();
       }
     }
-  }
+  };
 
   const cancelButton = () => {
-    setEditing(false)
-  }
+    setEditing(false);
+  };
 
   const allLogOutButton = () => {
     ask('Are you sure?', 'Are you sure you want to log out of all of your devices?', async (answer) => {
       if (answer) {
         await apiCall(() => logOutOfAllDevices(), {
           SUCCESS: () => {
-            enqueueSnackbar("Successfully logged out of all devices. You will now be logged out.", { variant: 'success', onClose: auth.logout })
+            enqueueSnackbar('Successfully logged out of all devices. You will now be logged out.', { variant: 'success', onClose: auth.logout });
           },
-        }, false)
+        }, false);
       }
-    })
-  }
+    });
+  };
 
   const editProfilePhoto = () => {
     askForFile('Profile Photo', 'Please select a profile photo to use.', async (file) => {
@@ -108,22 +108,22 @@ function ProfileEditor(props) {
         await apiCall(() => addPhoto(file), {
           SUCCESS: 'Successfully updated profile photo.',
           FAILURE: 'File size exceeded. Please use a smaller file.',
-        })
+        });
         refetch();
       }
     });
-  }
+  };
 
   const deleteProfilePhoto = () => {
     ask('Confirm', 'Are you sure you want to delete you profile photo?', async (answer) => {
       if (answer) {
         await apiCall(removePhoto, {
           SUCCESS: 'Successfully removed profile photo.',
-        })
+        });
         refetch();
       }
-    })
-  }
+    });
+  };
 
   return (
     <Card
@@ -142,24 +142,24 @@ function ProfileEditor(props) {
         }}
       >
         {useProfilePhoto && (
-            <Box
-              id="profile-editor-photo-container"
-              data-testid="profile-editor-photo-container"
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                py: '0.5em',
-              }}
-            >
-              <ProfilePhoto
-                id="profile-editor-profile-photo"
-                callback={editProfilePhoto}
-                photo={data && data.photo}
-              />
-              <IconButton id="profile-editor-photo-delete" data-testid="profile-editor-photo-delete" onClick={deleteProfilePhoto} description="Remove Profile Photo" sx={{ ml: '1em' }}><DeleteIcon /></IconButton>
-            </Box>
-          )
+          <Box
+            id="profile-editor-photo-container"
+            data-testid="profile-editor-photo-container"
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              py: '0.5em',
+            }}
+          >
+            <ProfilePhoto
+              id="profile-editor-profile-photo"
+              callback={editProfilePhoto}
+              photo={data && data.photo}
+            />
+            <IconButton id="profile-editor-photo-delete" data-testid="profile-editor-photo-delete" onClick={deleteProfilePhoto} description="Remove Profile Photo" sx={{ ml: '1em' }}><DeleteIcon /></IconButton>
+          </Box>
+        )
         }
         <Box
           id="profile-editor-email-container"

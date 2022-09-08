@@ -4,7 +4,7 @@ import CommonPage from './Common';
 import { useButtons } from '@/stores/topBarButtons';
 import { compareObjects } from '@/utils/core/compare';
 
-function RootRoutes(props) {
+function RootRoutes() {
   const { buttons, setButtons } = useButtons();
   const buttonConfig = {
     colorPicker: true,
@@ -18,9 +18,9 @@ function RootRoutes(props) {
   
   useEffect(() => {
     if (!compareObjects(buttons, buttonConfig)) {
-      setButtons(buttonConfig)
+      setButtons(buttonConfig);
     }
-  }, [])
+  }, []);
 
   return (
     <Routes>

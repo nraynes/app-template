@@ -10,7 +10,7 @@ import { commonFormColor, commonFormOpacity, backgroundColor } from '@/config/co
 import apiCall from '@/utils/core/apiCall';
 import { useSnackbar } from 'notistack';
 
-function ForgotPasswordForm(props) {
+function ForgotPasswordForm() {
   const navigate = useNavigate();
   const opposingColor = commonFormOpacity > 0.5 ? commonFormColor.opposingText.main : backgroundColor.opposingText.main;
   const componentColor = commonFormOpacity > 0.5 ? commonFormColor : backgroundColor;
@@ -19,7 +19,7 @@ function ForgotPasswordForm(props) {
 
 
   const backButton = () => {
-    navigate('/auth/login')
+    navigate('/auth/login');
   };
 
   const resetPasswordButton = async () => {

@@ -5,7 +5,7 @@ import ChangePasswordPage from './ChangePassword';
 import { useButtons } from '@/stores/topBarButtons';
 import { compareObjects } from '@/utils/core/compare';
 
-function PasswordRoutes(props) {
+function PasswordRoutes() {
   const { buttons, setButtons } = useButtons();
   const buttonConfig = {
     colorPicker: true,
@@ -19,9 +19,9 @@ function PasswordRoutes(props) {
   
   useEffect(() => {
     if (!compareObjects(buttons, buttonConfig)) {
-      setButtons(buttonConfig)
+      setButtons(buttonConfig);
     }
-  }, [])
+  }, []);
   
   return (
     <Routes>

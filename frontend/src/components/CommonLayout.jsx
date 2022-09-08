@@ -4,13 +4,13 @@ import Button from '@/components/Button';
 import IconButton from '@/components/IconButton';
 import { topBarHeight, bottomBarHeight, onMobile } from '@/config/config';
 import MenuIcon from '@mui/icons-material/Menu';
-import { consoleColor, drawerOpacity, backgroundColor } from '@/config/config'
+import { consoleColor, drawerOpacity, backgroundColor } from '@/config/config';
 
 // mobileDrawerHeaders needs to be the same length as children.
 function CommonLayout({ children, useMobileDrawer, mobileDrawerHeaders }) {
   const [displayChild, setDisplayChild] = useState(0);
   const [open, setOpen] = useState(false);
-  const componentColor = consoleColor
+  const componentColor = consoleColor;
   const opposingColor = drawerOpacity > 0.5 ? componentColor.opposingText.main : backgroundColor.opposingText.main;
   
   return (
@@ -76,6 +76,7 @@ function CommonLayout({ children, useMobileDrawer, mobileDrawerHeaders }) {
                   <Box
                     id={`drawer_box_${i}`}
                     data-testid={`drawer_box_${i}`}
+                    key={`drawer_box_${i}`}
                     sx={{
                       mx: '1em',
                       my: '0.5em',
@@ -105,7 +106,7 @@ function CommonLayout({ children, useMobileDrawer, mobileDrawerHeaders }) {
               </Box>
             </Drawer>
           </>
-          )
+        )
         : children}
     </Box>
   );

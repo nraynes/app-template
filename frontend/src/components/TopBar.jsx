@@ -14,7 +14,7 @@ import { backgroundColor, consoleColor, buttonBarOpacity, titleBarOpacity, activ
 import ProfileMenu from './ProfileMenu';
 
 function TopBar({ openDropDown }) {
-  const componentColor = consoleColor
+  const componentColor = consoleColor;
   const opposingColor = buttonBarOpacity > 0.5 ? componentColor.opposingText.main : backgroundColor.opposingText.main;
   const { buttons } = useButtons();
   const navigate = useNavigate();
@@ -32,16 +32,16 @@ function TopBar({ openDropDown }) {
 
   const getButtonAmount = () => {
     let amount = 0;
-    if (buttons.profile && auth.user) amount++
-    if (buttons.colorPicker && activateColorDrawer) amount++
-    if (buttons.home) amount++
-    if (buttons.logIn && !auth.user) amount++
+    if (buttons.profile && auth.user) amount++;
+    if (buttons.colorPicker && activateColorDrawer) amount++;
+    if (buttons.home) amount++;
+    if (buttons.logIn && !auth.user) amount++;
     return amount;
-  }
+  };
 
   useEffect(() => {
-    setButtonAmount(getButtonAmount())
-  }, [])
+    setButtonAmount(getButtonAmount());
+  }, []);
 
   const colorPickerButton = () => {
     if (open) {

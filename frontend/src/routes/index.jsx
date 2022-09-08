@@ -5,7 +5,7 @@ import privateRoutes from './private';
 import commonRoutes from './common';
 import { useAuth } from '@/lib/auth';
 
-function AppRoutes(props) {
+function AppRoutes() {
   const auth = useAuth();
   let routes = [...commonRoutes, ...publicRoutes];
   if (auth.user) {

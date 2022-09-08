@@ -5,7 +5,7 @@ import SignUpPage from './SignUp';
 import { useButtons } from '@/stores/topBarButtons';
 import { compareObjects } from '@/utils/core/compare';
 
-function AuthRoutes(props) {
+function AuthRoutes() {
   const { buttons, setButtons } = useButtons();
   const buttonConfig = {
     colorPicker: true,
@@ -19,9 +19,9 @@ function AuthRoutes(props) {
 
   useEffect(() => {
     if (!compareObjects(buttons, buttonConfig)) {
-      setButtons(buttonConfig)
+      setButtons(buttonConfig);
     }
-  }, [])
+  }, []);
   
   return (
     <Routes>

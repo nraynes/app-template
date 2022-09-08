@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/lib/auth';
 import { commonFormColor, commonFormOpacity, backgroundColor } from '@/config/config';
 
-function LogInForm(props) {
+function LogInForm() {
   const navigate = useNavigate();
   const opposingColor = commonFormOpacity > 0.5 ? commonFormColor.opposingText.main : backgroundColor.opposingText.main;
   const componentColor = commonFormOpacity > 0.5 ? commonFormColor : backgroundColor;
@@ -17,11 +17,11 @@ function LogInForm(props) {
   const passwordRef = useRef();
 
   const forgotPasswordButton = () => {
-    navigate('/password/forgot')
+    navigate('/password/forgot');
   };
 
   const signUpButton = () => {
-    navigate('/auth/signup')
+    navigate('/auth/signup');
   };
 
   const logInButton = async () => {

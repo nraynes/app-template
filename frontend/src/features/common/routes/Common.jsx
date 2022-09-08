@@ -1,7 +1,7 @@
 import React from 'react';
 import CommonLayout from '@/components/CommonLayout';
 
-function CommonPage(props) {
+function CommonPage() {
   return (
     <CommonLayout>
 

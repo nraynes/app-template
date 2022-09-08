@@ -13,9 +13,9 @@ function ColorDrawer({ manualOpen = false }) {
   const { open, setClose } = useColorPicker();
   const customCookie = getCookie('customConfig');
   const [custom, setCustom] = useState(customCookie ? customCookie : {});
-  const { XTolerance, YTolerance } = touchConfig.swipe
-  const touchStartCoords = { x: 0, y: 0}
-  const touchMoveCoords = { x: 0, y: 0}
+  const { XTolerance, YTolerance } = touchConfig.swipe;
+  const touchStartCoords = { x: 0, y: 0};
+  const touchMoveCoords = { x: 0, y: 0};
   let stayedInPath = true;
 
   const changeColor = (rgba, key) => {
@@ -26,22 +26,22 @@ function ColorDrawer({ manualOpen = false }) {
 
   const changeCustom = (key, value) => {
     const clone = {...custom};
-    const newValue = value || 0.01
+    const newValue = value || 0.01;
     clone[key] = newValue;
     setCustom(clone);
-  }
+  };
   
   const applyColorTheme = () => {
     setCookie('theme', myTheme);
     setCookie('customConfig', custom);
-    window.location.reload()
-  }
+    window.location.reload();
+  };
 
   const resetColorTheme = () => {
     clearCookie('theme');
     clearCookie('customConfig');
-    window.location.reload()
-  }
+    window.location.reload();
+  };
 
   const renderColorPickers = () => (
     <>
@@ -86,27 +86,27 @@ function ColorDrawer({ manualOpen = false }) {
           height: '100%',
         }}
         onTouchStart={(e) => {
-          touchStartCoords.x = e.touches[0].clientX
-          touchStartCoords.y = e.touches[0].clientY
+          touchStartCoords.x = e.touches[0].clientX;
+          touchStartCoords.y = e.touches[0].clientY;
         }}
         onTouchMove={(e) => {
-          touchMoveCoords.x = e.touches[0].clientX
-          touchMoveCoords.y = e.touches[0].clientY
+          touchMoveCoords.x = e.touches[0].clientX;
+          touchMoveCoords.y = e.touches[0].clientY;
           if (Math.abs(touchStartCoords.y - touchMoveCoords.y) > YTolerance) {
             stayedInPath = false;
           }
         }}
-        onTouchEnd={(e) => {
+        onTouchEnd={() => {
           if (stayedInPath && Math.abs(touchStartCoords.y - touchMoveCoords.y) < YTolerance) {
             const xDif = touchStartCoords.x - touchMoveCoords.x;
             if (xDif < 0 && Math.abs(xDif) > XTolerance) { // Swiped towards right
               setClose();
             }
           }
-          touchStartCoords.x = 0
-          touchStartCoords.y = 0
-          touchMoveCoords.x = 0
-          touchMoveCoords.y = 0
+          touchStartCoords.x = 0;
+          touchStartCoords.y = 0;
+          touchMoveCoords.x = 0;
+          touchMoveCoords.y = 0;
           stayedInPath = true;
         }}
       >
@@ -209,17 +209,17 @@ function ColorDrawer({ manualOpen = false }) {
           </Box>
           {onMobile && (
             <Box
-            id="transparency_setters_three"
-            data-testid="transparency_setters_three"
-            sx={{
-              my: '1em',
-              display: 'flex',
-              width: '100%',
-              justifyContent: 'space-evenly',
-            }}
-          >
-            <TransparencySetter id="button_bar_opacity_setter" data-testid="button_bar_opacity_setter" orientation="horizontal" defaultValue={buttonBarOpacity * 100} label="Button Bar Opacity" onChange={(e) => changeCustom('buttonBarOpacity', (e.target.value / 100))} />
-          </Box>
+              id="transparency_setters_three"
+              data-testid="transparency_setters_three"
+              sx={{
+                my: '1em',
+                display: 'flex',
+                width: '100%',
+                justifyContent: 'space-evenly',
+              }}
+            >
+              <TransparencySetter id="button_bar_opacity_setter" data-testid="button_bar_opacity_setter" orientation="horizontal" defaultValue={buttonBarOpacity * 100} label="Button Bar Opacity" onChange={(e) => changeCustom('buttonBarOpacity', (e.target.value / 100))} />
+            </Box>
           )}
         </Box>
         <Box

@@ -23,14 +23,14 @@ function GlobalProvider({ children }) {
     location.substring(0,5) !== 'https'
     && process.env.NODE_ENV !== 'development'
   ) {
-    const url = location.substring(5,location.length)
-    const newLocation = `https:${url}`
+    const url = location.substring(5,location.length);
+    const newLocation = `https:${url}`;
     window.location.href = newLocation;
   }
 
-  const pubRoutes = publicRoutes.map((item) => item.path.substring(0, item.path.length-2))
+  const pubRoutes = publicRoutes.map((item) => item.path.substring(0, item.path.length-2));
 
-  const privRoutes = privateRoutes.map((item) => item.path.substring(0, item.path.length-2))
+  const privRoutes = privateRoutes.map((item) => item.path.substring(0, item.path.length-2));
 
   useEffect(() => {
     if ((auth.user && pubRoutes.some((route) => pathname.match(route)))

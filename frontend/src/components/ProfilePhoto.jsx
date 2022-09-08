@@ -36,7 +36,7 @@ function ProfilePhoto({
         objectFit: 'cover',
       }} src={photo}/> : <InsertPhotoIcon />}
     </Box>
-  )
+  );
   return callback ? (
     <Tooltip title="Edit Profile Photo">
       {renderBox()}

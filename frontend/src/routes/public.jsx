@@ -1,6 +1,7 @@
-import TopBar from "@/components/TopBar";
-import AuthRoutes from "@/features/auth/routes";
-import PasswordRoutes from "@/features/forgotPassword/routes";
+/* eslint-disable react/react-in-jsx-scope */
+import TopBar from '@/components/TopBar';
+import AuthRoutes from '@/features/auth/routes';
+import PasswordRoutes from '@/features/forgotPassword/routes';
 
 const App = (value) => (
   <>
@@ -14,4 +15,4 @@ export const publicRoutes = [
   { path: '/password/*', element: App(<PasswordRoutes />) },
 ];
 
-export default publicRoutes
+export default publicRoutes;

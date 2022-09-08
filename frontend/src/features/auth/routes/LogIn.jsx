@@ -5,16 +5,16 @@ import getParameterByName from '@/utils/misc/getParams';
 import { verifyEmailWithKey } from '@/lib/auth';
 import { useNavigate } from 'react-router-dom';
 
-function LogInPage(props) {
+function LogInPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const emailVerificationCode = getParameterByName('code')
+    const emailVerificationCode = getParameterByName('code');
     if (emailVerificationCode) {
-      verifyEmailWithKey(emailVerificationCode)
+      verifyEmailWithKey(emailVerificationCode);
       navigate('/auth/login');
     }
-  }, [])
+  }, []);
   return (
     <CommonLayout>
       <LogInForm />

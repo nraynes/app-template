@@ -20,7 +20,7 @@ function ChangePasswordForm({ code }) {
   const { enqueueSnackbar } = useSnackbar();
 
   const cancelButton = () => {
-    navigate('/auth/login')
+    navigate('/auth/login');
   };
 
   const changePasswordButton = async () => {
@@ -32,7 +32,7 @@ function ChangePasswordForm({ code }) {
           navigate('/auth/login');
         },
         EXPIRED: 'The temp key expired.'
-      })
+      });
     } else {
       enqueueSnackbar('Passwords must match.', { variant: 'error' });
     }

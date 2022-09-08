@@ -9,7 +9,7 @@ function IconButton({ children, description, ...args }) {
     >
       {children}
     </GoogleIconButton>
-  )
+  );
 
   return description ? (
     <Tooltip title={description}>

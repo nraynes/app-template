@@ -2,7 +2,7 @@ import React from 'react';
 import CommonLayout from '@/components/CommonLayout';
 import SignUpForm from '@/features/auth/components/SignUpForm';
 
-function SignUpPage(props) {
+function SignUpPage() {
   return (
     <CommonLayout>
       <SignUpForm />

@@ -4,7 +4,7 @@ import ProfilePage from './Profile';
 import { useButtons } from '@/stores/topBarButtons';
 import { compareObjects } from '@/utils/core/compare';
 
-function ProfileRoutes(props) {
+function ProfileRoutes() {
   const { buttons, setButtons } = useButtons();
   const buttonConfig = {
     colorPicker: true,
@@ -18,9 +18,9 @@ function ProfileRoutes(props) {
   
   useEffect(() => {
     if (!compareObjects(buttons, buttonConfig)) {
-      setButtons(buttonConfig)
+      setButtons(buttonConfig);
     }
-  }, [])
+  }, []);
   
   return (
     <Routes>

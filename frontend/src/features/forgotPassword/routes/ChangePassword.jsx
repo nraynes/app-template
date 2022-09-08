@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import apiCall from '@/utils/core/apiCall';
 
-function ChangePasswordPage(props) {
+function ChangePasswordPage() {
   const navigate = useNavigate();
   const queryParam = getParameterByName('temp');
   const { enqueueSnackbar } = useSnackbar();
@@ -19,17 +19,17 @@ function ChangePasswordPage(props) {
         enqueueSnackbar('Temporary Code Invalid.', { variant: 'error' });
         navigate('/auth/login');
       },
-    })
+    });
   };
 
   useEffect(() => {
     if (queryParam) {
       validateQueryCode(queryParam);
     } else {
-      enqueueSnackbar('No Temporary Code.', { variant: 'error' })
-      navigate('/auth/login')
+      enqueueSnackbar('No Temporary Code.', { variant: 'error' });
+      navigate('/auth/login');
     }
-  }, [])
+  }, []);
 
   return (
     <CommonLayout>

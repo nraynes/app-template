@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button as GoogleButton } from '@mui/material';
-import { buttonColor, buttonOpacity } from '@/config/config'
+import { buttonColor, buttonOpacity } from '@/config/config';
 
 function Button({ children, sx, ...args }) {
-  const componentColor = buttonColor
+  const componentColor = buttonColor;
   return (
     <GoogleButton
       sx={{

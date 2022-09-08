@@ -18,9 +18,9 @@ export async function verifyEmailWithKey(emailVerificationCode) {
       SUCCESS: 'Your email has been successfully verified!',
       EXPIRED: 'The email verification token has expired. Please try to log in to resend a new token',
       NOTFOUND: 'The email verification token could not be found. Please try to log in to resend a new token',
-    })
+    });
   }
-};
+}
 
 async function sendVerificationEmail(email) {
   const { ask } = window;
@@ -29,9 +29,9 @@ async function sendVerificationEmail(email) {
       await apiCall(() => sendVerifyEmail(email), {
         SUCCESS: 'Verification email has been sent!',
         NOTFOUND: 'Could not send verification email as account does not exist',
-      })
+      });
     }
-  })
+  });
 }
 
 async function loginFn({ email, password }) {
@@ -48,7 +48,7 @@ async function loginFn({ email, password }) {
     NOTVERIFIED: () => sendVerificationEmail(email),
     NOTFOUND: 'There was no user matching those credentials',
     ERRPASS: 'Password entered is incorrect',
-  })
+  });
 }
 
 async function logoutFn() {
@@ -88,8 +88,8 @@ async function registerFn({ email, password, captcha }) {
   const { enqueueSnackbar, navigate } = window;
   await apiCall(() => createAccount(email, password, captcha), {
     SUCCESS: () => {
-      enqueueSnackbar('Created the account successfully! Check your email to verify it.', { variant: 'success' })
-      navigate('/auth/login')
+      enqueueSnackbar('Created the account successfully! Check your email to verify it.', { variant: 'success' });
+      navigate('/auth/login');
     },
     CAPTCHAFAILED: 'Captcha failed to validate',
     ALREADYEXISTS: 'That account already exists',

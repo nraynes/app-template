@@ -34,7 +34,7 @@ function ColorPicker({
     red: defaultRed,
     green: defaultGreen,
     blue: defaultBlue,
-  }
+  };
   if (showAlpha) {
     defaultColors.alpha = defaultAlpha;
   }
@@ -47,7 +47,7 @@ function ColorPicker({
     } else if (ref.current.value < 0 || !(ref.current.value >= 0 && ref.current.value <= 255)) {
       ref.current.value = 0;
     }
-  }
+  };
 
   const setAlphaMinMax = (ref) => {
     if (ref.current.value > 1) {
@@ -55,19 +55,19 @@ function ColorPicker({
     } else if (ref.current.value < 0 || !(ref.current.value >= 0 && ref.current.value <= 1)) {
       ref.current.value = 0;
     }
-  }
+  };
 
   const setNumberFields = () => {
     const fields = [
       redRef,
       greenRef,
       blueRef,
-    ]
+    ];
     for (let i = 0; i < fields.length; i++) {
       setMinMax(fields[i]);
     }
     if (showAlpha) setAlphaMinMax(alphaRef);
-  }
+  };
 
   const getValue = (number) => {
     const num = parseInt(number);
@@ -75,7 +75,7 @@ function ColorPicker({
       return num;
     }
     return 0;
-  }
+  };
 
   const getAlphaValue = (number) => {
     const num = parseFloat(number);
@@ -83,7 +83,7 @@ function ColorPicker({
       return num;
     }
     return 0;
-  }
+  };
 
   const changeColor = () => {
     setNumberFields();
@@ -94,7 +94,7 @@ function ColorPicker({
     };
     if (showAlpha) {
       stateObj.alpha = getAlphaValue(alphaRef.current.value);
-    };
+    }
     setColor(stateObj);
     onChange(stateObj);
   };
@@ -116,7 +116,7 @@ function ColorPicker({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  };
 
   return (
     <Box

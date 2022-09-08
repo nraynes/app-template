@@ -34,68 +34,68 @@ export const AppProvider = ({ children }) => {
   const { fileStatus, fileTitle, fileMessage, fileCallBack, closeFile } = useFileDialogue();
 
   return (
-  <React.Suspense
-    fallback={(
-      <LoadingPage />
-    )}
-  >
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider theme={theme}>
-          <HelmetProvider>
-            <AuthProvider>
-              <SnackbarProvider maxSnack={3}>
-                <Router>
-                  <GlobalProvider>
-                    <Awaiting 
-                      open={awaiting}
-                    />
-                    <ColorDrawer />
-                    <InputAlert
-                      open={inputStatus}
-                      onClose={(response) => {
-                        closeInput();
-                        if (inputCallBack) {
-                          inputCallBack(response);
-                        }
-                      }}
-                      title={inputTitle}
-                      message={inputMessage}
-                    />
-                    <FileDialogue
-                      open={fileStatus}
-                      onClose={(response) => {
-                        closeFile();
-                        if (fileCallBack) {
-                          fileCallBack(response);
-                        }
-                      }}
-                      title={fileTitle}
-                      message={fileMessage}
-                    />
-                    <AskAlert
-                      open={askStatus}
-                      onClose={(answer) => {
-                        closeAsk();
-                        if (askCallBack) {
-                          askCallBack(answer);
-                        }
-                      }}
-                      title={askTitle}
-                      element={askElement}
-                      message={askMessage}
-                      allowEnter={allowEnter}
-                    />
-                    {children}
-                  </GlobalProvider>
-                </Router>
-              </SnackbarProvider>
-            </AuthProvider>
-          </HelmetProvider>
-        </ThemeProvider>
-      </QueryClientProvider>
-    </ErrorBoundary>
-  </React.Suspense>
-)};
+    <React.Suspense
+      fallback={(
+        <LoadingPage />
+      )}
+    >
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider theme={theme}>
+            <HelmetProvider>
+              <AuthProvider>
+                <SnackbarProvider maxSnack={3}>
+                  <Router>
+                    <GlobalProvider>
+                      <Awaiting 
+                        open={awaiting}
+                      />
+                      <ColorDrawer />
+                      <InputAlert
+                        open={inputStatus}
+                        onClose={(response) => {
+                          closeInput();
+                          if (inputCallBack) {
+                            inputCallBack(response);
+                          }
+                        }}
+                        title={inputTitle}
+                        message={inputMessage}
+                      />
+                      <FileDialogue
+                        open={fileStatus}
+                        onClose={(response) => {
+                          closeFile();
+                          if (fileCallBack) {
+                            fileCallBack(response);
+                          }
+                        }}
+                        title={fileTitle}
+                        message={fileMessage}
+                      />
+                      <AskAlert
+                        open={askStatus}
+                        onClose={(answer) => {
+                          closeAsk();
+                          if (askCallBack) {
+                            askCallBack(answer);
+                          }
+                        }}
+                        title={askTitle}
+                        element={askElement}
+                        message={askMessage}
+                        allowEnter={allowEnter}
+                      />
+                      {children}
+                    </GlobalProvider>
+                  </Router>
+                </SnackbarProvider>
+              </AuthProvider>
+            </HelmetProvider>
+          </ThemeProvider>
+        </QueryClientProvider>
+      </ErrorBoundary>
+    </React.Suspense>
+  );};
 
 export default AppProvider;
