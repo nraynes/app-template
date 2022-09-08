@@ -15,8 +15,7 @@
     "db:deploy": "npx prisma migrate deploy --schema ./backend/src/db/prisma/schema.prisma",
     "db:seed": "node ./backend/src/db/prisma/seed.js",
     "db:clear": "node ./backend/src/db/prisma/clear.js",
-    "prepare": "husky install",
-    "cypress": "cd frontend && npm run cypress:run"
+    "prepare": "husky install"
   },
   "cacheDirectories": [
     "node_modules",
