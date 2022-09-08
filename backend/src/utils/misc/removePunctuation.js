@@ -5,14 +5,14 @@
  * @returns {Booleans}
  */
 const checkASCII = (char) => {
-  const code = char.charCodeAt(0)
+  const code = char.charCodeAt(0);
   return (
     (code >= 97 && code <= 122) // Lowercase alphabet
     || (code >= 65 && code <= 90) // Uppercase alphabet
     || (code >= 48 && code <= 57) // Numbers
     || code === 32 // Space
   );
-}
+};
 
 /**
  * Removes all punctuation from a given string.
@@ -31,6 +31,6 @@ const removePunctuationFromText = (text, replaceWithSpace = false) => {
     }
   }
   return retVal;
-}
+};
 
 module.exports = removePunctuationFromText;

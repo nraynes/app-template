@@ -26,8 +26,8 @@ const purgeTempKeys = () => (_req, _res, next) => {
     const today = new Date();
     passService.deleteExpiredTempKeys();
     if (config.noMoreCredits) {
-      log('Email credits are used up for the month.')
-      log(`Email credits will be restored on ${getFirstDayOfNextMonth()}`)
+      log('Email credits are used up for the month.');
+      log(`Email credits will be restored on ${getFirstDayOfNextMonth()}`);
       if (today.getMonth() > config.noMoreCredits.getMonth()) {
         config.noMoreCredits = false;
         log('Email credits have been restored for this month!');

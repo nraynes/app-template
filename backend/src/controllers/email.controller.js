@@ -10,7 +10,7 @@ const reSendVerify = catchAsync(async (req, res) => {
   if (user) {
     let emailToken = await tempService.getEmailTokenByID(user.account_id);
     if (!emailToken) {
-      emailToken = await tempService.generateEmailCode(user.account_id)
+      emailToken = await tempService.generateEmailCode(user.account_id);
     }
     if (emailToken) {
       const success = await emailService.sendVerifyEmail(user.email, emailToken);
@@ -22,7 +22,7 @@ const reSendVerify = catchAsync(async (req, res) => {
         respond(res, codes.failure);
       }
     } else {
-      await userService.deleteUserByID(newUser.account_id);
+      await userService.deleteUserByID(user.account_id);
       respond(res, codes.failure);
     }
   } else {

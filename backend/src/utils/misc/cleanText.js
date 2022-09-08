@@ -20,7 +20,7 @@ const replacePunctuationWithLetter = (text) => {
     q: ['9'],
     s: ['$', '5'],
     z: ['2'],
-  }
+  };
   let retVal = '';
   for (let i = 0; i < text.length; i++) {
     const curCharacter = text[i];
@@ -30,7 +30,7 @@ const replacePunctuationWithLetter = (text) => {
       const curLetter = letters[j];
       const values = matrix[curLetter];
       for (let k = 0; k < values.length; k++) {
-        const curSpecial = values[k]
+        const curSpecial = values[k];
         if (curSpecial === curCharacter) {
           addCharacter = curLetter;
         }
@@ -39,7 +39,7 @@ const replacePunctuationWithLetter = (text) => {
     retVal += addCharacter;
   }
   return retVal;
-}
+};
 
 /**
  * Checks to see if a given string has any direct bad words in it.
@@ -51,7 +51,7 @@ const checkForDirectMatches = (textClone) => {
     return true;
   }
   return false;
-}
+};
 
 /**
  * Checks to see if a given string has any indirect bad words in it,
@@ -74,7 +74,7 @@ const checkForIndirectMatches = (textClone) => {
     return true;
   }
   return false;
-}
+};
 
 /**
  * Checks a string for inappropriate language.

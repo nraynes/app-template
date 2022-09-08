@@ -8,7 +8,7 @@ const accounts = [
   encrypt('jamesbrown@email.com'),
   encrypt('paulblart@email.com'),
   encrypt('maxmiller@email.com')
-]
+];
 
 const generateAccounts = async () => ([
   {

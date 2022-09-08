@@ -13,7 +13,7 @@ const sanitizeLinks = (value, helpers) => {
     return helpers.message('value must not contain any links');
   }
   return value;
-}
+};
 
 const password = (value, helpers) => {
   if (value.length < 8) {
@@ -32,6 +32,7 @@ const password = (value, helpers) => {
 };
 
 const phoneNumber = (value, helpers) => {
+  // eslint-disable-next-line no-useless-escape
   if (!value.match(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im)) {
     return helpers.message('phone number must be in a valid format');
   }

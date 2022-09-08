@@ -1,4 +1,4 @@
-const crypto = require('crypto')
+const crypto = require('crypto');
 const config = require('../../config/config');
 
 // This utility function is not explicitly tested because it
@@ -15,8 +15,8 @@ const config = require('../../config/config');
 
 const createPasswordHash = async (password) => {
   return new Promise((resolve, reject) => {
-    const dynamic_salt = crypto.randomBytes(16).toString('hex')
-    const salt = `${dynamic_salt}${config.static.salt}`
+    const dynamic_salt = crypto.randomBytes(16).toString('hex');
+    const salt = `${dynamic_salt}${config.static.salt}`;
     crypto.scrypt(password, salt, 96, {}, (err, key) => {
       if (err) {
         reject(err);
@@ -26,8 +26,8 @@ const createPasswordHash = async (password) => {
         password_hash,
         dynamic_salt,
       });
-    })
-  })
-}
+    });
+  });
+};
 
 module.exports = createPasswordHash;

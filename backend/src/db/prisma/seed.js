@@ -4,7 +4,7 @@ const log = require('../../utils/misc/log');
 
 // This function will automaticall log information as a table is being seeded.
 const seedTable = async (list, tableName, id) => {
-  log(`Seeding table ${tableName}...`)
+  log(`Seeding table ${tableName}...`);
   const idList = [];
   for (const item of list) {
     const returnItem = await prisma[tableName].create({
@@ -14,7 +14,7 @@ const seedTable = async (list, tableName, id) => {
     log(`Created entry in ${tableName} with ID #: ${returnItem[id]}`);
   }
   return idList;
-}
+};
 
 const prisma = new PrismaClient();
 async function main() {
@@ -30,7 +30,7 @@ async function main() {
   log('Start seeding ...');
   log('Generating Accounts...');
   const accounts = await generateAccounts();
-  await seedTable(accounts, 'accounts', 'account_id')
+  await seedTable(accounts, 'accounts', 'account_id');
   log('Seeding finished.');
 }
 

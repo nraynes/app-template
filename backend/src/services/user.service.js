@@ -26,13 +26,13 @@ const getUserByEmail = async (email) => {
       },
       deleted_on: null,
     }
-  })
+  });
   if (config.useEncryption && user) {
     const decryptedEmail = decrypt(user.email);
     user.email = decryptedEmail;
   }
   return user;
-}
+};
 
 /**
  * Gets a user matching a given account ID.
@@ -45,13 +45,13 @@ const getUserByID = async (account_id) => {
       account_id,
       deleted_on: null,
     }
-  })
+  });
   if (config.useEncryption && user) {
     const decryptedEmail = decrypt(user.email);
     user.email = decryptedEmail;
   }
   return user;
-}
+};
 
 /**
  * Deletes a user with a given account ID. Returns whether or not it was successful.
@@ -66,7 +66,7 @@ const deleteUserByID = async (account_id) => {
     where: {
       account_id,
     },
-  })
+  });
   if (user.deleted_on) {
     return true;
   }
@@ -98,22 +98,22 @@ async function createUser(email, password, dynamicSalt, res) {
         password_hash,
         dynamic_salt: dynamicSalt,
         verified: false,
-      }
+      };
       const newUser = await prisma.accounts.create({
         data: userObject
-      })
-      const tempKey = await tempService.generateEmailCode(newUser.account_id)
+      });
+      const tempKey = await tempService.generateEmailCode(newUser.account_id);
       if (newUser && compareObjects(userObject, newUser)) {
         if (tempKey) {
-          const success = emailService.sendVerifyEmail(email, tempKey)
+          const success = emailService.sendVerifyEmail(email, tempKey);
           if (success === 'NOCREDITS') {
             respond(res, codes.noCredits);
           } else if (success) {
-            log('Created a new user with the this object:', userObject)
-            log('This is the user that was created:', newUser)
+            log('Created a new user with the this object:', userObject);
+            log('This is the user that was created:', newUser);
             respond(res, codes.success);
           } else {
-            respond(res, codes.failure)
+            respond(res, codes.failure);
           }
         } else {
           await deleteUserByID(newUser.account_id);
@@ -122,7 +122,7 @@ async function createUser(email, password, dynamicSalt, res) {
       } else {
         respond(res, codes.failure);
       }
-    })
+    });
   }
 }
 
@@ -139,7 +139,7 @@ const verifyEmail = async (account_id) => {
     where: {
       account_id,
     }
-  })
+  });
   if (updatedUser && updatedUser.verified) {
     return true;
   }
@@ -161,12 +161,12 @@ const editUserInfo = async (account_id, email) => {
     where: {
       account_id,
     }
-  })
+  });
   if (compareObjects(parcel, updatedUser)) {
     return true;
   }
   return false;
-}
+};
 
 /**
  * Unverifies a user. Returns whether or not it was successful.
@@ -181,20 +181,20 @@ const unverifyUser = async (account_id) => {
     where: {
       account_id,
     }
-  })
+  });
   if (user) {
-    const tempKey = await tempService.generateEmailCode(account_id)
+    const tempKey = await tempService.generateEmailCode(account_id);
     if (tempKey) {
-      const success = emailService.sendVerifyEmail(config.useEncryption ? decrypt(user.email) : user.email, tempKey)
+      const success = emailService.sendVerifyEmail(config.useEncryption ? decrypt(user.email) : user.email, tempKey);
       if (success === 'NOCREDITS') {
-        return 'NOCREDITS'
+        return 'NOCREDITS';
       } else {
         return true;
       }
     }
   }
   return false;
-}
+};
 
 /**
  * Adds a profile image to a users account. Returns whether or not it was successful.
@@ -210,7 +210,7 @@ const addImage = async (account_id, image) => {
     where: {
       account_id,
     }
-  })
+  });
   if (success) {
     return true;
   }
@@ -230,7 +230,7 @@ const removeImage = async (account_id) => {
     where: {
       account_id,
     }
-  })
+  });
   if (success) {
     return true;
   }

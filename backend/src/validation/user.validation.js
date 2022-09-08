@@ -23,7 +23,7 @@ const image = {
   body: {
     image: Joi.string().required(),
   }
-}
+};
 
 module.exports = {
   verifyEmail,

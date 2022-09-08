@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const { compareObjects } = require('../../utils/core/compare');
 
 let milliseconds = 0;
@@ -14,10 +15,10 @@ const runFunction = (objOne, objTwo, options = null) => {
   timesRun++;
   averageTime = milliseconds / timesRun;
   if (t3 > averageTime + 0.5) {
-    console.log(`The function took an exceptionally long time on run ${timesRun}.`)
+    console.log(`The function took an exceptionally long time on run ${timesRun}.`);
   }
   return retVal;
-}
+};
 
 describe('Test for Compare Objects function.', () => {
 
@@ -41,7 +42,7 @@ describe('Test for Compare Objects function.', () => {
     };
     const retVal = runFunction(objOne, objTwo);
     expect(retVal).toBe(true);
-  })
+  });
 
   test('Should return false if it is specified that total equality be checked and the objects do not equal each other exactly.', () => {
     const today = new Date();
@@ -63,7 +64,7 @@ describe('Test for Compare Objects function.', () => {
     };
     const retVal = runFunction(objOne, objTwo, { totalEquality: true });
     expect(retVal).toBe(false);
-  })
+  });
 
   test('Should return true if it is specified that total equality be checked and the objects do equal each other exactly.', () => {
     const today = new Date();
@@ -83,7 +84,7 @@ describe('Test for Compare Objects function.', () => {
     };
     const retVal = runFunction(objOne, objTwo, { totalEquality: true });
     expect(retVal).toBe(true);
-  })
+  });
 
   test('Should recurse and return false if it is specified that total equality be checked and the objects do not equal each other exactly.', () => {
     const today = new Date();
@@ -119,7 +120,7 @@ describe('Test for Compare Objects function.', () => {
     };
     const retVal = runFunction(objOne, objTwo, { totalEquality: true });
     expect(retVal).toBe(false);
-  })
+  });
 
   test('Should recurse and return true if it is specified that total equality be checked and the objects do equal each other exactly.', () => {
     const today = new Date();
@@ -153,7 +154,7 @@ describe('Test for Compare Objects function.', () => {
     };
     const retVal = runFunction(objOne, objTwo, { totalEquality: true });
     expect(retVal).toBe(true);
-  })
+  });
 
   test('Should return false when strings are not the correct case.', () => {
     const objOne = {
@@ -166,7 +167,7 @@ describe('Test for Compare Objects function.', () => {
     };
     const retVal = runFunction(objOne, objTwo);
     expect(retVal).toBe(false);
-  })
+  });
 
   test('Should return true when strings are not the correct case and case insensitive is specified.', () => {
     const objOne = {
@@ -179,7 +180,7 @@ describe('Test for Compare Objects function.', () => {
     };
     const retVal = runFunction(objOne, objTwo, { caseInsensitive: true });
     expect(retVal).toBe(true);
-  })
+  });
 
   test('Should recurse through arrays and objects and allow for comparing functions plus null and undefined values.', () => {
     const today = new Date();
@@ -225,7 +226,7 @@ describe('Test for Compare Objects function.', () => {
     };
     const retVal = runFunction(objOne, objTwo);
     expect(retVal).toBe(true);
-  })
+  });
 
   test('Should return false if not everything in the first object is in the second one.', () => {
     const today = new Date();
@@ -271,7 +272,7 @@ describe('Test for Compare Objects function.', () => {
     };
     const retVal = runFunction(objTwo, objOne);
     expect(retVal).toBe(false);
-  })
+  });
 
   describe('Should return false if even one of the values of each object does not match. This should work for any variable type.', () => {
 
@@ -320,45 +321,45 @@ describe('Test for Compare Objects function.', () => {
     test('Should return false when strings are different.', () => {
       retVal = runFunction(objOne, objTwo);
       expect(retVal).toBe(false);
-    })
+    });
 
     test('Should return false when numbers are different.', () => {
-      objOne.one = 'Some String'
-      objTwo.one = 'Some String'
+      objOne.one = 'Some String';
+      objTwo.one = 'Some String';
       objOne.two = 999;
       retVal = runFunction(objOne, objTwo);
       expect(retVal).toBe(false);
-    })
+    });
 
     test('Should return false when boolean values are different.', () => {
       objTwo.two = 999;
       objOne.three = false;
       retVal = runFunction(objOne, objTwo);
       expect(retVal).toBe(false);
-    })
+    });
 
     test('Should return false when date values are different.', () => {
       objOne.three = true;
       objOne.five = new Date(4324234);
       retVal = runFunction(objOne, objTwo);
       expect(retVal).toBe(false);
-    })
+    });
 
     test('Should return false when array values are different.', () => {
       objOne.five = today;
-      objOne.six = ['hello']
+      objOne.six = ['hello'];
       retVal = runFunction(objOne, objTwo);
       expect(retVal).toBe(false);
-    })
+    });
 
     test('Should return false when object values are different.', () => {
       objOne.six = ['someval', 335, true, false, today];
       objTwo.seven = {
         test: 75,
-      }
+      };
       retVal = runFunction(objOne, objTwo);
       expect(retVal).toBe(false);
-    })
+    });
 
     test('Should return true when all values are set back to matching.', () => {
       objOne = {
@@ -403,12 +404,12 @@ describe('Test for Compare Objects function.', () => {
       };
       retVal = runFunction(objOne, objTwo);
       expect(retVal).toBe(true);
-    })
+    });
 
-  })
+  });
 
   test(`Should take an average time of less than ${msThreshold} milliseconds for the function to complete.`, () => {
     expect(averageTime).toBeLessThan(msThreshold);
-  })
+  });
 
-})
+});

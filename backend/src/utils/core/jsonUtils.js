@@ -8,8 +8,8 @@ const isDate = (val, checkExact = false) => {
   if (val instanceof Date) return true;
   if (typeof val === 'string') {
     if (checkExact) return false;
-    val = val.replaceAll(' ', '')
-  };
+    val = val.replaceAll(' ', '');
+  }
   return new Date(`${`${parseInt(-Math.abs(val), 10)}` !== 'NaN' ? `${val}padding` : val}`).toString() !== 'Invalid Date';
 };
 

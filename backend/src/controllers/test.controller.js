@@ -6,7 +6,7 @@ const respond = require('@/utils/core/respond');
 const codes = require('@/config/responseCodes');
 
 const getEmailTempCode = catchAsync(async (req, res) => {
-  const user = await userService.getUserByEmail(req.query.email)
+  const user = await userService.getUserByEmail(req.query.email);
   if (user) {
     const code = await tempService.getEmailTokenByID(user.account_id);
     if (code) {
@@ -20,7 +20,7 @@ const getEmailTempCode = catchAsync(async (req, res) => {
 });
 
 const getPassTempCode = catchAsync(async (req, res) => {
-  const user = await userService.getUserByEmail(req.query.email)
+  const user = await userService.getUserByEmail(req.query.email);
   if (user) {
     const code = await passService.getTempCodeByID(user.account_id);
     if (code) {

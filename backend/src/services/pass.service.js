@@ -84,7 +84,7 @@ const resetUserPassword = async (account_id, password, res) => {
       }
     });
   } else {
-    respond(res, codes.notFound)
+    respond(res, codes.notFound);
   }
 };
 
@@ -121,7 +121,7 @@ const validateTempCode = async (tempCode) => {
     },
   });
   if (findCode) {
-    const today = new Date()
+    const today = new Date();
     const expiration = new Date(findCode.expires);
     if (today > expiration) {
       log('Temp key expired, attempting to delete.');
@@ -154,9 +154,9 @@ const getTempCodeByID = async (account_id) => {
         gt: new Date(),
       }
     }
-  })
+  });
   return code;
-}
+};
 
 const myExports = {
   generateTempCode,
@@ -165,6 +165,6 @@ const myExports = {
   deleteKey,
   deleteExpiredTempKeys,
   getTempCodeByID,
-}
+};
 
 module.exports = myExports;

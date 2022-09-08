@@ -40,7 +40,7 @@ const editInfo = catchAsync(async (req, res) => {
       const success = await userService.editUserInfo(req.user.account_id, email);
       if (success) {
         if (email !== user.email) {
-          const unverified = await userService.unverifyUser(req.user.account_id)
+          const unverified = await userService.unverifyUser(req.user.account_id);
           if (unverified === 'NOCREDITS') {
             respond(res, codes.noCredits);
           } else if (unverified) {
@@ -86,9 +86,9 @@ const addImage = catchAsync(async (req, res) => {
       respond(res, codes.failure);
     }
   } else {
-    respond(res, codes.notFound)
+    respond(res, codes.notFound);
   }
-})
+});
 
 const removeImage = catchAsync(async (req, res) => {
   const user = await userService.getUserByID(req.user.account_id);
@@ -100,9 +100,9 @@ const removeImage = catchAsync(async (req, res) => {
       respond(res, codes.failure);
     }
   } else {
-    respond(res, codes.notFound)
+    respond(res, codes.notFound);
   }
-})
+});
 
 module.exports = {
   verifyEmail,

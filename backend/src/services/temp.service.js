@@ -16,10 +16,10 @@ const generateEmailCode = async (account_id) => {
     account_id,
     email_key: crypto.randomBytes(16).toString('hex'),
     expires: addHours(2)
-  }
+  };
   const createdCode = await prisma.email_temp_keys.create({
     data: newCode
-  })
+  });
   if (createdCode && compareObjects(newCode, createdCode)) {
     return createdCode.email_key;
   }
@@ -39,12 +39,12 @@ const getEmailTokenByID = async (account_id) => {
         gt: new Date()
       }
     }
-  })
+  });
   if (token) {
     return token.email_key;
   }
   return null;
-}
+};
 
 /**
  * Deletes an email temp key.
@@ -69,14 +69,14 @@ const verifiyEmailTempKey = async (key) => {
     where: {
       email_key: key,
     }
-  })
+  });
   if (!tempKey) {
     return 'NOTFOUND';
   } else if (new Date(tempKey.expires) < new Date()) {
-    await deleteEmailTempKey(tempKey.email_key)
+    await deleteEmailTempKey(tempKey.email_key);
     return 'EXPIRED';
   }
-  await deleteEmailTempKey(tempKey.email_key)
+  await deleteEmailTempKey(tempKey.email_key);
   return tempKey.account_id;
 };
 

@@ -1,5 +1,5 @@
 const sjcl = require('sjcl');
-const { secretKey, useEncryption, encryption } = require('../../config/config')
+const { secretKey, useEncryption, encryption } = require('../../config/config');
 
 /**
  * Encrypts a message using the configuration specified in the config file.
@@ -12,7 +12,7 @@ const encrypt = (message) => {
     return JSON.parse(encrypted).ct;
   }
   return message;
-}
+};
 
 /**
  * Decrypts a message using the configuration specified in the config file.
@@ -28,7 +28,7 @@ const decrypt = (message) => {
     return decrypted;
   }
   return message;
-}
+};
 
 module.exports = {
   encrypt,

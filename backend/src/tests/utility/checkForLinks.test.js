@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const checkForLinks = require('../../utils/misc/checkForLinks');
 
 describe('Check for links function test', () => {
@@ -8,11 +9,11 @@ describe('Check for links function test', () => {
     const checkThree = checkForLinks('http://www.hello.com');
     const checkFour = checkForLinks('www.hello.com');
     const checkFive = checkForLinks('testing this is http://hello.com');
-    expect(checkOne).toBe(false)
-    expect(checkTwo).toBe(true)
-    expect(checkThree).toBe(true)
-    expect(checkFour).toBe(true)
-    expect(checkFive).toBe(true)
-  })
+    expect(checkOne).toBe(false);
+    expect(checkTwo).toBe(true);
+    expect(checkThree).toBe(true);
+    expect(checkFour).toBe(true);
+    expect(checkFive).toBe(true);
+  });
 
-})
+});

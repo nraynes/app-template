@@ -26,7 +26,7 @@ const checkPlagurism = (usersText, publishedText, returnPercentage = false) => {
   for (let i = 0; i < bigArr.length; i++) {
     if (bigArr[i] === smallArr[j]) {
       wordsMatched++;
-      if (!returnPercentage && wordsMatched >= threshold) return true // If the users text matches to at least the threshold that was set early, it will exit the function early to save time.
+      if (!returnPercentage && wordsMatched >= threshold) return true; // If the users text matches to at least the threshold that was set early, it will exit the function early to save time.
       if (i > j) i = j-1;
       j++;
     } else if (i >= bigArr.length-1) {
@@ -38,6 +38,6 @@ const checkPlagurism = (usersText, publishedText, returnPercentage = false) => {
     return (wordsMatched / wordArrTwo.length) * 100;
   }
   return false;
-}
+};
 
 module.exports = checkPlagurism;

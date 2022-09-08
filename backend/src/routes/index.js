@@ -30,7 +30,7 @@ if (config.frontEndTests || config.env === 'test') {
   defaultRoutes.push({
     path: '/test',
     route: testRoute,
-  })
+  });
 }
 
 defaultRoutes.forEach((route) => {

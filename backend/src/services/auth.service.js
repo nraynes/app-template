@@ -43,16 +43,16 @@ async function createUniqueDynamicSalt() {
  */
 async function verifyCaptcha(captcha) {
   const googleResponse = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${config.recaptcha.secret}&response=${captcha}`)
-    .then((response) => response.json())
+    .then((response) => response.json());
   if (googleResponse && googleResponse.success) {
     return true;
   } else if (googleResponse) {
     if (Array.isArray(googleResponse['error-codes'])) {
       for (let i = 0;i < googleResponse['error-codes'].length;i++) {
-        log(googleResponse['error-codes'][i])
+        log(googleResponse['error-codes'][i]);
       }
     } else {
-      log(googleResponse['error-codes'])
+      log(googleResponse['error-codes']);
     }
   } else {
     log('No recaptcha response was recieved!');
@@ -106,7 +106,7 @@ async function checkRefreshToken(account_id) {
     where: {
       account_id,
     }
-  })
+  });
   if (token) {
     return true;
   }

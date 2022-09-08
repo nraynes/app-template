@@ -18,9 +18,9 @@ const register = catchAsync(async (req, res) => {
   if (dynamicSalt && notABot) {
     userService.createUser(email, password, dynamicSalt, res);
   } else if (!notABot) {
-    respond(res, codes.captchaFailed)
+    respond(res, codes.captchaFailed);
   } else {
-    respond(res, codes.failure)
+    respond(res, codes.failure);
   }
 });
 
@@ -65,7 +65,7 @@ const logout = catchAsync(async (req, res) => {
 const logoutOfAllDevices = catchAsync(async (req, res) => {
   const success = await tokenService.deleteAllUserTokens(req.user.account_id);
   if (success) {
-    log(`Logged a user with ID ${req.user.account_id} out of all of their devices.`)
+    log(`Logged a user with ID ${req.user.account_id} out of all of their devices.`);
     respond(res, codes.success);
   } else {
     respond(res, codes.failure);
