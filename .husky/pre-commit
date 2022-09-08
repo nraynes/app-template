@@ -3,4 +3,5 @@
 
 cd backend && npx lint-staged
 cd ../frontend && npx lint-staged
-npm run test
+cd backend && npm run test
+cd ../frontend && npm run test
