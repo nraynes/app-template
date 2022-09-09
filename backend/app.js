@@ -69,6 +69,7 @@ app.get('/background', looseLimiter, (req, res) => {
 // Frontend (i.e. React)
 app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
 app.get('(/*)?', looseLimiter, (req, res) => {
+  console.log('Accessed Frontend through Backend.');
   res.sendFile(path.resolve(__dirname, '..', 'frontend', 'build', 'index.html'));
 });
 
