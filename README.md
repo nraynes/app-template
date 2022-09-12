@@ -9,9 +9,13 @@ propagate a custom color theme, and more!
 
 ## Installation Instructions:
 
+First run "npm run install:all" from the root folder to install all of the dependencies.
+Alternatively, you can run "npm i" from the root folder, then ["./backend"](./backend/), then ["./frontend"](./frontend/).
+
 To get this app up and running, all you need to do is run the "npm run
 dev" command in the terminal while in the project root directory folder.
 This will run both the backend server and frontend in one terminal.
+Do this only after following the instructions below.
 
 You will also need to have a postgres database up and running, which you
 can do through docker.
@@ -95,7 +99,7 @@ folder and the backend folder.
 This app was designed to be deployed to [heroku cloud platform service](https://id.heroku.com/) or you can run it using docker.
 If you decide to use heroku for deployment then all of your environment
 variables will go in one spot on heroku, just make sure to include all
-of the ones listed here. If you decide to run using docker, simply use "docker-compose up" to start the app, then you can reach the app at localhost from port 80. Future instructions to run app from a server/cluster using Docker/Kubernetes underway.
+of the ones listed here. If you decide to run using docker, simply use "docker-compose up" (Or use "docker-compose up --build" to rebuild the image from scratch.) to start the app, then you can reach the app at localhost from port 80. Future instructions to run app from a server/cluster using Docker/Kubernetes underway.
 
 After you set up the environment variables and a database, you should be
 good to go and when you run "npm run dev" from the root folder that will
