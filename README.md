@@ -44,7 +44,7 @@ folder and the backend folder.
     PORT=3001
 
     # URL of the PostgreSQL DB
-
+    # Change "localhost:49176" to "postgres:5432" when running app with docker compose.
     DATABASE_URL="postgresql://postgres:a1eb0421c1af18c0\@localhost:49176/postgres?schema=public"
 
     SECRET_KEY="Some random string of characters that is 128 characters
@@ -92,10 +92,10 @@ folder and the backend folder.
     will get this when you sign up for google recaptcha along with your
     secret key.'
 
-This app was designed to be deployed to [heroku cloud platform service](https://id.heroku.com/).
+This app was designed to be deployed to [heroku cloud platform service](https://id.heroku.com/) or you can run it using docker.
 If you decide to use heroku for deployment then all of your environment
 variables will go in one spot on heroku, just make sure to include all
-of the ones listed here.
+of the ones listed here. If you decide to run using docker, simply use "docker-compose up" to start the app, then you can reach the app at localhost from port 80. Future instructions to run app from a server/cluster using Docker/Kubernetes underway.
 
 After you set up the environment variables and a database, you should be
 good to go and when you run "npm run dev" from the root folder that will
@@ -125,6 +125,8 @@ cypress gui and run the tests from there. Make sure to set
 to do this, don't worry, it will only affect the development
 environment, if NODE_ENV is set to production then captcha cannot be
 disabled by "frontEndIsBeingTested").
+
+This app is set up so that it runs ESLint and all tests every single time you commit. If you would like to change this, simply edit the ["pre-commit"](./.husky/pre-commit) file in [".husky"](./.husky) from the root folder.
 
 ## Folder Structure
 

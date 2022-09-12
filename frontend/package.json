@@ -28,7 +28,7 @@
     "zustand": "^4.0.0-rc.1"
   },
   "scripts": {
-    "build": "CI=false GENERATE_SOURCEMAP=false craco build",
+    "build": "CI=false GENERATE_SOURCEMAP=false craco build --prod",
     "dev": "craco start",
     "lint": "eslint --ext=js --ext=jsx .",
     "start": "craco start",
