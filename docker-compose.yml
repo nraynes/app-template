@@ -1,32 +1,24 @@
 version: '3'
 
 services:
-  backend:
-    build: ./backend
-    ports:
-      - '3001:3001'
-    depends_on:
-      - postgres
-    volumes:
-      - ./backend:/usr/src/app
-    command: npm run dev
-
-  frontend:
-    build: ./frontend
-    ports:
-      - '3000:3000'
-    depends_on:
-      - backend
-    volumes:
-      - ./frontend:/usr/src/app
-    command: npm start
-
   postgres:
     image: postgres:13.3
     environment:
       - POSTGRES_PASSWORD=a1eb0421c1af18c0
     volumes:
       - postgres:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+  web:
+    build: ./
+    ports:
+      - '80:3001'
+    depends_on:
+      - postgres
+    volumes:
+      - ./:/usr/src/app
+    command: npm run deploy
 
 volumes:
   postgres:

@@ -9,14 +9,16 @@
     "dev": "npm-run-all -p dev:*",
     "heroku-postbuild": "npm run build:all",
     "heroku-prebuild": "npm run install:all",
-    "install:all": "npm ci --only=production --ignore-scripts && npm install --prefix backend && npm install --prefix frontend",
+    "install:all": "npm ci --only=production --ignore-scripts && npm ci --prefix backend && npm ci --prefix frontend",
     "lint:all": "npm run lint --prefix backend && npm run lint --prefix frontend",
     "test": "npm run test --prefix backend && npm run test --prefix frontend",
     "db:deploy": "npx prisma migrate deploy --schema ./backend/src/db/prisma/schema.prisma",
     "db:seed": "node ./backend/src/db/prisma/seed.js",
     "db:clear": "node ./backend/src/db/prisma/clear.js",
     "prepare": "husky install",
-    "cypress": "cd frontend && npm run cypress:run"
+    "cypress": "cd frontend && npm run cypress:run",
+    "migrate": "cd backend && npm run migrate",
+    "deploy": "cd backend && npm run start:prod"
   },
   "cacheDirectories": [
     "node_modules",
