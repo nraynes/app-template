@@ -99,7 +99,7 @@ folder and the backend folder.
 This app was designed to be deployed to [heroku cloud platform service](https://id.heroku.com/) or you can run it using docker.
 If you decide to use heroku for deployment then all of your environment
 variables will go in one spot on heroku, just make sure to include all
-of the ones listed here. If you decide to run using docker, simply use "docker-compose up" (Or use "docker-compose up --build" to rebuild the image from scratch.) to start the app, then you can reach the app at localhost from port 80. Future instructions to run app from a server/cluster using Docker/Kubernetes underway.
+of the ones listed here. If you decide to run using docker, make a File called web.env in the root folder and fill it with ALL the variables described above, changing the database string to include "postgres:5432" instead of the localhost address and change the NODE_ENV variable to production (This is to separate the variables used for production and simulate a production environment without affecting the development environment). Following that, run "npm run build:all" from the root folder, then simply use "docker-compose up" (Or use "docker-compose up --build" to rebuild the image from scratch.) to start the app, then you can reach the app at localhost from port 80. Future instructions to run app from a server/cluster using Docker/Kubernetes underway.
 
 After you set up the environment variables and a database, you should be
 good to go and when you run "npm run dev" from the root folder that will

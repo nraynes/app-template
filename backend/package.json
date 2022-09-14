@@ -9,7 +9,7 @@
     "dev:node": "cross-env DEBUG=ellsworth-idea-bin:* nodemon --watch ./src ./bin/www",
     "dev": "npm-run-all -p dev:*",
     "start": "node ./bin/www",
-    "start:prod": "npx prisma migrate deploy && node ./bin/www",
+    "start:prod": "node ./bin/www",
     "lint": "eslint --ext=js .",
     "test:setup": "node src/tests/frontend/setup.js",
     "test:teardown": "node src/tests/frontend/teardown.js",
@@ -48,6 +48,7 @@
     "module-alias": "^2.2.2",
     "path": "^0.12.7",
     "prisma": "^3.15.2",
+    "shelljs": "^0.8.5",
     "sjcl": "^1.0.8",
     "xss-clean": "^0.1.1"
   },

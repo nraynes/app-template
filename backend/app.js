@@ -1,3 +1,5 @@
+const { PrismaClient } = require('@prisma/client');
+const shell = require('shelljs');
 const compression = require('compression');
 const cors = require('cors');
 const express = require('express');
@@ -11,7 +13,33 @@ const routes = require('@/routes/index');
 const logConnection = require('@/middlewares/logConnection');
 const changeCaseParams = require('@/middlewares/changeCaseParams');
 
+const prisma = new PrismaClient();
+
 const app = express();
+
+// Try connection to database.
+const tryConnection = async (count = 0) => {
+  try {
+    await prisma.$connect();
+    console.log('Connected to database...');
+    try {
+      console.log('Trying migration...');
+      shell.exec('npx prisma migrate deploy');
+      console.log('Migration complete!');
+    } catch {
+      console.log('Could not perform migration...');
+    }
+  } catch {
+    if (count < 5) {
+      console.log('Could not connect to database. Retrying...');
+      await new Promise((res) => setTimeout(res, 3000));
+      tryConnection(count+1);
+    } else {
+      console.log('Cannot connect to database. Retry count exceeded...');
+    }
+  }
+};
+process.env.NODE_ENV === 'production' && tryConnection();
 
 // set security HTTP headers
 app.use(
@@ -49,13 +77,13 @@ app.use(compression());
 app.use(cors());
 app.options('*', cors());
 
-// log all connections
-app.use(logConnection());
-
 // limit repeated failed requests to endpoints
 if (config.env === 'production') {
   app.use('/api/auth', authLimiter);
 }
+
+// log all connections
+app.use(logConnection());
 
 // Backend (i.e. API)
 app.use('/api/', routes);

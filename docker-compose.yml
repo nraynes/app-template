@@ -13,11 +13,13 @@ services:
   web:
     build: ./
     ports:
-      - '80:3001'
+      - 80:3002
     depends_on:
       - postgres
     volumes:
       - ./:/usr/src/app
+    env_file:
+      - web.env
     command: npm run deploy
 
 volumes:
