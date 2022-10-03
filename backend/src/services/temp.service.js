@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+const catchPrisma = require('../utils/core/catchPrisma');
 const crypto = require('crypto');
 const addHours = require('@/utils/misc/addHours');
 const { compareObjects } = require('@/utils/core/compare');
@@ -17,9 +18,9 @@ const generateEmailCode = async (account_id) => {
     email_key: crypto.randomBytes(16).toString('hex'),
     expires: addHours(2)
   };
-  const createdCode = await prisma.email_temp_keys.create({
+  const createdCode = await catchPrisma(() => prisma.email_temp_keys.create({
     data: newCode
-  });
+  }));
   if (createdCode && compareObjects(newCode, createdCode)) {
     return createdCode.email_key;
   }
@@ -32,14 +33,14 @@ const generateEmailCode = async (account_id) => {
  * @returns {String || null}
  */
 const getEmailTokenByID = async (account_id) => {
-  const token = await prisma.email_temp_keys.findFirst({
+  const token = await catchPrisma(() => prisma.email_temp_keys.findFirst({
     where: {
       account_id,
       expires: {
         gt: new Date()
       }
     }
-  });
+  }));
   if (token) {
     return token.email_key;
   }
@@ -51,11 +52,11 @@ const getEmailTokenByID = async (account_id) => {
  * @param {String} key
  */
 const deleteEmailTempKey = (key) => (
-  prisma.email_temp_keys.deleteMany({
+  catchPrisma(() => prisma.email_temp_keys.deleteMany({
     where: {
       email_key: key,
     }
-  })
+  }))
 );
 
 /**
@@ -65,11 +66,11 @@ const deleteEmailTempKey = (key) => (
  * @returns {String}
  */
 const verifiyEmailTempKey = async (key) => {
-  const tempKey = await prisma.email_temp_keys.findFirst({
+  const tempKey = await catchPrisma(() => prisma.email_temp_keys.findFirst({
     where: {
       email_key: key,
     }
-  });
+  }));
   if (!tempKey) {
     return 'NOTFOUND';
   } else if (new Date(tempKey.expires) < new Date()) {

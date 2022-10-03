@@ -18,15 +18,17 @@ function GlobalProvider({ children }) {
   const auth = useAuth();
 
   // Reroute to https if not already on it.
-  // const location = window.location.href;
-  // if (
-  //   location.substring(0,5) !== 'https'
-  //   && process.env.NODE_ENV !== 'development'
-  // ) {
-  //   const url = location.substring(5,location.length);
-  //   const newLocation = `https:${url}`;
-  //   window.location.href = newLocation;
-  // }
+  const location = window.location.href;
+  if (process.env.NODE_ENV === 'production') {
+    if (
+      location.substring(0,5) !== 'https'
+      && process.env.NODE_ENV !== 'development'
+    ) {
+      const url = location.substring(5,location.length);
+      const newLocation = `https:${url}`;
+      window.location.href = newLocation;
+    }
+  }
 
   const pubRoutes = publicRoutes.map((item) => item.path.substring(0, item.path.length-2));
 

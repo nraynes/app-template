@@ -13,7 +13,7 @@ services:
   web:
     build: ./
     ports:
-      - 80:3002
+      - 443:3002
     depends_on:
       - postgres
     volumes:

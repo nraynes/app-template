@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+const catchPrisma = require('../utils/core/catchPrisma');
 const crypto = require('crypto');
 const tokenService = require('./token.service');
 const userService = require('./user.service');
@@ -23,10 +24,10 @@ async function createUniqueDynamicSalt() {
   let dynamicSalt;
   for (let i = 0; i < maxCount; i++) {
     dynamicSalt = crypto.randomBytes(16).toString('hex');
-    let queryDynamicSalt = await prisma.accounts.findFirst({
+    const queryDynamicSalt = await catchPrisma(() => prisma.accounts.findFirst({
       select: { dynamic_salt: true },
       where: { dynamic_salt: dynamicSalt },
-    });
+    }));
     if (queryDynamicSalt === null) {
       i = maxCount + 1;
     } else {
@@ -102,11 +103,11 @@ async function loginUserWithEmailAndPassword(email, password, res) {
  * @returns {Boolean}
  */
 async function checkRefreshToken(account_id) {
-  const token = await prisma.tokens.findFirst({
+  const token = await catchPrisma(() => prisma.tokens.findFirst({
     where: {
       account_id,
     }
-  });
+  }));
   if (token) {
     return true;
   }

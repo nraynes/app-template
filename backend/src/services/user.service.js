@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+const catchPrisma = require('../utils/core/catchPrisma');
 const crypto = require('crypto');
 const emailService = require('./email.service');
 const tempService = require('./temp.service');
@@ -18,7 +19,7 @@ const prisma = new PrismaClient();
  */
 const getUserByEmail = async (email) => {
   const queryEmail = config.useEncryption ? encrypt(email) : email;
-  const user = await prisma.accounts.findFirst({
+  const user = await catchPrisma(() => prisma.accounts.findFirst({
     where: {
       email: {
         equals: queryEmail,
@@ -26,7 +27,7 @@ const getUserByEmail = async (email) => {
       },
       deleted_on: null,
     }
-  });
+  }));
   if (config.useEncryption && user) {
     const decryptedEmail = decrypt(user.email);
     user.email = decryptedEmail;
@@ -40,12 +41,12 @@ const getUserByEmail = async (email) => {
  * @returns {Object || null}
  */
 const getUserByID = async (account_id) => {
-  const user = await prisma.accounts.findFirst({
+  const user = await catchPrisma(() => prisma.accounts.findFirst({
     where: {
       account_id,
       deleted_on: null,
     }
-  });
+  }));
   if (config.useEncryption && user) {
     const decryptedEmail = decrypt(user.email);
     user.email = decryptedEmail;
@@ -59,14 +60,14 @@ const getUserByID = async (account_id) => {
  * @returns {Boolean}
  */
 const deleteUserByID = async (account_id) => {
-  const user = await prisma.accounts.update({
+  const user = await catchPrisma(() => prisma.accounts.update({
     data: {
       deleted_on: new Date()
     },
     where: {
       account_id,
     },
-  });
+  }));
   if (user.deleted_on) {
     return true;
   }
@@ -99,9 +100,9 @@ async function createUser(email, password, dynamicSalt, res) {
         dynamic_salt: dynamicSalt,
         verified: false,
       };
-      const newUser = await prisma.accounts.create({
+      const newUser = await catchPrisma(() => prisma.accounts.create({
         data: userObject
-      });
+      }));
       const tempKey = await tempService.generateEmailCode(newUser.account_id);
       if (newUser && compareObjects(userObject, newUser)) {
         if (tempKey) {
@@ -132,14 +133,14 @@ async function createUser(email, password, dynamicSalt, res) {
  * @returns {Boolean}
  */
 const verifyEmail = async (account_id) => {
-  const updatedUser = await prisma.accounts.update({
+  const updatedUser = await catchPrisma(() => prisma.accounts.update({
     data: {
       verified: true
     },
     where: {
       account_id,
     }
-  });
+  }));
   if (updatedUser && updatedUser.verified) {
     return true;
   }
@@ -156,12 +157,12 @@ const editUserInfo = async (account_id, email) => {
   const parcel = {
     email: config.useEncryption ? encrypt(email) : email,
   };
-  const updatedUser = await prisma.accounts.update({
+  const updatedUser = await catchPrisma(() => prisma.accounts.update({
     data: parcel,
     where: {
       account_id,
     }
-  });
+  }));
   if (compareObjects(parcel, updatedUser)) {
     return true;
   }
@@ -174,14 +175,14 @@ const editUserInfo = async (account_id, email) => {
  * @returns {Boolean}
  */
 const unverifyUser = async (account_id) => {
-  const user = await prisma.accounts.update({
+  const user = await catchPrisma(() => prisma.accounts.update({
     data: {
       verified: false,
     },
     where: {
       account_id,
     }
-  });
+  }));
   if (user) {
     const tempKey = await tempService.generateEmailCode(account_id);
     if (tempKey) {
@@ -203,14 +204,14 @@ const unverifyUser = async (account_id) => {
  * @returns {Boolean}
  */
 const addImage = async (account_id, image) => {
-  const success = await prisma.accounts.update({
+  const success = await catchPrisma(() => prisma.accounts.update({
     data: {
       photo: image,
     },
     where: {
       account_id,
     }
-  });
+  }));
   if (success) {
     return true;
   }
@@ -223,14 +224,14 @@ const addImage = async (account_id, image) => {
  * @returns {Boolean}
  */
 const removeImage = async (account_id) => {
-  const success = await prisma.accounts.update({
+  const success = await catchPrisma(() => prisma.accounts.update({
     data: {
       photo: null,
     },
     where: {
       account_id,
     }
-  });
+  }));
   if (success) {
     return true;
   }

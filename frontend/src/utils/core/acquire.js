@@ -52,7 +52,7 @@ const acquire = async ({ route, method, body, headers, query, includeAuth, inclu
   } else if (includeRefresh) {
     giftBox.headers.authorization = getToken('refresh');
   }
-  log(`Fetching data from ${route} with object:`, giftBox);
+  log(`Fetching data from ${url} with object:`, giftBox);
   const response = await fetch(url, giftBox)
     .then(async (data) => ({ status: data.status, content: await data.json() }))
     .catch((err) => {

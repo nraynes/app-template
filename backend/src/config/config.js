@@ -21,6 +21,7 @@ const envVarsSchema = Joi.object()
     SECRET_KEY: Joi.string().required().description('AES secret key'),
     SECRET_STATIC_SALT: Joi.string().required().description('AES secret static salt'),
     SECRET_IV: Joi.string().required().description('AES secret IV'),
+    SERVER_ADDRESS: Joi.string().required().description('Server address.'),
   })
   .unknown();
 
@@ -36,7 +37,7 @@ let mainURL = '';
 if (process.env.NODE_ENV === 'development') {
   mainURL = 'http://localhost:3000';
 } else if (process.env.NODE_ENV === 'production') {
-  mainURL = 'https://raynesapptemplate.herokuapp.com';
+  mainURL = process.env.USE_HEROKU == true ? 'https://raynesapptemplate.herokuapp.com' : envVars.SERVER_ADDRESS;
 }
 
 const config = {
@@ -69,6 +70,7 @@ const config = {
   secretKey: envVars.SECRET_KEY,
   useEncryption: true,
   noMoreCredits: false,
+  server: envVars.SERVER_ADDRESS,
   encryption: {
     config: {
       iv: envVars.SECRET_IV,

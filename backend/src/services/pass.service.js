@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const { PrismaClient } = require('@prisma/client');
+const catchPrisma = require('../utils/core/catchPrisma');
 const config = require('@/config/config');
 const userService = require('./user.service');
 const respond = require('@/utils/core/respond');
@@ -15,20 +16,20 @@ const prisma = new PrismaClient();
  */
 const deleteExpiredTempKeys = async () => {
   const today = new Date();
-  await prisma.pass_temp_keys.deleteMany({
+  await catchPrisma(() => prisma.pass_temp_keys.deleteMany({
     where: {
       expires: {
         lt: today,
       },
     },
-  });
-  await prisma.email_temp_keys.deleteMany({
+  }));
+  await catchPrisma(() => prisma.email_temp_keys.deleteMany({
     where: {
       expires: {
         lt: today,
       },
     },
-  });
+  }));
 };
 
 /**
@@ -37,16 +38,16 @@ const deleteExpiredTempKeys = async () => {
  * @returns {Boolean}
  */
 const deleteKey = async (key) => {
-  await prisma.pass_temp_keys.deleteMany({
+  await catchPrisma(() => prisma.pass_temp_keys.deleteMany({
     where: {
       pass_key: key,
     },
-  });
-  const check = await prisma.pass_temp_keys.findFirst({
+  }));
+  const check = await catchPrisma(() => prisma.pass_temp_keys.findFirst({
     where: {
       pass_key: key,
     },
-  });
+  }));
   if (!check) {
     return true;
   }
@@ -69,14 +70,14 @@ const resetUserPassword = async (account_id, password, res) => {
         return null;
       }
       const newPasswordHash = key.toString('base64');
-      const changedUser = await prisma.accounts.update({
+      const changedUser = await catchPrisma(() => prisma.accounts.update({
         data: {
           password_hash: newPasswordHash,
         },
         where: {
           account_id,
         },
-      });
+      }));
       if (changedUser.password_hash === newPasswordHash) {
         respond(res, codes.success);
       } else {
@@ -99,9 +100,9 @@ const generateTempCode = async (account_id) => {
     pass_key: crypto.randomBytes(16).toString('hex'),
     expires: addHours(2),
   };
-  const createdCode = await prisma.pass_temp_keys.create({
+  const createdCode = await catchPrisma(() => prisma.pass_temp_keys.create({
     data: createObj,
-  });
+  }));
   if (createdCode && compareObjects(createObj, createdCode)) {
     return createdCode.pass_key;
   }
@@ -115,21 +116,21 @@ const generateTempCode = async (account_id) => {
  * @returns {Number || null}
  */
 const validateTempCode = async (tempCode) => {
-  const findCode = await prisma.pass_temp_keys.findFirst({
+  const findCode = await catchPrisma(() => prisma.pass_temp_keys.findFirst({
     where: {
       pass_key: tempCode,
     },
-  });
+  }));
   if (findCode) {
     const today = new Date();
     const expiration = new Date(findCode.expires);
     if (today > expiration) {
       log('Temp key expired, attempting to delete.');
-      await prisma.pass_temp_keys.deleteMany({
+      await catchPrisma(() => prisma.pass_temp_keys.deleteMany({
         where: {
           pass_key: tempCode,
         },
-      });
+      }));
       return null;
     }
     return findCode.account_id;
@@ -144,7 +145,7 @@ const validateTempCode = async (tempCode) => {
  * @returns {String || null}
  */
 const getTempCodeByID = async (account_id) => {
-  const code = await prisma.pass_temp_keys.findFirst({
+  const code = await catchPrisma(() => prisma.pass_temp_keys.findFirst({
     select: {
       pass_key: true,
     },
@@ -154,7 +155,7 @@ const getTempCodeByID = async (account_id) => {
         gt: new Date(),
       }
     }
-  });
+  }));
   return code;
 };
 

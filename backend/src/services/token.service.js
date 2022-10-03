@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+const catchPrisma = require('../utils/core/catchPrisma');
 const jwt = require('jsonwebtoken');
 const { compareObjects } = require('@/utils/core/compare');
 const log = require('@/utils/misc/log');
@@ -25,22 +26,22 @@ const getTokenFromHeader = (req) => {
  */
 async function deleteAllUserTokens(userID) {
   if (userID) {
-    const firstCheck = await prisma.tokens.findFirst({
+    const firstCheck = await catchPrisma(() => prisma.tokens.findFirst({
       where: {
         account_id: userID,
       },
-    });
+    }));
     if (firstCheck) {
-      await prisma.tokens.deleteMany({
+      await catchPrisma(() => prisma.tokens.deleteMany({
         where: {
           account_id: userID,
         },
-      });
-      const secondCheck = await prisma.tokens.findFirst({
+      }));
+      const secondCheck = await catchPrisma(() => prisma.tokens.findFirst({
         where: {
           account_id: userID,
         },
-      });
+      }));
       if (!secondCheck) {
         log('Deleted tokens successfully...', secondCheck);
         return true;
@@ -66,22 +67,22 @@ async function deleteToken(passedToken) {
     if (!passedToken.match('Bearer')) {
       passedToken = `Bearer ${passedToken}`;
     }
-    const firstCheck = await prisma.tokens.findFirst({
+    const firstCheck = await catchPrisma(() => prisma.tokens.findFirst({
       where: {
         token: passedToken,
       },
-    });
+    }));
     if (firstCheck) {
-      await prisma.tokens.deleteMany({
+      await catchPrisma(() => prisma.tokens.deleteMany({
         where: {
           token: passedToken,
         },
-      });
-      const secondCheck = await prisma.tokens.findFirst({
+      }));
+      const secondCheck = await catchPrisma(() => prisma.tokens.findFirst({
         where: {
           token: passedToken,
         },
-      });
+      }));
       if (!secondCheck) {
         log('Deleted Token Successfully...', secondCheck);
         return true;
@@ -152,9 +153,9 @@ async function saveToken(passedToken, id) {
     account_id: id,
     token: passedToken,
   };
-  const checkToken = await prisma.tokens.create({
+  const checkToken = await catchPrisma(() => prisma.tokens.create({
     data: tokenToSave,
-  });
+  }));
   if (compareObjects(tokenToSave, checkToken)) {
     return true;
   }
