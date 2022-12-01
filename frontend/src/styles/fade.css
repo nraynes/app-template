@@ -1,0 +1,9 @@
+@keyframes fade-in-from-center {
+  from {
+    opacity: 0;
+    transform: scale(1.05)
+  }
+  to {
+    opacity: 1;
+  }
+}

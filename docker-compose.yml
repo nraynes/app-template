@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:13.3
+    environment:
+      - POSTGRES_PASSWORD=a1eb0421c1af18c0
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+  web:
+    build: ./
+    ports:
+      - 443:3002
+    depends_on:
+      - postgres
+    volumes:
+      - ./:/usr/src/app
+    env_file:
+      - web.env
+    command: npm run deploy
+
+volumes:
+  postgres:
