@@ -21,7 +21,7 @@ const envVarsSchema = Joi.object()
     SECRET_KEY: Joi.string().required().description('AES secret key'),
     SECRET_STATIC_SALT: Joi.string().required().description('AES secret static salt'),
     SECRET_IV: Joi.string().required().description('AES secret IV'),
-    SERVER_ADDRESS: Joi.string().required().description('Server address.'),
+    SERVER_ADDRESS: Joi.string().required().description('Server address'),
   })
   .unknown();
 

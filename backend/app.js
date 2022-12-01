@@ -54,16 +54,25 @@ const tryConnection = async (count = 0, success = 0) => {
 };
 (process.env.USE_HEROKU !== true) && tryConnection();
 
+const defaultAllow = [
+  'self',
+  config.server,
+  'data:',
+  'https://www.google.com',
+  'https://www.gstatic.com',
+  'https://www.google-analytics.com',
+  'https://7bbf-173-239-204-219.ngrok.io/',
+];
 // set security HTTP headers
 app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
         ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-        'script-src': ['self', config.server, 'https://www.google.com', 'https://www.gstatic.com'],
-        'frame-src': ['self', config.server, 'https://www.google.com', 'https://www.gstatic.com'],
-        'img-src': ['self', config.server, 'data:', 'https://www.google.com', 'https://www.gstatic.com'],
-        'connect-src': ['self', config.server, 'data:', 'https://www.google.com', 'https://www.gstatic.com'],
+        'script-src': [...defaultAllow],
+        'frame-src': [...defaultAllow],
+        'img-src': [...defaultAllow],
+        'connect-src': [...defaultAllow],
       },
     },
   }),

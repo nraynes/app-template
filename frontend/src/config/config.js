@@ -6,6 +6,7 @@ import colors from './colorTheme';
 const custom = getCookie('customConfig');
 console.log(process.env);
 export const activateColorDrawer = true;
+export const gaid = process.env.REACT_APP_GOOGLE_TRACKING_ID;
 export const useProfilePhoto = true;
 export const topBarHeight = '3em';
 export const bottomBarHeight = '3em';

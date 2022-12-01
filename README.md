@@ -93,6 +93,8 @@ folder and the backend folder.
     # Environment
     NODE_ENV=development
 
+    REACT_APP_GOOGLE_TRACKING_ID="If you want to make use of google analytics, put your google tracking ID here."
+
     REACT_APP_API_URL='http://localhost:3001/api'
 
     REACT_APP_SITE_KEY='This will be your google recaptcha site key, You
