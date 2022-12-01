@@ -63,6 +63,7 @@ app.use(
         'script-src': ['self', config.server, 'https://www.google.com', 'https://www.gstatic.com'],
         'frame-src': ['self', config.server, 'https://www.google.com', 'https://www.gstatic.com'],
         'img-src': ['self', config.server, 'data:', 'https://www.google.com', 'https://www.gstatic.com'],
+        'connect-src': ['self', config.server, 'data:', 'https://www.google.com', 'https://www.gstatic.com'],
       },
     },
   }),
