@@ -17,7 +17,8 @@
     "db:clear": "node ./backend/src/db/prisma/clear.js",
     "prepare": "husky install",
     "cypress": "cd frontend && npm run cypress:run",
-    "deploy": "cd backend && npm run start:prod"
+    "deploy": "cd backend && npm run start:prod",
+    "start:container": "npm run build:all && docker-compose up --build"
   },
   "cacheDirectories": [
     "node_modules",
