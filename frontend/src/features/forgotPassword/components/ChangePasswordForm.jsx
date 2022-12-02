@@ -10,8 +10,10 @@ import deleteKey from '@/features/forgotPassword/api/deleteKey';
 import { useSnackbar } from 'notistack';
 import { commonFormColor, commonFormOpacity, backgroundColor } from '@/config/config';
 import apiCall from '@/utils/core/apiCall';
+import { gaEventHandler } from '@/utils/misc/analytics';
 
 function ChangePasswordForm({ code }) {
+  const gaEventTracker = gaEventHandler('Change Password Form');
   const navigate = useNavigate();
   const opposingColor = commonFormOpacity > 0.5 ? commonFormColor.opposingText.main : backgroundColor.opposingText.main;
   const componentColor = commonFormOpacity > 0.5 ? commonFormColor : backgroundColor;
@@ -25,6 +27,7 @@ function ChangePasswordForm({ code }) {
 
   const changePasswordButton = async () => {
     if (passwordRef.current.value === confirmPasswordRef.current.value) {
+      gaEventTracker('Change password button clicked', 'Attempt to change password was made');
       apiCall(() => changePassword(code, passwordRef.current.value), {
         SUCCESS: () => {
           deleteKey(code);
@@ -34,6 +37,7 @@ function ChangePasswordForm({ code }) {
         EXPIRED: 'The temp key expired.'
       });
     } else {
+      gaEventTracker('Change password button clicked', 'Passwords did not match');
       enqueueSnackbar('Passwords must match.', { variant: 'error' });
     }
   };

@@ -9,8 +9,10 @@ import sendPasswordReset from '@/features/forgotPassword/api/sendEmail';
 import { commonFormColor, commonFormOpacity, backgroundColor } from '@/config/config';
 import apiCall from '@/utils/core/apiCall';
 import { useSnackbar } from 'notistack';
+import { gaEventHandler } from '@/utils/misc/analytics';
 
 function ForgotPasswordForm() {
+  const gaEventTracker = gaEventHandler('Forgot Password Form');
   const navigate = useNavigate();
   const opposingColor = commonFormOpacity > 0.5 ? commonFormColor.opposingText.main : backgroundColor.opposingText.main;
   const componentColor = commonFormOpacity > 0.5 ? commonFormColor : backgroundColor;
@@ -23,6 +25,7 @@ function ForgotPasswordForm() {
   };
 
   const resetPasswordButton = async () => {
+    gaEventTracker('Send password reset button clicked', 'Attempt to send password reset made');
     await apiCall(() => sendPasswordReset(emailRef.current.value), {
       SUCCESS: 'If an account with this email exists, you will receive an email to reset your password.',
       NOTFOUND: () => enqueueSnackbar('If an account with this email exists, you will receive an email to reset your password.', { variant: 'success' }),

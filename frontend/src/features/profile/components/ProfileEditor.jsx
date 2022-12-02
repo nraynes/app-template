@@ -20,8 +20,10 @@ import apiCall from '@/utils/core/apiCall';
 import addPhoto from '@/features/profile/api/addPhoto';
 import removePhoto from '@/features/profile/api/removePhoto';
 import ProfilePhoto from '@/components/ProfilePhoto';
+import { gaEventHandler } from '@/utils/misc/analytics';
 
 function ProfileEditor() {
+  const gaEventTracker = gaEventHandler('Profile Editor');
   const { enqueueSnackbar } = useSnackbar();
   const opposingColor = commonFormOpacity > 0.5 ? commonFormColor.opposingText.main : backgroundColor.opposingText.main;
   const componentColor = commonFormOpacity > 0.5 ? commonFormColor : backgroundColor;
@@ -39,8 +41,10 @@ function ProfileEditor() {
   const emailRef = useRef();
 
   const deleteAccountButton = () => {
+    gaEventTracker('Account deletion button was clicked', 'The confirmation window for account deletion was displayed');
     ask('Confirm', 'Are you sure you want to delete your account?', async (answer) => {
       if (answer) {
+        gaEventTracker('Account deletion confirmation was clicked', 'An account deletion attempt was made');
         await apiCall(() => deleteUser(), {
           SUCCESS: () => {
             enqueueSnackbar('Successfully deleted user account. You will now be logged out.', { variant: 'success', onClose: auth.logout });
@@ -54,8 +58,10 @@ function ProfileEditor() {
 
   const editAccountButton = async () => {
     if (!editing) {
+      gaEventTracker('Edit account button was clicked', 'Editing was enabled');
       setEditing(true);
     } else {
+      gaEventTracker('Edit account button was clicked', 'Edits were submitted');
       const changingEmail = emailRef.current.value !== (data && data.email);
       const editInfo = async () => {
         await apiCall(() => editProfileInfo(emailRef.current.value), {
@@ -87,12 +93,15 @@ function ProfileEditor() {
   };
 
   const cancelButton = () => {
+    gaEventTracker('Cancel editing button was clicked', 'Editing was disabled');
     setEditing(false);
   };
 
   const allLogOutButton = () => {
+    gaEventTracker('Logout of all devices button was clicked', 'Confirmation window was displayed');
     ask('Are you sure?', 'Are you sure you want to log out of all of your devices?', async (answer) => {
       if (answer) {
+        gaEventTracker('Logout of all devices confirmation was clicked', 'An attempt was made to log out of all devices');
         await apiCall(() => logOutOfAllDevices(), {
           SUCCESS: () => {
             enqueueSnackbar('Successfully logged out of all devices. You will now be logged out.', { variant: 'success', onClose: auth.logout });
@@ -103,8 +112,10 @@ function ProfileEditor() {
   };
 
   const editProfilePhoto = () => {
+    gaEventTracker('Edit profile photo button was clicked', 'Submit file window was displayed');
     askForFile('Profile Photo', 'Please select a profile photo to use.', async (file) => {
       if (file) {
+        gaEventTracker('Edit profile photo submit was clicked', 'A new profile photo was submitted');
         await apiCall(() => addPhoto(file), {
           SUCCESS: 'Successfully updated profile photo.',
           FAILURE: 'File size exceeded. Please use a smaller file.',
@@ -115,8 +126,10 @@ function ProfileEditor() {
   };
 
   const deleteProfilePhoto = () => {
+    gaEventTracker('Delete profile photo button was clicked', 'Confirmation window was displayed');
     ask('Confirm', 'Are you sure you want to delete you profile photo?', async (answer) => {
       if (answer) {
+        gaEventTracker('Delete profile photo confirmation was clicked', 'Attempt was made to delete profile photo');
         await apiCall(removePhoto, {
           SUCCESS: 'Successfully removed profile photo.',
         });

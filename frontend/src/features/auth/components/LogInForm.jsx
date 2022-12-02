@@ -7,8 +7,10 @@ import Button from '@/components/Button';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/lib/auth';
 import { commonFormColor, commonFormOpacity, backgroundColor } from '@/config/config';
+import { gaEventHandler } from '@/utils/misc/analytics';
 
 function LogInForm() {
+  const gaEventTracker = gaEventHandler('Login Form');
   const navigate = useNavigate();
   const opposingColor = commonFormOpacity > 0.5 ? commonFormColor.opposingText.main : backgroundColor.opposingText.main;
   const componentColor = commonFormOpacity > 0.5 ? commonFormColor : backgroundColor;
@@ -25,6 +27,7 @@ function LogInForm() {
   };
 
   const logInButton = async () => {
+    gaEventTracker('Login button clicked', 'Attempt to log in made');
     await auth.login({
       email: emailRef.current.value,
       password: passwordRef.current.value,

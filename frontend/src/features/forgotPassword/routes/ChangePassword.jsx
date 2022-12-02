@@ -6,6 +6,7 @@ import getParameterByName from '@/utils/misc/getParams';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import apiCall from '@/utils/core/apiCall';
+import { gaPageView } from '@/utils/misc/analytics';
 
 function ChangePasswordPage() {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ function ChangePasswordPage() {
   };
 
   useEffect(() => {
+    gaPageView();
     if (queryParam) {
       validateQueryCode(queryParam);
     } else {

@@ -4,9 +4,9 @@ import AppRoutes from './routes';
 import ReactGA from 'react-ga';
 import { gaid } from './config/config';
 
-ReactGA.initialize(gaid);
-
 function App() {
+  ReactGA.initialize(gaid);
+  
   return (
     <AppProvider>
       <AppRoutes />

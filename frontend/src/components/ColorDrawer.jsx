@@ -8,8 +8,10 @@ import { myTheme } from '@/config/colors';
 import { onMobile, backgroundOpacity, commonFormOpacity, buttonOpacity, buttonBarOpacity, titleBarOpacity, drawerOpacity, componentOpacity, touchConfig } from '@/config/config';
 import { setCookie, clearCookie, getCookie } from '@/utils/browser/cookies';
 import Button from './Button';
+import { gaEventHandler } from '@/utils/misc/analytics';
 
 function ColorDrawer({ manualOpen = false }) {
+  const gaEventTracker = gaEventHandler('Color Drawer');
   const { open, setClose } = useColorPicker();
   const customCookie = getCookie('customConfig');
   const [custom, setCustom] = useState(customCookie ? customCookie : {});
@@ -32,12 +34,14 @@ function ColorDrawer({ manualOpen = false }) {
   };
   
   const applyColorTheme = () => {
+    gaEventTracker('Apply color scheme button was clicked', 'New color scheme was applied');
     setCookie('theme', myTheme);
     setCookie('customConfig', custom);
     window.location.reload();
   };
 
   const resetColorTheme = () => {
+    gaEventTracker('Reset color scheme button was clicked', 'Color scheme was reset to default');
     clearCookie('theme');
     clearCookie('customConfig');
     window.location.reload();

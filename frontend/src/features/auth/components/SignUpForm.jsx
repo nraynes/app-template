@@ -9,8 +9,10 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import { useAuth } from '@/lib/auth';
 import { useSnackbar } from 'notistack';
 import { commonFormColor, commonFormOpacity, backgroundColor, sitekey } from '@/config/config';
+import { gaEventHandler } from '@/utils/misc/analytics';
 
 function SignUpForm() {
+  const gaEventTracker = gaEventHandler('Signup Form');
   const navigate = useNavigate();
   const opposingColor = commonFormOpacity > 0.5 ? commonFormColor.opposingText.main : backgroundColor.opposingText.main;
   const componentColor = commonFormOpacity > 0.5 ? commonFormColor : backgroundColor;
@@ -26,12 +28,14 @@ function SignUpForm() {
 
   const signUpButton = () => {
     if (passwordRef.current.value === confirmPasswordRef.current.value) {
+      gaEventTracker('Signup button clicked', 'Attempt to sign up made');
       auth.register({
         email: emailRef.current.value,
         password: passwordRef.current.value,
         captcha,
       });
     } else {
+      gaEventTracker('Signup button clicked', 'Passwords did not match');
       enqueueSnackbar('Passwords must match.', { variant: 'error' });
     }
   };

@@ -12,8 +12,10 @@ import { useAuth } from '@/lib/auth';
 import { useColorPicker } from '@/stores/colorPickerStore';
 import { backgroundColor, consoleColor, buttonBarOpacity, titleBarOpacity, activateColorDrawer } from '@/config/config';
 import ProfileMenu from './ProfileMenu';
+import { gaEventHandler } from '@/utils/misc/analytics';
 
 function TopBar({ openDropDown }) {
+  const gaEventTracker = gaEventHandler('Top Bar');
   const componentColor = consoleColor;
   const opposingColor = buttonBarOpacity > 0.5 ? componentColor.opposingText.main : backgroundColor.opposingText.main;
   const { buttons } = useButtons();
@@ -45,8 +47,10 @@ function TopBar({ openDropDown }) {
 
   const colorPickerButton = () => {
     if (open) {
+      gaEventTracker('Color picker drawer button was clicked', 'Color picker drawer was closed');
       setClose();
     } else {
+      gaEventTracker('Color picker drawer button was clicked', 'Color picker drawer was opened');
       setOpen();
     }
   };
